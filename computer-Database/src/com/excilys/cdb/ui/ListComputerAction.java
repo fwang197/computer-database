@@ -6,12 +6,22 @@ import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
 
+/**
+ * l'action qui permet d'afficher la liste de toute les entrées dans la table
+ * computer.
+ * 
+ * @author excilys
+ *
+ */
 public class ListComputerAction extends Action {
 
 	public ListComputerAction(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * On récupère la liste des Computer et on l'affiche.
+	 */
 	@Override
 	public void execute() {
 		Dao<Computer> dao = new ComputerDao();

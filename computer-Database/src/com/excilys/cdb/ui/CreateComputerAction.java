@@ -7,12 +7,22 @@ import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
 
+/**
+ * L'action responsable de la creation d'une entrée dans la base Computer.
+ * 
+ * @author excilys
+ *
+ */
 public class CreateComputerAction extends Action {
 
 	public CreateComputerAction(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * On demande toutes les informations d'une machine à l'utilisateur et on
+	 * ajoute cette machine à la base de donnée.
+	 */
 	@Override
 	public void execute() {
 		Scanner sc = null;

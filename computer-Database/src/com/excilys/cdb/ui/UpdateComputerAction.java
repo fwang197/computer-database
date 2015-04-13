@@ -7,12 +7,22 @@ import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
 
+/**
+ * L'action responsable de la mise à jour d'une entrée dans la base Computer.
+ * 
+ * @author excilys
+ *
+ */
 public class UpdateComputerAction extends Action {
 
 	public UpdateComputerAction(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * On demande l'ID d'une machine que l'utilisateur veut modifier et on met à
+	 * jour cette donnée dans la base de donnée.
+	 */
 	@Override
 	public void execute() {
 		System.out

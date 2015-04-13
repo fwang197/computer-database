@@ -50,12 +50,4 @@ public class ConnectionDB {
 	public static Connection getInstance() {
 		return instance.connection;
 	}
-
-	public void close() {
-		try {
-			this.connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 }

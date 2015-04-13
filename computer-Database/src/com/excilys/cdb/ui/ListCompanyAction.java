@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Company;
+import com.excilys.cdb.page.Page;
 
 /**
  * l'action qui permet d'afficher la liste de toute les entrées dans la table
@@ -26,9 +27,10 @@ public class ListCompanyAction extends Action {
 	public void execute() {
 		Dao<Company> dao = new CompanyDao();
 		LinkedList<Company> l = dao.findAll();
-		System.out.println(l.size());
-		for (Company comp : l)
-			System.out.println(comp.toString());
+		Page<Company> p = new Page<Company>(l, 20);
+		p.navigation();
+		// for (Company comp : l)
+		// System.out.println(comp.toString());
 	}
 
 }

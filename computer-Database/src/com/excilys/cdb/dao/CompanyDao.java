@@ -10,6 +10,7 @@ import com.excilys.cdb.model.Company;
 
 public class CompanyDao extends Dao<Company> {
 
+	@Override
 	public void create(Company comp) {
 		try {
 			PreparedStatement prepare = ConnectionDB.getInstance()
@@ -22,6 +23,7 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
+	@Override
 	public Company find(long id) {
 		Company comp = null;
 		try {
@@ -37,6 +39,7 @@ public class CompanyDao extends Dao<Company> {
 		return comp;
 	}
 
+	@Override
 	public void update(Company comp) {
 		try {
 
@@ -52,6 +55,7 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
+	@Override
 	public void delete(Company comp) {
 		try {
 
@@ -66,6 +70,7 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
+	@Override
 	public LinkedList<Company> findAll() {
 		LinkedList<Company> lcompany = new LinkedList<Company>();
 		try {

@@ -10,6 +10,7 @@ import com.excilys.cdb.model.Computer;
 
 public class ComputerDao extends Dao<Computer> {
 
+	@Override
 	public void create(Computer comp) {
 		try {
 			PreparedStatement prepare = ConnectionDB
@@ -27,6 +28,7 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
+	@Override
 	public Computer find(long id) {
 		Computer comp = null;
 		try {
@@ -45,6 +47,7 @@ public class ComputerDao extends Dao<Computer> {
 		return comp;
 	}
 
+	@Override
 	public void update(Computer comp) {
 		try {
 
@@ -66,6 +69,7 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
+	@Override
 	public void delete(Computer comp) {
 		try {
 			System.out.println(comp.toString());
@@ -80,6 +84,7 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
+	@Override
 	public LinkedList<Computer> findAll() {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
 		try {

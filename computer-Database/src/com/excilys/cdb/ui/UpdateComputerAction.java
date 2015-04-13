@@ -1,5 +1,6 @@
 package com.excilys.cdb.ui;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.excilys.cdb.dao.CompanyDao;
@@ -63,13 +64,11 @@ public class UpdateComputerAction extends Action {
 
 			compdao.update(c);
 			System.out.println("Computer updated!");
-		} catch (NumberFormatException e) {
-			System.err.println("Company ID not found!!");
+		} catch (NumberFormatException | NullPointerException
+				| InputMismatchException e) {
+			System.err.println("ID is incorrect!");
 		} catch (IllegalArgumentException e) {
-			System.err.println("Date not correct!");
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+			System.err.println("Date format is incorrect!");
 		}
 	}
-
 }

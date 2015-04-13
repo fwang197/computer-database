@@ -34,7 +34,7 @@ public class DeleteComputerAction extends Action {
 			compdao.delete(compdao.find(id));
 			System.out.println("Computer deleted");
 		} catch (NullPointerException e) {
-			e.printStackTrace();
+			System.err.println("ID is incorrect!");
 		} catch (NumberFormatException e) {
 			System.err.println("Computer not found!");
 		}

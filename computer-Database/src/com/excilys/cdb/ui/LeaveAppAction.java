@@ -29,6 +29,7 @@ public class LeaveAppAction extends Action {
 		}
 		Menu.sc.close();
 		Menu.loop = false;
+		System.out.println("Bye!");
 	}
 
 }

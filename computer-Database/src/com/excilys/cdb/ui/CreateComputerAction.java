@@ -1,5 +1,6 @@
 package com.excilys.cdb.ui;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.excilys.cdb.dao.CompanyDao;
@@ -52,11 +53,11 @@ public class CreateComputerAction extends Action {
 			Dao<Computer> compdao = new ComputerDao();
 			compdao.create(c);
 			System.out.println("Computer added!");
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		} catch (NumberFormatException | NullPointerException
+				| InputMismatchException e) {
+			System.err.println("ID is incorrect!");
 		} catch (IllegalArgumentException e) {
-			System.err.println("Date not correct!");
+			System.err.println("Date format is incorrect!");
 		}
 	}
-
 }

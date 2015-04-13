@@ -33,7 +33,7 @@ public class ShowComputerAction extends Action {
 			Dao<Computer> compdao = new ComputerDao();
 			System.out.println(compdao.find(id).toString());
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			System.err.println("ID is incorrect!");
 		} catch (NullPointerException e) {
 			System.err.println("Computer not found!");
 		}

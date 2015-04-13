@@ -1,7 +1,6 @@
 package com.excilys.cdb.ui;
 
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -52,10 +51,12 @@ public class Menu {
 		while (loop) {
 			try {
 				printMenu();
-				int choice = sc.nextInt();
-				menu.get(choice).execute();
-			} catch (InputMismatchException e) {
+				String choice = sc.nextLine();
+				menu.get(Integer.parseInt(choice)).execute();
+			} catch (NumberFormatException e) {
 				System.err.println("I don't understand!");
+			} catch (NullPointerException e) {
+				System.err.println("I don't know that features (yet)!");
 			}
 		}
 	}

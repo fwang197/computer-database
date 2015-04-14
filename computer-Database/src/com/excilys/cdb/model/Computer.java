@@ -2,6 +2,7 @@ package com.excilys.cdb.model;
 
 import java.sql.Timestamp;
 
+// TODO: Auto-generated Javadoc
 /**
  * La classe Computer représente une machine. Elle possede un nom , les dates de
  * mise en circulation et d'arret de la production ainsi que la compagnie qui
@@ -12,16 +13,30 @@ import java.sql.Timestamp;
  */
 public class Computer {
 	// ID
+	/** The id. */
 	private long id;
 	// Nom de la machine
+	/** The name. */
 	private String name;
 	// Date de debut de distribution
+	/** The introduced. */
 	private Timestamp introduced;
 	// Date de fin de distribution
+	/** The discontinued. */
 	private Timestamp discontinued;
 	// Compagnie à l'origine du produit
+	/** The company. */
 	private Company company;
 
+	/**
+	 * Instantiates a new computer.
+	 *
+	 * @param id the id
+	 * @param name the name
+	 * @param introduced the introduced
+	 * @param discontinued the discontinued
+	 * @param company the company
+	 */
 	public Computer(long id, String name, Timestamp introduced,
 			Timestamp discontinued, Company company) {
 		this.id = id;
@@ -31,49 +46,105 @@ public class Computer {
 		this.company = company;
 	}
 
+	/**
+	 * Instantiates a new computer.
+	 */
 	public Computer() {
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the introduced.
+	 *
+	 * @return the introduced
+	 */
 	public Timestamp getIntroduced() {
 		return introduced;
 	}
 
+	/**
+	 * Sets the introduced.
+	 *
+	 * @param introduced the new introduced
+	 */
 	public void setIntroduced(Timestamp introduced) {
 		this.introduced = introduced;
 	}
 
+	/**
+	 * Gets the discontinued.
+	 *
+	 * @return the discontinued
+	 */
 	public Timestamp getDiscontinued() {
 		return discontinued;
 	}
 
+	/**
+	 * Sets the discontinued.
+	 *
+	 * @param discontinued the new discontinued
+	 */
 	public void setDiscontinued(Timestamp discontinued) {
 		this.discontinued = discontinued;
 	}
 
+	/**
+	 * Gets the company.
+	 *
+	 * @return the company
+	 */
 	public Company getCompany() {
 		return company;
 	}
 
+	/**
+	 * Sets the company.
+	 *
+	 * @param company the new company
+	 */
 	public void setCompany(Company company) {
 		this.company = company;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		String str = "ID : " + this.getId() + "\n";
 		str += "NAME : " + this.getName() + "\n";
@@ -87,6 +158,9 @@ public class Computer {
 		return str;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

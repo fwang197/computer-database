@@ -9,6 +9,7 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
+// TODO: Auto-generated Javadoc
 /**
  * L'action responsable de la creation d'une entrée dans la base Computer.
  * 
@@ -17,6 +18,11 @@ import com.excilys.cdb.tools.Tools;
  */
 public class CreateComputerAction extends Action {
 
+	/**
+	 * Instantiates a new creates the computer action.
+	 *
+	 * @param description the description
+	 */
 	public CreateComputerAction(String description) {
 		this.description = description;
 	}

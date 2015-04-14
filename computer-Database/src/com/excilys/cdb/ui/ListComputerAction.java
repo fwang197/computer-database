@@ -7,6 +7,7 @@ import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
 
+// TODO: Auto-generated Javadoc
 /**
  * l'action qui permet d'afficher la liste de toute les entrées dans la table
  * computer.
@@ -16,6 +17,11 @@ import com.excilys.cdb.page.Page;
  */
 public class ListComputerAction extends Action {
 
+	/**
+	 * Instantiates a new list computer action.
+	 *
+	 * @param description the description
+	 */
 	public ListComputerAction(String description) {
 		this.description = description;
 	}

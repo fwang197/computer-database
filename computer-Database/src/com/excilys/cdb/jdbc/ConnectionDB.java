@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+// TODO: Auto-generated Javadoc
 /**
  * Le Singleton ConnectionDB qui permet de se connecter une seule fois à la base
  * de données.
@@ -13,16 +14,24 @@ import java.sql.SQLException;
  */
 public class ConnectionDB {
 
+	/** The instance. */
 	private static ConnectionDB instance = new ConnectionDB();
 	// Son URL local
+	/** The url. */
 	private String url = "jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull";
 	// Son nom user
+	/** The user. */
 	private String user = "admincdb";
 	// Son mot de passe
+	/** The passwd. */
 	private String passwd = "qwerty1234";
 	// Sa connection
+	/** The connection. */
 	private Connection connection;
 
+	/**
+	 * Instantiates a new connection db.
+	 */
 	private ConnectionDB() {
 
 		try {
@@ -47,6 +56,11 @@ public class ConnectionDB {
 		// }
 	}
 
+	/**
+	 * Gets the single instance of ConnectionDB.
+	 *
+	 * @return single instance of ConnectionDB
+	 */
 	public static Connection getInstance() {
 		return instance.connection;
 	}

@@ -8,8 +8,15 @@ import java.util.LinkedList;
 import com.excilys.cdb.jdbc.ConnectionDB;
 import com.excilys.cdb.model.Computer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComputerDao.
+ */
 public class ComputerDao extends Dao<Computer> {
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#create(java.lang.Object)
+	 */
 	@Override
 	public void create(Computer comp) {
 		try {
@@ -28,6 +35,9 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#find(long)
+	 */
 	@Override
 	public Computer find(long id) {
 		Computer comp = null;
@@ -47,6 +57,9 @@ public class ComputerDao extends Dao<Computer> {
 		return comp;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Computer comp) {
 		try {
@@ -69,6 +82,9 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Computer comp) {
 		try {
@@ -84,6 +100,9 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#findAll()
+	 */
 	@Override
 	public LinkedList<Computer> findAll() {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();

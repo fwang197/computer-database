@@ -7,6 +7,7 @@ import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
+// TODO: Auto-generated Javadoc
 /**
  * L'action responsable de la suppression d'une entrée dans la base Computer.
  * 
@@ -15,6 +16,11 @@ import com.excilys.cdb.tools.Tools;
  */
 public class DeleteComputerAction extends Action {
 
+	/**
+	 * Instantiates a new delete computer action.
+	 *
+	 * @param description the description
+	 */
 	public DeleteComputerAction(String description) {
 		this.description = description;
 	}

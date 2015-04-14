@@ -8,8 +8,15 @@ import java.util.LinkedList;
 import com.excilys.cdb.jdbc.ConnectionDB;
 import com.excilys.cdb.model.Company;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompanyDao.
+ */
 public class CompanyDao extends Dao<Company> {
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#create(java.lang.Object)
+	 */
 	@Override
 	public void create(Company comp) {
 		try {
@@ -23,6 +30,9 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#find(long)
+	 */
 	@Override
 	public Company find(long id) {
 		Company comp = null;
@@ -39,6 +49,9 @@ public class CompanyDao extends Dao<Company> {
 		return comp;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#update(java.lang.Object)
+	 */
 	@Override
 	public void update(Company comp) {
 		try {
@@ -55,6 +68,9 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#delete(java.lang.Object)
+	 */
 	@Override
 	public void delete(Company comp) {
 		try {
@@ -70,6 +86,9 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.Dao#findAll()
+	 */
 	@Override
 	public LinkedList<Company> findAll() {
 		LinkedList<Company> lcompany = new LinkedList<Company>();

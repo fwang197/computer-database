@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.excilys.cdb.jdbc.ConnectionDB;
 
+// TODO: Auto-generated Javadoc
 /**
  * L'action qui permet de quitter l'application.
  * 
@@ -12,6 +13,12 @@ import com.excilys.cdb.jdbc.ConnectionDB;
  */
 public class LeaveAppAction extends Action {
 
+	/**
+	 * Instantiates a new leave app action.
+	 *
+	 * @param description
+	 *            the description
+	 */
 	public LeaveAppAction(String description) {
 		this.description = description;
 	}
@@ -28,8 +35,8 @@ public class LeaveAppAction extends Action {
 			e.printStackTrace();
 		}
 		Menu.sc.close();
-		Menu.loop = false;
 		System.out.println("Bye!");
+		System.exit(0);
 	}
 
 }

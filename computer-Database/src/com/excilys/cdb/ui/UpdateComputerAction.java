@@ -9,6 +9,7 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
+// TODO: Auto-generated Javadoc
 /**
  * L'action responsable de la mise à jour d'une entrée dans la base Computer.
  * 
@@ -17,6 +18,12 @@ import com.excilys.cdb.tools.Tools;
  */
 public class UpdateComputerAction extends Action {
 
+	/**
+	 * Instantiates a new update computer action.
+	 *
+	 * @param description
+	 *            the description
+	 */
 	public UpdateComputerAction(String description) {
 		this.description = description;
 	}

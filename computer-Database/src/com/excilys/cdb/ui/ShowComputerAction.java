@@ -7,6 +7,7 @@ import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
+// TODO: Auto-generated Javadoc
 /**
  * L'action qui permet d'avoir le detail d'une entrée de la table computer.
  * 
@@ -15,6 +16,11 @@ import com.excilys.cdb.tools.Tools;
  */
 public class ShowComputerAction extends Action {
 
+	/**
+	 * Instantiates a new show computer action.
+	 *
+	 * @param description the description
+	 */
 	public ShowComputerAction(String description) {
 		this.description = description;
 	}

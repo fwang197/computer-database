@@ -1,8 +1,13 @@
 package com.excilys.cdb.ui;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Action.
+ */
 public abstract class Action {
 
 	// La description de l'action
+	/** The description. */
 	public String description;
 
 	/**

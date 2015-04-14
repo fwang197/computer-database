@@ -3,21 +3,30 @@ package com.excilys.cdb.page;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
 /**
  * La classe permet d'effectuer la pagination.
- * 
- * @author excilys
  *
- * @param <T>
+ * @author excilys
+ * @param <T> the generic type
  */
 public class Page<T> {
 	// Le curseur de la position courante
+	/** The cur. */
 	private int cur = 0;
 	// La liste des elements à afficher
+	/** The list. */
 	private LinkedList<T> list;
 	// la nombre d'élements à afficher
+	/** The range. */
 	private int range;
 
+	/**
+	 * Instantiates a new page.
+	 *
+	 * @param list the list
+	 * @param range the range
+	 */
 	public Page(LinkedList<T> list, int range) {
 		this.list = list;
 		this.range = range;

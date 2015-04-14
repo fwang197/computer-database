@@ -3,6 +3,9 @@ package com.excilys.cdb.ui;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.excilys.cdb.tools.Tools;
+
+// TODO: Auto-generated Javadoc
 /**
  * La classe représente le menu de notre application. Notre menu est une map où
  * la clée est le numero de la fonctionnalité et la valeur est la
@@ -14,11 +17,17 @@ import java.util.Scanner;
 public class Menu {
 
 	// Le menu
+	/** The menu. */
 	private static HashMap<Integer, Action> menu;
-	static Scanner sc = new Scanner(System.in);
-	// Permet de savoir si on quitte l'application
-	static boolean loop = true;
 
+	/** The sc. */
+	static Scanner sc = new Scanner(System.in);
+
+	// Permet de savoir si on quitte l'application
+
+	/**
+	 * Instantiates a new menu.
+	 */
 	public Menu() {
 		menu = new HashMap<Integer, Action>();
 		menu.put(1, new ListComputerAction("List computers"));
@@ -48,16 +57,20 @@ public class Menu {
 	 */
 	public void loop() {
 		System.out.println("-----COMPUTER DATABASE-----\n");
-		while (loop) {
-			try {
-				printMenu();
-				String choice = sc.nextLine();
-				menu.get(Integer.parseInt(choice)).execute();
-			} catch (NumberFormatException e) {
+		while (true) {
+			printMenu();
+			String choice = sc.nextLine();
+			if (Tools.isNumber(choice)) {
+				Action a = menu.get(Integer.parseInt(choice));
+				if (!Tools.isNull(a)) {
+					a.execute();
+				} else {
+					System.err.println("I don't know that features (yet)!");
+				}
+			} else {
 				System.err.println("I don't understand!");
-			} catch (NullPointerException e) {
-				System.err.println("I don't know that features (yet)!");
 			}
+
 		}
 	}
 }

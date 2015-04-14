@@ -1,12 +1,13 @@
 package com.excilys.cdb.ui;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.Dao;
+import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.tools.Tools;
 
 /**
  * L'action responsable de la creation d'une entrée dans la base Computer.
@@ -48,14 +49,21 @@ public class CreateComputerAction extends Action {
 
 			System.out.println("Company id ? : ");
 			System.out.print("> ");
-			c.setCompany(new CompanyDao().find(sc.nextInt()));
 
-			Dao<Computer> compdao = new ComputerDao();
-			compdao.create(c);
-			System.out.println("Computer added!");
-		} catch (NumberFormatException | NullPointerException
-				| InputMismatchException e) {
-			System.err.println("ID is incorrect!");
+			String res = sc.nextLine();
+			if (Tools.isNumber(res)) {
+				Company comp = new CompanyDao().find(Long.parseLong(res));
+				if (Tools.isNull(comp)) {
+					c.setCompany(comp);
+					Dao<Computer> compdao = new ComputerDao();
+					compdao.create(c);
+					System.out.println("Computer added!");
+				} else {
+					System.err.println("Company ID is incorrect!");
+				}
+			} else {
+				System.err.println("ID is incorrect!");
+			}
 		} catch (IllegalArgumentException e) {
 			System.err.println("Date format is incorrect!");
 		}

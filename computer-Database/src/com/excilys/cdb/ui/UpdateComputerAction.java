@@ -1,12 +1,13 @@
 package com.excilys.cdb.ui;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.Dao;
+import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.tools.Tools;
 
 /**
  * L'action responsable de la mise à jour d'une entrée dans la base Computer.
@@ -31,42 +32,49 @@ public class UpdateComputerAction extends Action {
 		Scanner sc = new Scanner(System.in);
 		String res = sc.nextLine();
 		try {
-			long id = Long.parseLong(res);
-			Dao<Computer> compdao = new ComputerDao();
-			Computer c = compdao.find(id);
-			String tmp = "";
-			System.out.println(c.toString());
+			if (Tools.isNumber(res)) {
+				long id = Long.parseLong(res);
+				Dao<Computer> compdao = new ComputerDao();
+				Computer c = compdao.find(id);
+				System.out.println(c.toString());
 
-			System.out.println("Name ? : ");
-			System.out.print("> ");
-			tmp = sc.nextLine();
-			if (!tmp.equals(""))
-				c.setName(tmp);
-			System.out.println("Introduced ? : ");
-			System.out.print("> ");
-			tmp = sc.nextLine();
-			if (!tmp.equals(""))
-				c.setIntroduced(tmp.equals("null") ? null : java.sql.Timestamp
-						.valueOf(tmp));
+				System.out.println("Name ? : ");
+				System.out.print("> ");
+				res = sc.nextLine();
+				if (!res.equals(""))
+					c.setName(res);
+				System.out.println("Introduced ? : ");
+				System.out.print("> ");
+				res = sc.nextLine();
+				if (!res.equals(""))
+					c.setIntroduced(res.equals("null") ? null
+							: java.sql.Timestamp.valueOf(res));
 
-			System.out.println("Discontinued ? : ");
-			System.out.print("> ");
-			tmp = sc.nextLine();
-			if (!tmp.equals(""))
-				c.setIntroduced(tmp.equals("null") ? null : java.sql.Timestamp
-						.valueOf(tmp));
+				System.out.println("Discontinued ? : ");
+				System.out.print("> ");
+				res = sc.nextLine();
+				if (!res.equals(""))
+					c.setIntroduced(res.equals("null") ? null
+							: java.sql.Timestamp.valueOf(res));
 
-			System.out.println("Company id ? : ");
-			System.out.print("> ");
-			tmp = sc.nextLine();
-			if (!tmp.equals(""))
-				c.setCompany(new CompanyDao().find(Integer.valueOf(tmp)));
-
-			compdao.update(c);
-			System.out.println("Computer updated!");
-		} catch (NumberFormatException | NullPointerException
-				| InputMismatchException e) {
-			System.err.println("ID is incorrect!");
+				System.out.println("Company id ? : ");
+				System.out.print("> ");
+				res = sc.nextLine();
+				if (!res.equals("")) {
+					if (Tools.isNumber(res)) {
+						Company comp = new CompanyDao().find(Long.valueOf(res));
+						if (Tools.isNull(comp)) {
+							c.setCompany(comp);
+							compdao.update(c);
+							System.out.println("Computer updated!");
+						}
+					} else {
+						System.err.println("ID is incorrect!");
+					}
+				}
+			} else {
+				System.err.println("ID is incorrect!");
+			}
 		} catch (IllegalArgumentException e) {
 			System.err.println("Date format is incorrect!");
 		}

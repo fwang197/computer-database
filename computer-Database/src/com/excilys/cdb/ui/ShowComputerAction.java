@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.tools.Tools;
 
 /**
  * L'action qui permet d'avoir le detail d'une entrée de la table computer.
@@ -28,15 +29,18 @@ public class ShowComputerAction extends Action {
 		System.out.print("> ");
 		Scanner sc = new Scanner(System.in);
 		String res = sc.nextLine();
-		try {
+		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
 			Dao<Computer> compdao = new ComputerDao();
-			System.out.println(compdao.find(id).toString());
-		} catch (NumberFormatException e) {
+			Computer c = compdao.find(id);
+			if (!Tools.isNull(c)) {
+				System.out.println(c.toString());
+			} else {
+				System.err.println("Computer not found!");
+			}
+		} else {
 			System.err.println("ID is incorrect!");
-		} catch (NullPointerException e) {
-			System.err.println("Computer not found!");
 		}
-	}
 
+	}
 }

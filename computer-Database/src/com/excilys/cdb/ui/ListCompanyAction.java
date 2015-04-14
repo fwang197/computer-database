@@ -1,11 +1,9 @@
 package com.excilys.cdb.ui;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
-import com.excilys.cdb.dao.CompanyDao;
-import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.page.Page;
+import com.excilys.cdb.service.ServiceCompany;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -32,12 +30,11 @@ public class ListCompanyAction extends Action {
 	 */
 	@Override
 	public void execute() {
-		Dao<Company> dao = new CompanyDao();
-		LinkedList<Company> l = (LinkedList<Company>) dao.findAll();
-		Page<Company> p = new Page<Company>(l, 20);
-		p.navigation();
-		// for (Company comp : l)
-		// System.out.println(comp.toString());
-	}
+		ArrayList<Company> l = new ArrayList<Company>(
+				ServiceCompany.INSTANCE.findAllCompany());
 
+		for (Company comp : l)
+			System.out.println(comp.toString());
+
+	}
 }

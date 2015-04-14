@@ -2,11 +2,11 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import com.excilys.cdb.dao.CompanyDao;
-import com.excilys.cdb.dao.ComputerDao;
-import com.excilys.cdb.dao.Dao;
+import com.excilys.cdb.mapper.Mapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
@@ -21,7 +21,8 @@ public class CreateComputerAction extends Action {
 	/**
 	 * Instantiates a new creates the computer action.
 	 *
-	 * @param description the description
+	 * @param description
+	 *            the description
 	 */
 	public CreateComputerAction(String description) {
 		this.description = description;
@@ -44,25 +45,25 @@ public class CreateComputerAction extends Action {
 			System.out.println("Introduced ? : ");
 			System.out.print("> ");
 			String tmp = sc.nextLine();
-			c.setIntroduced(tmp.equals("null") ? null : java.sql.Timestamp
-					.valueOf(tmp));
+			c.setIntroduced(tmp.equals("null") ? null : Mapper
+					.toLocalDateTime(java.sql.Timestamp.valueOf(tmp)));
 
 			System.out.println("Discontinued ? : ");
 			System.out.print("> ");
 			tmp = sc.nextLine();
-			c.setIntroduced(tmp.equals("null") ? null : java.sql.Timestamp
-					.valueOf(tmp));
+			c.setIntroduced(tmp.equals("null") ? null : Mapper
+					.toLocalDateTime(java.sql.Timestamp.valueOf(tmp)));
 
 			System.out.println("Company id ? : ");
 			System.out.print("> ");
 
 			String res = sc.nextLine();
 			if (Tools.isNumber(res)) {
-				Company comp = new CompanyDao().find(Long.parseLong(res));
+				Company comp = ServiceCompany.INSTANCE.findCompany(Long
+						.parseLong(res));
 				if (!Tools.isNull(comp)) {
 					c.setCompany(comp);
-					Dao<Computer> compdao = new ComputerDao();
-					compdao.create(c);
+					ServiceComputer.INSTANCE.createComputer(c);
 					System.out.println("Computer added!");
 				} else {
 					System.err.println("Company ID is incorrect!");

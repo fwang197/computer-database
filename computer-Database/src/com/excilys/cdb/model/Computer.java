@@ -1,6 +1,6 @@
 package com.excilys.cdb.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -20,10 +20,10 @@ public class Computer {
 	private String name;
 	// Date de debut de distribution
 	/** The introduced. */
-	private Timestamp introduced;
+	private LocalDateTime introduced;
 	// Date de fin de distribution
 	/** The discontinued. */
-	private Timestamp discontinued;
+	private LocalDateTime discontinued;
 	// Compagnie à l'origine du produit
 	/** The company. */
 	private Company company;
@@ -31,14 +31,19 @@ public class Computer {
 	/**
 	 * Instantiates a new computer.
 	 *
-	 * @param id the id
-	 * @param name the name
-	 * @param introduced the introduced
-	 * @param discontinued the discontinued
-	 * @param company the company
+	 * @param id
+	 *            the id
+	 * @param name
+	 *            the name
+	 * @param introduced
+	 *            the introduced
+	 * @param discontinued
+	 *            the discontinued
+	 * @param company
+	 *            the company
 	 */
-	public Computer(long id, String name, Timestamp introduced,
-			Timestamp discontinued, Company company) {
+	public Computer(long id, String name, LocalDateTime introduced,
+			LocalDateTime discontinued, Company company) {
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
@@ -64,9 +69,10 @@ public class Computer {
 	/**
 	 * Sets the id.
 	 *
-	 * @param id the new id
+	 * @param id
+	 *            the new id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -82,7 +88,8 @@ public class Computer {
 	/**
 	 * Sets the name.
 	 *
-	 * @param name the new name
+	 * @param name
+	 *            the new name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -93,16 +100,17 @@ public class Computer {
 	 *
 	 * @return the introduced
 	 */
-	public Timestamp getIntroduced() {
+	public LocalDateTime getIntroduced() {
 		return introduced;
 	}
 
 	/**
 	 * Sets the introduced.
 	 *
-	 * @param introduced the new introduced
+	 * @param introduced
+	 *            the new introduced
 	 */
-	public void setIntroduced(Timestamp introduced) {
+	public void setIntroduced(LocalDateTime introduced) {
 		this.introduced = introduced;
 	}
 
@@ -111,16 +119,17 @@ public class Computer {
 	 *
 	 * @return the discontinued
 	 */
-	public Timestamp getDiscontinued() {
+	public LocalDateTime getDiscontinued() {
 		return discontinued;
 	}
 
 	/**
 	 * Sets the discontinued.
 	 *
-	 * @param discontinued the new discontinued
+	 * @param discontinued
+	 *            the new discontinued
 	 */
-	public void setDiscontinued(Timestamp discontinued) {
+	public void setDiscontinued(LocalDateTime discontinued) {
 		this.discontinued = discontinued;
 	}
 
@@ -136,13 +145,16 @@ public class Computer {
 	/**
 	 * Sets the company.
 	 *
-	 * @param company the new company
+	 * @param company
+	 *            the new company
 	 */
 	public void setCompany(Company company) {
 		this.company = company;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
@@ -158,7 +170,9 @@ public class Computer {
 		return str;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

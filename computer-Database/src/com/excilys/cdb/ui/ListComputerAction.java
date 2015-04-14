@@ -1,11 +1,9 @@
 package com.excilys.cdb.ui;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
-import com.excilys.cdb.dao.ComputerDao;
-import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.page.Page;
+import com.excilys.cdb.service.ServiceComputer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -32,12 +30,9 @@ public class ListComputerAction extends Action {
 	 */
 	@Override
 	public void execute() {
-		Dao<Computer> dao = new ComputerDao();
-		LinkedList<Computer> l = (LinkedList<Computer>) dao.findAll();
-		Page<Computer> p = new Page<Computer>(l, 20);
-		p.navigation();
-		// for (Computer comp : l)
-		// System.out.println(comp.toString());
+		ArrayList<Computer> l = new ArrayList<Computer>(
+				ServiceComputer.INSTANCE.findAllComputer());
+		for (Computer comp : l)
+			System.out.println(comp.getId() + " " + comp.toString());
 	}
-
 }

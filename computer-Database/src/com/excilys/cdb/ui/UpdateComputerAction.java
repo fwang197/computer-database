@@ -2,11 +2,11 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import com.excilys.cdb.dao.CompanyDao;
-import com.excilys.cdb.dao.ComputerDao;
-import com.excilys.cdb.dao.Dao;
+import com.excilys.cdb.mapper.Mapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
@@ -41,8 +41,7 @@ public class UpdateComputerAction extends Action {
 		try {
 			if (Tools.isNumber(res)) {
 				long id = Long.parseLong(res);
-				Dao<Computer> compdao = new ComputerDao();
-				Computer c = compdao.find(id);
+				Computer c = ServiceComputer.INSTANCE.findComputer(id);
 				if (!Tools.isNull(c)) {
 					System.out.println(c.toString());
 
@@ -56,23 +55,25 @@ public class UpdateComputerAction extends Action {
 					System.out.print("> ");
 					res = sc.nextLine();
 					if (!res.equals(""))
-						c.setIntroduced(res.equals("null") ? null
-								: java.sql.Timestamp.valueOf(res));
+						c.setIntroduced(res.equals("null") ? null : Mapper
+								.toLocalDateTime(java.sql.Timestamp
+										.valueOf(res)));
 
 					System.out.println("Discontinued ? : ");
 					System.out.print("> ");
 					res = sc.nextLine();
 					if (!res.equals(""))
-						c.setIntroduced(res.equals("null") ? null
-								: java.sql.Timestamp.valueOf(res));
+						c.setIntroduced(res.equals("null") ? null : Mapper
+								.toLocalDateTime(java.sql.Timestamp
+										.valueOf(res)));
 
 					System.out.println("Company id ? : ");
 					System.out.print("> ");
 					res = sc.nextLine();
 					if (!res.equals("")) {
 						if (Tools.isNumber(res)) {
-							Company comp = new CompanyDao().find(Long
-									.valueOf(res));
+							Company comp = ServiceCompany.INSTANCE
+									.findCompany(Long.valueOf(res));
 							if (!Tools.isNull(comp)) {
 								c.setCompany(comp);
 							} else {
@@ -84,7 +85,7 @@ public class UpdateComputerAction extends Action {
 							return;
 						}
 					}
-					compdao.update(c);
+					ServiceComputer.INSTANCE.updateComputer(c);
 					System.out.println("Computer updated!");
 				} else {
 					System.err.println("ID is incorrect!");

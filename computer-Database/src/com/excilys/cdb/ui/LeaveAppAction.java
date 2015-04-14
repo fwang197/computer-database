@@ -1,8 +1,5 @@
 package com.excilys.cdb.ui;
 
-import java.sql.SQLException;
-
-import com.excilys.cdb.jdbc.ConnectionDB;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -29,11 +26,6 @@ public class LeaveAppAction extends Action {
 	 */
 	@Override
 	public void execute() {
-		try {
-			ConnectionDB.getInstance().close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		Menu.sc.close();
 		System.out.println("Bye!");
 		System.exit(0);

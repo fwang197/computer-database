@@ -2,9 +2,8 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import com.excilys.cdb.dao.ComputerDao;
-import com.excilys.cdb.dao.Dao;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
@@ -19,7 +18,8 @@ public class DeleteComputerAction extends Action {
 	/**
 	 * Instantiates a new delete computer action.
 	 *
-	 * @param description the description
+	 * @param description
+	 *            the description
 	 */
 	public DeleteComputerAction(String description) {
 		this.description = description;
@@ -37,10 +37,9 @@ public class DeleteComputerAction extends Action {
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
-			Dao<Computer> compdao = new ComputerDao();
-			Computer c = compdao.find(id);
+			Computer c = ServiceComputer.INSTANCE.findComputer(id);
 			if (!Tools.isNull(c)) {
-				compdao.delete(c);
+				ServiceComputer.INSTANCE.deleteComputer(c);
 				System.out.println("Computer deleted");
 			} else {
 				System.err.println("Computer not found!");

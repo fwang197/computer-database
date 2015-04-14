@@ -8,7 +8,8 @@ import java.util.Scanner;
  * La classe permet d'effectuer la pagination.
  *
  * @author excilys
- * @param <T> the generic type
+ * @param <T>
+ *            the generic type
  */
 public class Page<T> {
 	// Le curseur de la position courante
@@ -24,8 +25,10 @@ public class Page<T> {
 	/**
 	 * Instantiates a new page.
 	 *
-	 * @param list the list
-	 * @param range the range
+	 * @param list
+	 *            the list
+	 * @param range
+	 *            the range
 	 */
 	public Page(LinkedList<T> list, int range) {
 		this.list = list;
@@ -74,7 +77,7 @@ public class Page<T> {
 		String res = "";
 		boolean loop = true;
 		while (loop) {
-			System.out.println("<- (-) -> (+)  q");
+			System.out.println("<- (-)		exit(q)		-> (+)");
 			System.out.println("> ");
 			System.out.println(cur);
 			res = sc.nextLine();

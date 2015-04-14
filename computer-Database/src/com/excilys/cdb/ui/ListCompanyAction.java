@@ -20,7 +20,8 @@ public class ListCompanyAction extends Action {
 	/**
 	 * Instantiates a new list company action.
 	 *
-	 * @param description the description
+	 * @param description
+	 *            the description
 	 */
 	public ListCompanyAction(String description) {
 		this.description = description;
@@ -32,7 +33,7 @@ public class ListCompanyAction extends Action {
 	@Override
 	public void execute() {
 		Dao<Company> dao = new CompanyDao();
-		LinkedList<Company> l = dao.findAll();
+		LinkedList<Company> l = (LinkedList<Company>) dao.findAll();
 		Page<Company> p = new Page<Company>(l, 20);
 		p.navigation();
 		// for (Company comp : l)

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.excilys.cdb.jdbc.ConnectionDB;
 import com.excilys.cdb.model.Computer;
@@ -12,9 +13,11 @@ import com.excilys.cdb.model.Computer;
 /**
  * The Class ComputerDao.
  */
-public class ComputerDao extends Dao<Computer> {
+public class ComputerDao implements Dao<Computer> {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#create(java.lang.Object)
 	 */
 	@Override
@@ -35,7 +38,9 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#find(long)
 	 */
 	@Override
@@ -57,7 +62,9 @@ public class ComputerDao extends Dao<Computer> {
 		return comp;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#update(java.lang.Object)
 	 */
 	@Override
@@ -82,7 +89,9 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#delete(java.lang.Object)
 	 */
 	@Override
@@ -100,11 +109,13 @@ public class ComputerDao extends Dao<Computer> {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#findAll()
 	 */
 	@Override
-	public LinkedList<Computer> findAll() {
+	public List<Computer> findAll() {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
 		try {
 			ResultSet result = ConnectionDB.getInstance().createStatement()

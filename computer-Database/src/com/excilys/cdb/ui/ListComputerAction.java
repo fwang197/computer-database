@@ -20,7 +20,8 @@ public class ListComputerAction extends Action {
 	/**
 	 * Instantiates a new list computer action.
 	 *
-	 * @param description the description
+	 * @param description
+	 *            the description
 	 */
 	public ListComputerAction(String description) {
 		this.description = description;
@@ -32,7 +33,7 @@ public class ListComputerAction extends Action {
 	@Override
 	public void execute() {
 		Dao<Computer> dao = new ComputerDao();
-		LinkedList<Computer> l = dao.findAll();
+		LinkedList<Computer> l = (LinkedList<Computer>) dao.findAll();
 		Page<Computer> p = new Page<Computer>(l, 20);
 		p.navigation();
 		// for (Computer comp : l)

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.excilys.cdb.jdbc.ConnectionDB;
 import com.excilys.cdb.model.Company;
@@ -12,9 +13,11 @@ import com.excilys.cdb.model.Company;
 /**
  * The Class CompanyDao.
  */
-public class CompanyDao extends Dao<Company> {
+public class CompanyDao implements Dao<Company> {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#create(java.lang.Object)
 	 */
 	@Override
@@ -30,7 +33,9 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#find(long)
 	 */
 	@Override
@@ -49,7 +54,9 @@ public class CompanyDao extends Dao<Company> {
 		return comp;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#update(java.lang.Object)
 	 */
 	@Override
@@ -68,7 +75,9 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#delete(java.lang.Object)
 	 */
 	@Override
@@ -86,11 +95,13 @@ public class CompanyDao extends Dao<Company> {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.Dao#findAll()
 	 */
 	@Override
-	public LinkedList<Company> findAll() {
+	public List<Company> findAll() {
 		LinkedList<Company> lcompany = new LinkedList<Company>();
 		try {
 			ResultSet result = ConnectionDB.getInstance().createStatement()

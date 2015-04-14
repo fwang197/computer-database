@@ -37,9 +37,11 @@ public class ShowComputerAction extends Action {
 				System.out.println(c.toString());
 			} else {
 				System.err.println("Computer not found!");
+				return;
 			}
 		} else {
 			System.err.println("ID is incorrect!");
+			return;
 		}
 
 	}

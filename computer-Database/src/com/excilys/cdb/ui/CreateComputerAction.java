@@ -53,16 +53,18 @@ public class CreateComputerAction extends Action {
 			String res = sc.nextLine();
 			if (Tools.isNumber(res)) {
 				Company comp = new CompanyDao().find(Long.parseLong(res));
-				if (Tools.isNull(comp)) {
+				if (!Tools.isNull(comp)) {
 					c.setCompany(comp);
 					Dao<Computer> compdao = new ComputerDao();
 					compdao.create(c);
 					System.out.println("Computer added!");
 				} else {
 					System.err.println("Company ID is incorrect!");
+					return;
 				}
 			} else {
 				System.err.println("ID is incorrect!");
+				return;
 			}
 		} catch (IllegalArgumentException e) {
 			System.err.println("Date format is incorrect!");

@@ -33,15 +33,16 @@ public class DeleteComputerAction extends Action {
 			long id = Long.parseLong(res);
 			Dao<Computer> compdao = new ComputerDao();
 			Computer c = compdao.find(id);
-			if (Tools.isNull(c)) {
+			if (!Tools.isNull(c)) {
 				compdao.delete(c);
 				System.out.println("Computer deleted");
 			} else {
-
 				System.err.println("Computer not found!");
+				return;
 			}
 		} else {
 			System.err.println("ID is incorrect!");
+			return;
 		}
 	}
 }

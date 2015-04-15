@@ -15,6 +15,9 @@ public class Company {
 	/** The name. */
 	private String name;
 
+	/**
+	 * Instantiates a new company.
+	 */
 	public Company() {
 
 	}

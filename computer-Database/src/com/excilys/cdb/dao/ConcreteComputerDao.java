@@ -12,9 +12,18 @@ import com.excilys.cdb.mapper.Mapper;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ConcreteComputerDao.
+ */
 public enum ConcreteComputerDao implements ComputerDao {
+	
+	/** The instance. */
 	INSTANCE;
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.ComputerDao#create(com.excilys.cdb.model.Computer)
+	 */
 	public void create(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
@@ -35,6 +44,9 @@ public enum ConcreteComputerDao implements ComputerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.ComputerDao#find(long)
+	 */
 	public Computer find(long id) {
 
 		Computer comp = null;
@@ -60,6 +72,9 @@ public enum ConcreteComputerDao implements ComputerDao {
 		return comp;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.ComputerDao#update(com.excilys.cdb.model.Computer)
+	 */
 	public void update(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
@@ -81,6 +96,9 @@ public enum ConcreteComputerDao implements ComputerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.ComputerDao#delete(com.excilys.cdb.model.Computer)
+	 */
 	public void delete(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
@@ -98,6 +116,9 @@ public enum ConcreteComputerDao implements ComputerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.excilys.cdb.dao.ComputerDao#findAll()
+	 */
 	public List<Computer> findAll() {
 
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();

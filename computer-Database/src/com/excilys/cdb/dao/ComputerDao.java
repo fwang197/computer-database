@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,12 +18,15 @@ import com.excilys.cdb.tools.Tools;
  * The Enum ConcreteComputerDao.
  */
 public enum ComputerDao implements IComputerDao {
-	
+
 	/** The instance. */
 	INSTANCE;
 
-	/* (non-Javadoc)
-	 * @see com.excilys.cdb.dao.ComputerDao#create(com.excilys.cdb.model.Computer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.excilys.cdb.dao.ComputerDao#create(com.excilys.cdb.model.Computer)
 	 */
 	public void create(Computer comp) {
 		PreparedStatement prepare = null;
@@ -34,9 +38,14 @@ public enum ComputerDao implements IComputerDao {
 			prepare.setString(1, comp.getName());
 			prepare.setTimestamp(2, Mapper.toTimeStamp(comp.getIntroduced()));
 			prepare.setTimestamp(3, Mapper.toTimeStamp(comp.getDiscontinued()));
-			prepare.setLong(4, comp.getCompany().getId());
+			if (Tools.isNull(comp.getCompany())) {
+				prepare.setNull(4, Types.NULL);
+			} else {
+				prepare.setLong(4, comp.getCompany().getId());
+			}
 			prepare.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -44,7 +53,9 @@ public enum ComputerDao implements IComputerDao {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.ComputerDao#find(long)
 	 */
 	public Computer find(long id) {
@@ -72,8 +83,11 @@ public enum ComputerDao implements IComputerDao {
 		return comp;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.excilys.cdb.dao.ComputerDao#update(com.excilys.cdb.model.Computer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.excilys.cdb.dao.ComputerDao#update(com.excilys.cdb.model.Computer)
 	 */
 	public void update(Computer comp) {
 		PreparedStatement prepare = null;
@@ -89,6 +103,7 @@ public enum ComputerDao implements IComputerDao {
 			prepare.setLong(5, comp.getId());
 			prepare.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -96,8 +111,11 @@ public enum ComputerDao implements IComputerDao {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.excilys.cdb.dao.ComputerDao#delete(com.excilys.cdb.model.Computer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.excilys.cdb.dao.ComputerDao#delete(com.excilys.cdb.model.Computer)
 	 */
 	public void delete(Computer comp) {
 		PreparedStatement prepare = null;
@@ -116,7 +134,9 @@ public enum ComputerDao implements IComputerDao {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.ComputerDao#findAll()
 	 */
 	public List<Computer> findAll() {

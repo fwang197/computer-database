@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.java.com.excilys.cdb.model.Computer;
 import main.java.com.excilys.cdb.service.ServiceComputer;
+import main.java.com.excilys.cdb.tools.Tools;
 
 /**
  * Servlet implementation class DashboardServlet
@@ -19,12 +20,21 @@ import main.java.com.excilys.cdb.service.ServiceComputer;
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private ArrayList<Computer> lcomp;
+	private int nb;
+	private int offset;
+	private int range;
+	private int pageNum;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public DashboardServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		nb = ServiceComputer.INSTANCE.getCountComputer();
+		offset = 0;
+		range = 50;
+		pageNum = 0;
 	}
 
 	/**
@@ -33,11 +43,34 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Computer> lcomp = new ArrayList<Computer>(
-				ServiceComputer.INSTANCE.findAllComputer());
-		int nb = ServiceComputer.INSTANCE.getCountComputer();
+		// On recupère la page de l'utilisateur
+		String p = request.getParameter("pageNum");
+		String move = request.getParameter("move");
+
+		if (Tools.isNumber(p)) {
+			pageNum = Integer.parseInt(p);
+		}
+		offset = pageNum * range;
+		if (move != null) {
+			if (move.equals("prev")) {
+				offset -= range;
+				if (offset < 0) {
+					offset = 0;
+				} else {
+					pageNum--;
+				}
+			} else if (move.equals("next")) {
+				if (offset + range < nb) {
+					pageNum++;
+				}
+			}
+		}
+		System.out.println(pageNum);
+		lcomp = new ArrayList<Computer>(
+				ServiceComputer.INSTANCE.findAllRangeComputer(offset, range));
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);
+		request.setAttribute("offset", offset);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp")
 				.forward(request, response);
 	}

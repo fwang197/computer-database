@@ -13,7 +13,7 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
+            <a class="navbar-brand" href="DashboardServlet"> Application - Computer Database </a>
         </div>
     </header>
 
@@ -95,17 +95,15 @@
         <div class="container text-center">
             <ul class="pagination">
                 <li>
-                    <a href="#" aria-label="Previous">
+                    <a href="DashboardServlet?move=prev" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
+              	<c:forEach var="i" begin="0" end="${nb/50}">	
+            	  <li><a href="DashboardServlet?pageNum=${i}">${i+1}</a></li>
+              	</c:forEach>
               <li>
-                <a href="#" aria-label="Next">
+                <a href="DashboardServlet?move=next" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

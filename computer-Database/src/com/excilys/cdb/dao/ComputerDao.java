@@ -45,7 +45,6 @@ public enum ComputerDao implements IComputerDao {
 			}
 			prepare.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -99,11 +98,14 @@ public enum ComputerDao implements IComputerDao {
 			prepare.setString(1, comp.getName());
 			prepare.setTimestamp(2, Mapper.toTimeStamp(comp.getIntroduced()));
 			prepare.setTimestamp(3, Mapper.toTimeStamp(comp.getDiscontinued()));
-			prepare.setLong(4, comp.getCompany().getId());
+			if (Tools.isNull(comp.getCompany())) {
+				prepare.setNull(4, Types.NULL);
+			} else {
+				prepare.setLong(4, comp.getCompany().getId());
+			}
 			prepare.setLong(5, comp.getId());
 			prepare.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -155,6 +157,36 @@ public enum ComputerDao implements IComputerDao {
 			rs = prepare.executeQuery();
 			while (!rs.isLast()) {
 				lcomputer.add(Mapper.toComputer(rs));
+			}
+		} catch (SQLException e) {
+			throw new DaoException();
+		} finally {
+			Tools.closeProperly(rs, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+		return lcomputer;
+	}
+
+	@Override
+	public List<Computer> findAllRange(int offset, int range) {
+		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
+
+		PreparedStatement prepare = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn
+					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "limit "
+							+ range + " offset " + offset);
+			rs = prepare.executeQuery();
+			if (rs.first()) {
+				while (!rs.isLast()) {
+					lcomputer.add(Mapper.toComputer(rs));
+				}
 			}
 		} catch (SQLException e) {
 			throw new DaoException();

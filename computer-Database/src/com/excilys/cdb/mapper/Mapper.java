@@ -51,10 +51,10 @@ public class Mapper {
 					.getTimestamp("discontinued")));
 
 			comp.setName(rs.getString("c_name"));
-
-			comp.setCompany(new Company(rs.getLong("company_id"), rs
-					.getString("name")));
-
+			if (rs.getLong("company_id") != 0) {
+				comp.setCompany(new Company(rs.getLong("company_id"), rs
+						.getString("name")));
+			}
 		}
 		return comp;
 	}

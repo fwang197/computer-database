@@ -17,11 +17,13 @@ import com.excilys.cdb.tools.Tools;
  * The Enum ConcreteCompanyDao.
  */
 public enum CompanyDao implements ICompanyDao {
-	
+
 	/** The instance. */
 	INSTANCE;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.CompanyDao#find(long)
 	 */
 	public Company find(long id) {
@@ -45,7 +47,9 @@ public enum CompanyDao implements ICompanyDao {
 		return comp;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.excilys.cdb.dao.CompanyDao#findAll()
 	 */
 	public List<Company> findAll() {
@@ -61,6 +65,31 @@ public enum CompanyDao implements ICompanyDao {
 			rs = prepare.executeQuery();
 			while (!rs.isLast()) {
 				lcompany.add(Mapper.toCompany(rs));
+			}
+		} catch (SQLException e) {
+			throw new DaoException();
+		} finally {
+			Tools.closeProperly(rs, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+		return lcompany;
+	}
+
+	@Override
+	public List<Company> findAllRange(int offset, int range) {
+		LinkedList<Company> lcompany = new LinkedList<Company>();
+		PreparedStatement prepare = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn.prepareStatement("select * from company limit "
+					+ range + " offset " + offset);
+			rs = prepare.executeQuery();
+			if (rs.first()) {
+				while (!rs.isLast()) {
+					lcompany.add(Mapper.toCompany(rs));
+				}
 			}
 		} catch (SQLException e) {
 			throw new DaoException();

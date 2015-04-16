@@ -33,4 +33,9 @@ public enum ServiceCompany {
 	public List<Company> findAllCompany() {
 		return CompanyDao.INSTANCE.findAll();
 	}
+
+	public List<Company> findAllRangeCompany(int offset, int range) {
+		return CompanyDao.INSTANCE.findAllRange(offset, range);
+	}
+
 }

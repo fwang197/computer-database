@@ -1,9 +1,6 @@
 package com.excilys.cdb.ui;
 
-import java.util.ArrayList;
-
-import com.excilys.cdb.model.Company;
-import com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.page.PageCompany;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -30,11 +27,7 @@ public class ListCompanyAction extends Action {
 	 */
 	@Override
 	public void execute() {
-		ArrayList<Company> l = new ArrayList<Company>(
-				ServiceCompany.INSTANCE.findAllCompany());
-
-		for (Company comp : l)
-			System.out.println(comp.toString());
-
+		PageCompany p = new PageCompany(10);
+		p.navigation();
 	}
 }

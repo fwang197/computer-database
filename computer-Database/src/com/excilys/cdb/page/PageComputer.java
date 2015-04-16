@@ -1,6 +1,10 @@
 package com.excilys.cdb.page;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceComputer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -10,13 +14,13 @@ import java.util.Scanner;
  * @param <T>
  *            the generic type
  */
-public class Page<T> {
-	// Le offsetseur de la position courante
+public class PageComputer {
 	/** The offset. */
 	private int offset = 0;
-	// la nombre d'élements à afficher
 	/** The range. */
 	private int range;
+
+	private String table;
 
 	/**
 	 * Instantiates a new page.
@@ -24,7 +28,8 @@ public class Page<T> {
 	 * @param range
 	 *            the range
 	 */
-	public Page(String table, int range) {
+	public PageComputer(String table, int range) {
+		this.table = table;
 		this.range = range;
 	}
 
@@ -32,15 +37,33 @@ public class Page<T> {
 	 * Permet d'afficher les range éléments avant la position courante.
 	 * 
 	 */
-	private void backward() {
-
+	private void forward() {
+		ArrayList<Computer> l = new ArrayList<Computer>(
+				ServiceComputer.INSTANCE.findAllRangeComputer(offset + range,
+						range));
+		for (Computer c : l)
+			System.out.println(c);
+		if (l.size() != range) {
+			offset += l.size();
+		} else {
+			offset += range;
+		}
 	}
 
 	/**
 	 * Permet d'afficher les range éléments apres la position courante.
 	 */
-	private void forward() {
-
+	private void backward() {
+		int tmp = offset - 2 * range;
+		if (tmp < 0) {
+			tmp = 0;
+		}
+		ArrayList<Computer> l = new ArrayList<Computer>(
+				ServiceComputer.INSTANCE.findAllRangeComputer(tmp, range));
+		for (Computer c : l)
+			System.out.println(c);
+		offset = tmp;
+		offset += range;
 	}
 
 	/**

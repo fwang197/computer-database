@@ -13,7 +13,8 @@ public interface ICompanyDao {
 	/**
 	 * Find.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the company
 	 */
 	public Company find(long id);
@@ -24,4 +25,6 @@ public interface ICompanyDao {
 	 * @return the list
 	 */
 	public List<Company> findAll();
+
+	public List<Company> findAllRange(int offset, int range);
 }

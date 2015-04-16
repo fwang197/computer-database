@@ -13,14 +13,16 @@ public interface IComputerDao {
 	/**
 	 * Creates the.
 	 *
-	 * @param obj the obj
+	 * @param obj
+	 *            the obj
 	 */
 	public void create(Computer obj);
 
 	/**
 	 * Find.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the computer
 	 */
 	public Computer find(long id);
@@ -28,14 +30,16 @@ public interface IComputerDao {
 	/**
 	 * Update.
 	 *
-	 * @param obj the obj
+	 * @param obj
+	 *            the obj
 	 */
 	public void update(Computer obj);
 
 	/**
 	 * Delete.
 	 *
-	 * @param obj the obj
+	 * @param obj
+	 *            the obj
 	 */
 	public void delete(Computer obj);
 
@@ -45,4 +49,6 @@ public interface IComputerDao {
 	 * @return the list
 	 */
 	public List<Computer> findAll();
+
+	public List<Computer> findAllRange(int offset, int range);
 }

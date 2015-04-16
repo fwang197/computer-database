@@ -10,14 +10,15 @@ import com.excilys.cdb.model.Computer;
  * The Enum ServiceComputer.
  */
 public enum ServiceComputer {
-	
+
 	/** The instance. */
 	INSTANCE;
 
 	/**
 	 * Creates the computer.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 */
 	public void createComputer(Computer c) {
 		ComputerDao.INSTANCE.create(c);
@@ -26,7 +27,8 @@ public enum ServiceComputer {
 	/**
 	 * Find computer.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the computer
 	 */
 	public Computer findComputer(long id) {
@@ -36,7 +38,8 @@ public enum ServiceComputer {
 	/**
 	 * Update computer.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 */
 	public void updateComputer(Computer c) {
 		ComputerDao.INSTANCE.update(c);
@@ -45,7 +48,8 @@ public enum ServiceComputer {
 	/**
 	 * Delete computer.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 */
 	public void deleteComputer(Computer c) {
 		ComputerDao.INSTANCE.delete(c);
@@ -58,5 +62,9 @@ public enum ServiceComputer {
 	 */
 	public List<Computer> findAllComputer() {
 		return ComputerDao.INSTANCE.findAll();
+	}
+
+	public List<Computer> findAllRangeComputer(int offset, int range) {
+		return ComputerDao.INSTANCE.findAllRange(offset, range);
 	}
 }

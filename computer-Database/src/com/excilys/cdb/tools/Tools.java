@@ -1,6 +1,9 @@
 package com.excilys.cdb.tools;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,7 +66,12 @@ public class Tools {
 	public static void process() {
 		ProcessBuilder p = new ProcessBuilder("./script.sh");
 		try {
-			p.start();
+			Process pro = p.start();
+			InputStream is = pro.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			while (br.readLine() != null) {
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

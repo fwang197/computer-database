@@ -28,7 +28,7 @@ public enum ConnectionFactory {
 	 * @return the connection
 	 */
 	public Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/computer-database-db-test?zeroDateTimeBehavior=convertToNull";
+		String url = "jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull";
 		String user = "admincdb";
 		String passwd = "qwerty1234";
 		Connection connection = null;

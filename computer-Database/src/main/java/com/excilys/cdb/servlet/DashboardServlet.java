@@ -46,7 +46,10 @@ public class DashboardServlet extends HttpServlet {
 		// On recupère la page de l'utilisateur
 		String p = request.getParameter("pageNum");
 		String move = request.getParameter("move");
-
+		String srange = request.getParameter("range");
+		if (Tools.isNumber(srange)) {
+			range = Integer.parseInt(srange);
+		}
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
 		}

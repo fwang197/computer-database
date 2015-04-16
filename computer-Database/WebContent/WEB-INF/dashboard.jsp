@@ -99,7 +99,7 @@
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
-              	<c:forEach var="i" begin="0" end="${nb/50}">	
+              	<c:forEach var="i" begin="1" end="${nb/50}">	
             	  <li><a href="DashboardServlet?pageNum=${i}">${i+1}</a></li>
               	</c:forEach>
               <li>
@@ -110,9 +110,9 @@
         </ul>
 
         <div class="btn-group btn-group-sm pull-right" role="group" >
-            <button type="button" class="btn btn-default">10</button>
-            <button type="button" class="btn btn-default">50</button>
-            <button type="button" class="btn btn-default">100</button>
+        <a href="DashboardServlet?range=10"> <button type="button" class="btn btn-default" >10</button></a>
+        <a href="DashboardServlet?range=50"> <button type="button" class="btn btn-default" >50</button></a>
+        <a href="DashboardServlet?range=100"> <button type="button" class="btn btn-default" >100</button></a>
         </div>
 
     </footer>

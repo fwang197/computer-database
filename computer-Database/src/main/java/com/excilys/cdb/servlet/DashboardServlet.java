@@ -47,6 +47,10 @@ public class DashboardServlet extends HttpServlet {
 		// On recupère la page de l'utilisateur
 		String p = request.getParameter("pageNum");
 		String srange = request.getParameter("range");
+		String reload = request.getParameter("reload");
+		if (!Tools.isNull(reload)) {
+			nb = ServiceComputer.INSTANCE.getCountComputer();
+		}
 		if (Tools.isNumber(srange)) {
 			range = Integer.parseInt(srange);
 			offset = 0;
@@ -60,10 +64,7 @@ public class DashboardServlet extends HttpServlet {
 		if (offset < 0) {
 			offset = 0;
 		}
-		System.out.println("range " + range);
-		System.out.println("nb" + nb);
-		System.out.println("pageNum " + pageNum);
-		System.out.println("offset " + offset);
+
 		lcomp = new ArrayList<ComputerDto>();
 		for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(offset,
 				range)) {

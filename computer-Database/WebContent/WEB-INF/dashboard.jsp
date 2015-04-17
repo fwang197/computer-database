@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="mylib"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,56 +93,7 @@
     </section>
 
     <footer class="navbar-fixed-bottom">
-        <div class="container text-center">
-            <ul class="pagination">
-                <li> 
-                <c:choose>
-            	<c:when test="${(pageNum-1) >= 0}">
-                    <a href="DashboardServlet?pageNum=${pageNum-1 }" aria-label="Previous">
-                     </c:when>
-            	 	<c:otherwise>
-            	 	<a href="DashboardServlet?pageNum=${pageNum}" aria-label="Previous">
-            	 	</c:otherwise>
-            	 </c:choose>
-                      <span aria-hidden="true">&laquo;</span>
-                  </a>
-              </li>
-              
-              <c:forEach var="i" begin="0" end="2">
-             	 <c:choose>
-            		 <c:when test="${(pageNum+i-2) > 0}">
-            			 <li><a href="DashboardServlet?pageNum=${pageNum+i-2}">${pageNum+i-2}</a></li>
-            	 	</c:when>
-            	 </c:choose>
-              </c:forEach>
-              
-              <c:forEach var="i" begin="0" end="2">
-             	 <c:choose>
-            		 <c:when test="${(pageNum+i)*range < nb}">
-            			 <li><a href="DashboardServlet?pageNum=${pageNum+i}">${pageNum+i+1}</a></li>
-            	 	</c:when>
-            	 </c:choose>
-              </c:forEach>
-   
-              <li>
-              <c:choose>
-            	<c:when test="${(pageNum+1)*range < nb}">
-                <a href="DashboardServlet?pageNum=${pageNum+1}" aria-label="Next">
-                </c:when>
-            	 	<c:otherwise>
-            	 	 <a href="DashboardServlet?pageNum=${pageNum}" aria-label="Next">
-            	 	</c:otherwise>
-            	 </c:choose>
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-
-        <div class="btn-group btn-group-sm pull-right" role="group" >
-        <a href="DashboardServlet?range=10"> <button type="button" class="btn btn-default" >10</button></a>
-        <a href="DashboardServlet?range=50"> <button type="button" class="btn btn-default" >50</button></a>
-        <a href="DashboardServlet?range=100"> <button type="button" class="btn btn-default" >100</button></a>
-        </div>
+       <mylib:pagination target="DashboardServlet"/>
 
     </footer>
 <script src="../js/jquery.min.js"></script>

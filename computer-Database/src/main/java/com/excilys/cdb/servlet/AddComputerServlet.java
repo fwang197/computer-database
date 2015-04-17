@@ -62,11 +62,13 @@ public class AddComputerServlet extends HttpServlet {
 					Mapper.toDateFormat(intro), Mapper.toDateFormat(discon),
 					ServiceCompany.INSTANCE.findCompany(Long.parseLong(id))));
 			System.out.println("OK");
+			response.sendRedirect("DashboardServlet?reload=yes");
 
+		} else {
+			request.setAttribute("list", lcomp);
+			this.getServletContext()
+					.getRequestDispatcher("/WEB-INF/addComputer.jsp")
+					.forward(request, response);
 		}
-		request.setAttribute("list", lcomp);
-		this.getServletContext()
-				.getRequestDispatcher("/WEB-INF/addComputer.jsp")
-				.forward(request, response);
 	}
 }

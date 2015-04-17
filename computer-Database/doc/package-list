@@ -1,0 +1,5 @@
+com.excilys.cdb.dao
+com.excilys.cdb.jdbc
+com.excilys.cdb.main
+com.excilys.cdb.model
+com.excilys.cdb.ui

@@ -32,7 +32,6 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	public DashboardServlet() {
 		super();
-		lcomp = new ArrayList<ComputerDto>();
 		nb = ServiceComputer.INSTANCE.getCountComputer();
 		offset = 0;
 		range = 50;
@@ -47,7 +46,6 @@ public class DashboardServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// On recupère la page de l'utilisateur
 		String p = request.getParameter("pageNum");
-		String move = request.getParameter("move");
 		String srange = request.getParameter("range");
 		if (Tools.isNumber(srange)) {
 			range = Integer.parseInt(srange);
@@ -57,30 +55,24 @@ public class DashboardServlet extends HttpServlet {
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
 		}
+
 		offset = pageNum * range;
-		if (move != null) {
-			if (move.equals("prev")) {
-				offset -= range;
-				if (offset < 0) {
-					offset = 0;
-				} else {
-					pageNum--;
-				}
-			} else if (move.equals("next")) {
-				if (offset + range < nb) {
-					pageNum++;
-				}
-			}
+		if (offset < 0) {
+			offset = 0;
 		}
-		System.out.println(pageNum);
+		System.out.println("range " + range);
+		System.out.println("nb" + nb);
+		System.out.println("pageNum " + pageNum);
+		System.out.println("offset " + offset);
+		lcomp = new ArrayList<ComputerDto>();
 		for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(offset,
 				range)) {
 			lcomp.add(Mapper.toComputerDto(c));
 		}
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);
-		request.setAttribute("offset", offset);
 		request.setAttribute("range", range);
+		request.setAttribute("pageNum", pageNum);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp")
 				.forward(request, response);
 	}

@@ -57,7 +57,7 @@ public class AddComputerServlet extends HttpServlet {
 		String discon = request.getParameter("discontinued");
 		String id = request.getParameter("companyId");
 		System.out.println(name + " " + intro + " " + discon + " " + id);
-		if (Tools.isNumber(id)) {
+		if (Tools.isNumber(id) && !name.equals("")) {
 			ServiceComputer.INSTANCE.createComputer(new Computer(0, name,
 					Mapper.toDateFormat(intro), Mapper.toDateFormat(discon),
 					ServiceCompany.INSTANCE.findCompany(Long.parseLong(id))));

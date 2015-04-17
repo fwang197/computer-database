@@ -94,16 +94,44 @@
     <footer class="navbar-fixed-bottom">
         <div class="container text-center">
             <ul class="pagination">
-                <li>
-                    <a href="DashboardServlet?move=prev" aria-label="Previous">
+                <li> 
+                <c:choose>
+            	<c:when test="${(pageNum-1) >= 0}">
+                    <a href="DashboardServlet?pageNum=${pageNum-1 }" aria-label="Previous">
+                     </c:when>
+            	 	<c:otherwise>
+            	 	<a href="DashboardServlet?pageNum=${pageNum}" aria-label="Previous">
+            	 	</c:otherwise>
+            	 </c:choose>
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
-              	<c:forEach var="i" begin="0" end="${nb/range}">	
-            	  <li><a href="DashboardServlet?pageNum=${i}">${i+1}</a></li>
-              	</c:forEach>
+              
+              <c:forEach var="i" begin="0" end="2">
+             	 <c:choose>
+            		 <c:when test="${(pageNum+i-2) > 0}">
+            			 <li><a href="DashboardServlet?pageNum=${pageNum+i-2}">${pageNum+i-2}</a></li>
+            	 	</c:when>
+            	 </c:choose>
+              </c:forEach>
+              
+              <c:forEach var="i" begin="0" end="2">
+             	 <c:choose>
+            		 <c:when test="${(pageNum+i)*range < nb}">
+            			 <li><a href="DashboardServlet?pageNum=${pageNum+i}">${pageNum+i+1}</a></li>
+            	 	</c:when>
+            	 </c:choose>
+              </c:forEach>
+   
               <li>
-                <a href="DashboardServlet?move=next" aria-label="Next">
+              <c:choose>
+            	<c:when test="${(pageNum+1)*range < nb}">
+                <a href="DashboardServlet?pageNum=${pageNum+1}" aria-label="Next">
+                </c:when>
+            	 	<c:otherwise>
+            	 	 <a href="DashboardServlet?pageNum=${pageNum}" aria-label="Next">
+            	 	</c:otherwise>
+            	 </c:choose>
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

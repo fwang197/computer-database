@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.java.com.excilys.cdb.mapper.Mapper;
 import main.java.com.excilys.cdb.model.Computer;
 import main.java.com.excilys.cdb.service.ServiceComputer;
 import main.java.com.excilys.cdb.tools.Tools;
@@ -20,7 +21,7 @@ import main.java.com.excilys.cdb.tools.Tools;
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Computer> lcomp;
+	private ArrayList<ComputerDto> lcomp;
 	private int nb;
 	private int offset;
 	private int range;
@@ -31,6 +32,7 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	public DashboardServlet() {
 		super();
+		lcomp = new ArrayList<ComputerDto>();
 		nb = ServiceComputer.INSTANCE.getCountComputer();
 		offset = 0;
 		range = 50;
@@ -49,6 +51,8 @@ public class DashboardServlet extends HttpServlet {
 		String srange = request.getParameter("range");
 		if (Tools.isNumber(srange)) {
 			range = Integer.parseInt(srange);
+			offset = 0;
+			pageNum = 0;
 		}
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
@@ -69,11 +73,14 @@ public class DashboardServlet extends HttpServlet {
 			}
 		}
 		System.out.println(pageNum);
-		lcomp = new ArrayList<Computer>(
-				ServiceComputer.INSTANCE.findAllRangeComputer(offset, range));
+		for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(offset,
+				range)) {
+			lcomp.add(Mapper.toComputerDto(c));
+		}
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);
 		request.setAttribute("offset", offset);
+		request.setAttribute("range", range);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp")
 				.forward(request, response);
 	}

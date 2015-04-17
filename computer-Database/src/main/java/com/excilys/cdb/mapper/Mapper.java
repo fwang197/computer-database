@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import main.java.com.excilys.cdb.model.Company;
 import main.java.com.excilys.cdb.model.Computer;
@@ -86,11 +88,26 @@ public class Mapper {
 	public static ComputerDto toComputerDto(Computer comp) {
 		ComputerDto c = null;
 		if (!Tools.isNull(comp)) {
-			c = new ComputerDto(comp.getId(), comp.getName(), comp
-					.getIntroduced().toLocalDate().toString(), comp
-					.getDiscontinued().toLocalDate().toString(), comp
-					.getCompany().getId(), comp.getCompany().getName());
+			c = new ComputerDto(comp.getId(), comp.getName(),
+					comp.getIntroduced() == null ? "" : comp.getIntroduced()
+							.toLocalDate().toString(),
+					comp.getDiscontinued() == null ? "" : comp
+							.getDiscontinued().toLocalDate().toString(),
+					comp.getCompany() == null ? 0 : comp.getCompany().getId(),
+					comp.getCompany() == null ? "" : comp.getCompany()
+							.getName());
 		}
 		return c;
+	}
+
+	public static LocalDateTime toDateFormat(String date) {
+		LocalDateTime ldt = null;
+		Pattern p = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		Matcher m = p.matcher(date);
+		if (m.matches()) {
+
+			ldt = Mapper.toLocalDateTime(java.sql.Timestamp.valueOf(date));
+		}
+		return ldt;
 	}
 }

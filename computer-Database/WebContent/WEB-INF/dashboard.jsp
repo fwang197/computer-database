@@ -32,7 +32,7 @@
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="addComputer.html">Add Computer</a> 
+                    <a class="btn btn-success" id="addComputer" href="AddComputerServlet">Add Computer</a> 
                     <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
                 </div>
             </div>
@@ -80,10 +80,10 @@
                    	<c:forEach var="i" items="${list}">	
 							<tr>
 								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="0"></td>
-								<td><a href="editComputer.html" onclick="">${i.getName()}</a></td>
-								<td>${i.getIntroduced() == null ? null : i.getIntroduced().toLocalDate()}</td>
-								<td>${i.getDiscontinued() == null ? null : i.getIntroduced().toLocalDate()}</td>
-								<td>${i.getCompany().getName()}</td>
+								<td><a href="editComputer.html" onclick="">${i.name}</a></td>
+								<td>${i.introduced}</td>
+								<td>${i.discontinued}</td>
+								<td>${i.company_name}</td>
 							</tr>
 					</c:forEach>
                 </tbody>
@@ -99,7 +99,7 @@
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
-              	<c:forEach var="i" begin="1" end="${nb/50}">	
+              	<c:forEach var="i" begin="0" end="${nb/range}">	
             	  <li><a href="DashboardServlet?pageNum=${i}">${i+1}</a></li>
               	</c:forEach>
               <li>

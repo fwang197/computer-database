@@ -57,13 +57,17 @@ public class AddComputerServlet extends HttpServlet {
 		String discon = request.getParameter("discontinued");
 		String id = request.getParameter("companyId");
 		System.out.println(name + " " + intro + " " + discon + " " + id);
-		if (Tools.isNumber(id) && !name.equals("")) {
+		if (!name.equals("")) {
+			Company comp = null;
+			if (Tools.isNumber(id)) {
+				comp = ServiceCompany.INSTANCE.findCompany(Long.parseLong(id));
+			}
 			ServiceComputer.INSTANCE.createComputer(new Computer(0, name,
 					Mapper.toDateFormat(intro), Mapper.toDateFormat(discon),
-					ServiceCompany.INSTANCE.findCompany(Long.parseLong(id))));
+					comp));
 			System.out.println("OK");
-			response.sendRedirect("DashboardServlet?reload=yes");
 
+			response.sendRedirect("DashboardServlet?reload=yes");
 		} else {
 			request.setAttribute("list", lcomp);
 			this.getServletContext()

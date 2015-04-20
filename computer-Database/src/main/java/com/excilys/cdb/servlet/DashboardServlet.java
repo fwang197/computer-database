@@ -48,16 +48,20 @@ public class DashboardServlet extends HttpServlet {
 		String p = request.getParameter("pageNum");
 		String srange = request.getParameter("range");
 		String reload = request.getParameter("reload");
+		System.out.println("range = " + srange);
+		System.out.println("pageNul = " + pageNum);
+		System.out.println("offset = " + offset);
 		if (!Tools.isNull(reload)) {
 			nb = ServiceComputer.INSTANCE.getCountComputer();
 		}
-		if (Tools.isNumber(srange)) {
-			range = Integer.parseInt(srange);
-			offset = 0;
-			pageNum = 0;
-		}
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
+		}
+		if (Tools.isNumber(srange)) {
+			if (range != Integer.parseInt(srange)) {
+				pageNum = 0;
+			}
+			range = Integer.parseInt(srange);
 		}
 
 		offset = pageNum * range;

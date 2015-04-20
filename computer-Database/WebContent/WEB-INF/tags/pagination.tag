@@ -16,16 +16,18 @@
             	 </c:choose>
               </li>
               
-              <c:forEach var="i" begin="0" end="2">
+              <c:forEach var="i" begin="1" end="1">
              	 <c:choose>
-            		 <c:when test="${(pageNum+i-2) > 0}">
-            			 <li><mylib:link target="${target}" body="${pageNum+i-2}" pageNum="${pageNum+i-2}"/></li>
+            		 <c:when test="${(pageNum-i) >= 0}">
+            			 <li><mylib:link target="${target}" body="${pageNum-i+1}" pageNum="${pageNum-i}"/></li>
             	
             	 	</c:when>
             	 </c:choose>
               </c:forEach>
               
-              <c:forEach var="i" begin="0" end="2">
+              <li><mylib:link target="${target}" body="${pageNum-i+1}" pageNum="${pageNum-i}"/></li>
+              
+              <c:forEach var="i" begin="1" end="1">
              	 <c:choose>
             		 <c:when test="${(pageNum+i)*range < nb}">
             			 <li><mylib:link target="${target}" body="${pageNum+i+1}" pageNum="${pageNum+i}"/></li>

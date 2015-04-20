@@ -1,4 +1,4 @@
-package test.java.testUnit;
+package test.java.com.excilys.cdb.testUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

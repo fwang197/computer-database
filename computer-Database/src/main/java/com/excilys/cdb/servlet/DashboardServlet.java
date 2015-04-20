@@ -48,9 +48,6 @@ public class DashboardServlet extends HttpServlet {
 		String p = request.getParameter("pageNum");
 		String srange = request.getParameter("range");
 		String reload = request.getParameter("reload");
-		System.out.println("range = " + srange);
-		System.out.println("pageNul = " + pageNum);
-		System.out.println("offset = " + offset);
 		if (!Tools.isNull(reload)) {
 			nb = ServiceComputer.INSTANCE.getCountComputer();
 		}

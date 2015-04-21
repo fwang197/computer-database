@@ -29,7 +29,7 @@ public enum ComputerDao implements IComputerDao {
 	 * @see
 	 * com.excilys.cdb.dao.ComputerDao#create(com.excilys.cdb.model.Computer)
 	 */
-	public int create(Computer comp) {
+	public long create(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
 		try {
@@ -51,7 +51,7 @@ public enum ComputerDao implements IComputerDao {
 			prepare.executeUpdate();
 			ResultSet rs = prepare.getGeneratedKeys();
 			if (rs.next()) {
-				return rs.getInt(1);
+				return rs.getLong(1);
 			}
 			return -1;
 		} catch (SQLException e) {
@@ -219,6 +219,62 @@ public enum ComputerDao implements IComputerDao {
 			conn = ConnectionFactory.INSTANCE.getConnection();
 			prepare = conn
 					.prepareStatement("select count(*) as nb from computer");
+			rs = prepare.executeQuery();
+			rs.next();
+			res = rs.getInt("nb");
+		} catch (SQLException e) {
+			throw new DaoException();
+		} finally {
+			Tools.closeProperly(rs, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+		return res;
+	}
+
+	@Override
+	public List<Computer> findAllRangePattern(int offset, int range,
+			String pattern) {
+		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
+
+		PreparedStatement prepare = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn
+					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "where computer.name regexp '"
+							+ pattern
+							+ "' "
+							+ "limit " + range + " offset " + offset);
+			rs = prepare.executeQuery();
+			if (rs.isBeforeFirst()) {
+				while (!rs.isLast()) {
+					lcomputer.add(ComputerMapper.toComputer(rs));
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException();
+		} finally {
+			Tools.closeProperly(rs, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+		return lcomputer;
+	}
+
+	@Override
+	public int getCountPattern(String pattern) {
+		int res = 0;
+		PreparedStatement prepare = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn
+					.prepareStatement("select count(*) as nb from computer where name regexp '"
+							+ pattern + "'");
 			rs = prepare.executeQuery();
 			rs.next();
 			res = rs.getInt("nb");

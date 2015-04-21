@@ -23,9 +23,12 @@ public enum ConnectionFactory {
 	 *
 	 * @return the connection
 	 */
-	public Connection getConnection() {
 
-		Properties prop = new Properties();
+	private Properties prop;
+
+	private ConnectionFactory() {
+
+		prop = new Properties();
 		InputStream input = null;
 
 		try {
@@ -51,6 +54,9 @@ public enum ConnectionFactory {
 			throw new RuntimeException();
 		}
 
+	}
+
+	public Connection getConnection() {
 		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection(prop.getProperty("url"),

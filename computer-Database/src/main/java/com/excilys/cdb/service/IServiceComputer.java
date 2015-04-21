@@ -5,7 +5,7 @@ import java.util.List;
 import com.excilys.cdb.model.Computer;
 
 public interface IServiceComputer {
-	public int createComputer(Computer c);
+	public long createComputer(Computer c);
 
 	public Computer findComputer(long id);
 
@@ -18,4 +18,9 @@ public interface IServiceComputer {
 	public List<Computer> findAllRangeComputer(int offset, int range);
 
 	public int getCountComputer();
+
+	public List<Computer> findAllRangePatternComputer(int offset, int range,
+			String pattern);
+
+	public int getCountPatternComputer(String pattern);
 }

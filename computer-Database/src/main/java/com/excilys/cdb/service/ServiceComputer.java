@@ -20,7 +20,7 @@ public enum ServiceComputer implements IServiceComputer {
 	 * @param c
 	 *            the c
 	 */
-	public int createComputer(Computer c) {
+	public long createComputer(Computer c) {
 		return ComputerDao.INSTANCE.create(c);
 	}
 
@@ -70,5 +70,16 @@ public enum ServiceComputer implements IServiceComputer {
 
 	public int getCountComputer() {
 		return ComputerDao.INSTANCE.getCount();
+	}
+
+	@Override
+	public List<Computer> findAllRangePatternComputer(int offset, int range,
+			String pattern) {
+		return ComputerDao.INSTANCE.findAllRangePattern(offset, range, pattern);
+	}
+
+	@Override
+	public int getCountPatternComputer(String pattern) {
+		return ComputerDao.INSTANCE.getCountPattern(pattern);
 	}
 }

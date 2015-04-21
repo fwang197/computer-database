@@ -16,7 +16,7 @@ public interface IComputerDao {
 	 * @param obj
 	 *            the obj
 	 */
-	public int create(Computer obj);
+	public long create(Computer obj);
 
 	/**
 	 * Find.
@@ -53,4 +53,9 @@ public interface IComputerDao {
 	public List<Computer> findAllRange(int offset, int range);
 
 	public int getCount();
+
+	public List<Computer> findAllRangePattern(int offset, int range,
+			String pattern);
+
+	public int getCountPattern(String pattern);
 }

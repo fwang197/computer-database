@@ -34,13 +34,29 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		int nb = ServiceComputer.INSTANCE.getCountComputer();
+		int nb = 0;
 		int offset = 0;
 		int pageNum = 0;
 		int range = 50;
-
+		String search = request.getParameter("search");
 		String p = request.getParameter("pageNum");
 		String srange = request.getParameter("range");
+
+		ArrayList<ComputerDto> lcomp = new ArrayList<ComputerDto>();
+
+		if (search == null || search.equals("")) {
+			for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(
+					offset, range)) {
+				lcomp.add(ComputerDTOMapper.toComputerDto(c));
+			}
+			nb = ServiceComputer.INSTANCE.getCountComputer();
+		} else {
+			for (Computer c : ServiceComputer.INSTANCE
+					.findAllRangePatternComputer(offset, range, search)) {
+				lcomp.add(ComputerDTOMapper.toComputerDto(c));
+			}
+			nb = ServiceComputer.INSTANCE.getCountPatternComputer(search);
+		}
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
 		}
@@ -52,15 +68,7 @@ public class DashboardServlet extends HttpServlet {
 		if (offset < 0) {
 			offset = 0;
 		}
-		System.out.println("offset " + offset);
-		System.out.println("pageNum " + pageNum);
-		System.out.println("range " + range);
-		System.out.println("nb " + nb);
-		ArrayList<ComputerDto> lcomp = new ArrayList<ComputerDto>();
-		for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(offset,
-				range)) {
-			lcomp.add(ComputerDTOMapper.toComputerDto(c));
-		}
+
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);
 		request.setAttribute("range", range);

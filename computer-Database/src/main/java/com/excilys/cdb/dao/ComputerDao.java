@@ -1,4 +1,4 @@
-package main.java.com.excilys.cdb.dao;
+package com.excilys.cdb.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,10 @@ import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
-import main.java.com.excilys.cdb.jdbc.ConnectionFactory;
-import main.java.com.excilys.cdb.mapper.Mapper;
-import main.java.com.excilys.cdb.model.Computer;
-import main.java.com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.exception.DaoException;
+import com.excilys.cdb.jdbc.ConnectionFactory;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,8 +36,10 @@ public enum ComputerDao implements IComputerDao {
 			prepare = conn
 					.prepareStatement("insert into computer(name,introduced,discontinued,company_id) values (?,?,?,?)");
 			prepare.setString(1, comp.getName());
-			prepare.setTimestamp(2, Mapper.toTimeStamp(comp.getIntroduced()));
-			prepare.setTimestamp(3, Mapper.toTimeStamp(comp.getDiscontinued()));
+			prepare.setTimestamp(2,
+					DateMapper.toTimeStamp(comp.getIntroduced()));
+			prepare.setTimestamp(3,
+					DateMapper.toTimeStamp(comp.getDiscontinued()));
 			if (Tools.isNull(comp.getCompany())) {
 				prepare.setNull(4, Types.NULL);
 			} else {
@@ -72,7 +74,7 @@ public enum ComputerDao implements IComputerDao {
 							+ "on computer.company_id = company.id where computer.id = ?");
 			prepare.setLong(1, id);
 			rs = prepare.executeQuery();
-			comp = Mapper.toComputer(rs);
+			comp = ComputerMapper.toComputer(rs);
 		} catch (SQLException e) {
 			throw new DaoException();
 		} finally {
@@ -96,8 +98,10 @@ public enum ComputerDao implements IComputerDao {
 			prepare = conn
 					.prepareStatement("update computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?");
 			prepare.setString(1, comp.getName());
-			prepare.setTimestamp(2, Mapper.toTimeStamp(comp.getIntroduced()));
-			prepare.setTimestamp(3, Mapper.toTimeStamp(comp.getDiscontinued()));
+			prepare.setTimestamp(2,
+					DateMapper.toTimeStamp(comp.getIntroduced()));
+			prepare.setTimestamp(3,
+					DateMapper.toTimeStamp(comp.getDiscontinued()));
 			if (Tools.isNull(comp.getCompany())) {
 				prepare.setNull(4, Types.NULL);
 			} else {
@@ -156,7 +160,7 @@ public enum ComputerDao implements IComputerDao {
 							+ "on computer.company_id = company.id");
 			rs = prepare.executeQuery();
 			while (!rs.isLast()) {
-				lcomputer.add(Mapper.toComputer(rs));
+				lcomputer.add(ComputerMapper.toComputer(rs));
 			}
 		} catch (SQLException e) {
 			throw new DaoException();
@@ -185,7 +189,7 @@ public enum ComputerDao implements IComputerDao {
 			rs = prepare.executeQuery();
 			if (rs.isBeforeFirst()) {
 				while (!rs.isLast()) {
-					lcomputer.add(Mapper.toComputer(rs));
+					lcomputer.add(ComputerMapper.toComputer(rs));
 				}
 			}
 		} catch (SQLException e) {

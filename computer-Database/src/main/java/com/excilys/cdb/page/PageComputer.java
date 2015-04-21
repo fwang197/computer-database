@@ -1,10 +1,10 @@
-package main.java.com.excilys.cdb.page;
+package com.excilys.cdb.page;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import main.java.com.excilys.cdb.model.Computer;
-import main.java.com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceComputer;
 
 // TODO: Auto-generated Javadoc
 /**

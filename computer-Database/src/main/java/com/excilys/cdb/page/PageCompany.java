@@ -1,10 +1,10 @@
-package main.java.com.excilys.cdb.page;
+package com.excilys.cdb.page;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import main.java.com.excilys.cdb.model.Company;
-import main.java.com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.model.Company;
+import com.excilys.cdb.service.ServiceCompany;
 
 public class PageCompany {
 	/** The offset. */

@@ -1,8 +1,13 @@
-package main.java.com.excilys.cdb.jdbc;
+package com.excilys.cdb.jdbc;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+
+import com.excilys.cdb.exception.PropertiesNotFound;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -13,27 +18,43 @@ public enum ConnectionFactory {
 	/** The instance. */
 	INSTANCE;
 
-	static {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.err.println("Driver not found!");
-			throw new RuntimeException();
-		}
-	}
-
 	/**
 	 * Gets the connection.
 	 *
 	 * @return the connection
 	 */
 	public Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/computer-database-db-test?zeroDateTimeBehavior=convertToNull";
-		String user = "admincdb";
-		String passwd = "qwerty1234";
+
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+			input = getClass().getClassLoader().getResourceAsStream(
+					"config.properties");
+			if (input != null) {
+				prop.load(input);
+			}
+		} catch (IOException ex) {
+			throw new PropertiesNotFound();
+		} finally {
+			try {
+				input.close();
+			} catch (IOException e) {
+				throw new PropertiesNotFound();
+			}
+		}
+
+		try {
+			Class.forName(prop.getProperty("driver"));
+		} catch (ClassNotFoundException e) {
+			System.err.println("Driver not found!");
+			throw new RuntimeException();
+		}
+
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection(url, user, passwd);
+			connection = DriverManager.getConnection(prop.getProperty("url"),
+					prop.getProperty("user"), prop.getProperty("password"));
 
 		} catch (SQLException e) {
 			System.err.println("Error : Connection!");

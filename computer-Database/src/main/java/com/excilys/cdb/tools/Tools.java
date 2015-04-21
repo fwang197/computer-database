@@ -1,4 +1,4 @@
-package main.java.com.excilys.cdb.tools;
+package com.excilys.cdb.tools;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class Tools {
 	}
 
 	public static void process() {
-		ProcessBuilder p = new ProcessBuilder("./script.sh");
+		ProcessBuilder p = new ProcessBuilder("./src/test/resources/script.sh");
 		try {
 			Process pro = p.start();
 			InputStream is = pro.getInputStream();

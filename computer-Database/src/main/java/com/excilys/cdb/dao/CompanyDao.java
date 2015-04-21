@@ -1,4 +1,4 @@
-package main.java.com.excilys.cdb.dao;
+package com.excilys.cdb.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import main.java.com.excilys.cdb.jdbc.ConnectionFactory;
-import main.java.com.excilys.cdb.mapper.Mapper;
-import main.java.com.excilys.cdb.model.Company;
-import main.java.com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.exception.DaoException;
+import com.excilys.cdb.jdbc.ConnectionFactory;
+import com.excilys.cdb.model.Company;
+import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -37,7 +37,7 @@ public enum CompanyDao implements ICompanyDao {
 					.prepareStatement("select * from company where id = ?");
 			prepare.setLong(1, id);
 			rs = prepare.executeQuery();
-			comp = Mapper.toCompany(rs);
+			comp = CompanyMapper.toCompany(rs);
 		} catch (SQLException e) {
 			throw new DaoException();
 		} finally {
@@ -64,7 +64,7 @@ public enum CompanyDao implements ICompanyDao {
 			prepare = conn.prepareStatement("select * from company");
 			rs = prepare.executeQuery();
 			while (!rs.isLast()) {
-				lcompany.add(Mapper.toCompany(rs));
+				lcompany.add(CompanyMapper.toCompany(rs));
 			}
 		} catch (SQLException e) {
 			throw new DaoException();
@@ -88,7 +88,7 @@ public enum CompanyDao implements ICompanyDao {
 			rs = prepare.executeQuery();
 			if (rs.first()) {
 				while (!rs.isLast()) {
-					lcompany.add(Mapper.toCompany(rs));
+					lcompany.add(CompanyMapper.toCompany(rs));
 				}
 			}
 		} catch (SQLException e) {

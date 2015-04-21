@@ -1,4 +1,4 @@
-package main.java.com.excilys.cdb.servlet;
+package com.excilys.cdb.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.com.excilys.cdb.mapper.Mapper;
-import main.java.com.excilys.cdb.model.Computer;
-import main.java.com.excilys.cdb.service.ServiceComputer;
-import main.java.com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.mapper.ComputerDTOMapper;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.tools.Tools;
 
 /**
  * Servlet implementation class DashboardServlet
  */
-@WebServlet("/DashboardServlet")
+@WebServlet(name = "DashboardServlet", urlPatterns = { "/DashboardServlet" })
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -69,7 +69,7 @@ public class DashboardServlet extends HttpServlet {
 		lcomp = new ArrayList<ComputerDto>();
 		for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(offset,
 				range)) {
-			lcomp.add(Mapper.toComputerDto(c));
+			lcomp.add(ComputerDTOMapper.toComputerDto(c));
 		}
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);

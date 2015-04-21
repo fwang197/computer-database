@@ -1,16 +1,17 @@
-package test.java.com.excilys.cdb.testUnit;
+package com.excilys.cdb.testUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import main.java.com.excilys.cdb.dao.CompanyDao;
-import main.java.com.excilys.cdb.dao.ICompanyDao;
-import main.java.com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Company;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.excilys.cdb.dao.CompanyDao;
+import com.excilys.cdb.dao.ICompanyDao;
 
 public class CompanyDaoTest {
 	private static ICompanyDao comp;

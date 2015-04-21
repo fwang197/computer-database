@@ -1,8 +1,8 @@
-package main.java.com.excilys.cdb.dao;
+package com.excilys.cdb.dao;
 
 import java.util.List;
 
-import main.java.com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Company;
 
 // TODO: Auto-generated Javadoc
 /**

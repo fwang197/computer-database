@@ -1,15 +1,15 @@
-package main.java.com.excilys.cdb.service;
+package com.excilys.cdb.service;
 
 import java.util.List;
 
-import main.java.com.excilys.cdb.dao.ComputerDao;
-import main.java.com.excilys.cdb.model.Computer;
+import com.excilys.cdb.dao.ComputerDao;
+import com.excilys.cdb.model.Computer;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Enum ServiceComputer.
  */
-public enum ServiceComputer {
+public enum ServiceComputer implements IServiceComputer {
 
 	/** The instance. */
 	INSTANCE;

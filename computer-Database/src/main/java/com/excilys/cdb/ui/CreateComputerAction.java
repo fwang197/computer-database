@@ -1,13 +1,13 @@
-package main.java.com.excilys.cdb.ui;
+package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import main.java.com.excilys.cdb.mapper.Mapper;
-import main.java.com.excilys.cdb.model.Company;
-import main.java.com.excilys.cdb.model.Computer;
-import main.java.com.excilys.cdb.service.ServiceCompany;
-import main.java.com.excilys.cdb.service.ServiceComputer;
-import main.java.com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.dao.DateMapper;
+import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -45,13 +45,13 @@ public class CreateComputerAction extends Action {
 			System.out.println("Introduced ? : ");
 			System.out.print("> ");
 			String tmp = sc.nextLine();
-			c.setIntroduced(tmp.equals("null") ? null : Mapper
+			c.setIntroduced(tmp.equals("null") ? null : DateMapper
 					.toLocalDateTime(java.sql.Timestamp.valueOf(tmp)));
 
 			System.out.println("Discontinued ? : ");
 			System.out.print("> ");
 			tmp = sc.nextLine();
-			c.setIntroduced(tmp.equals("null") ? null : Mapper
+			c.setIntroduced(tmp.equals("null") ? null : DateMapper
 					.toLocalDateTime(java.sql.Timestamp.valueOf(tmp)));
 
 			System.out.println("Company id ? : ");

@@ -1,4 +1,4 @@
-package main.java.com.excilys.cdb.servlet;
+package com.excilys.cdb.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.com.excilys.cdb.model.Company;
-import main.java.com.excilys.cdb.model.Computer;
-import main.java.com.excilys.cdb.service.ServiceCompany;
-import main.java.com.excilys.cdb.service.ServiceComputer;
-import main.java.com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.dao.DateMapper;
+import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.tools.Tools;
 
 /**
  * Servlet implementation class AddComputerServlet
@@ -63,7 +64,8 @@ public class AddComputerServlet extends HttpServlet {
 				comp = ServiceCompany.INSTANCE.findCompany(Long.parseLong(id));
 			}
 			ServiceComputer.INSTANCE.createComputer(new Computer(0, name,
-					ldtIntro, ldtDiscon, comp));
+					DateMapper.toDateFormat(intro), DateMapper
+							.toDateFormat(discon), comp));
 			System.out.println("OK");
 
 			response.sendRedirect("DashboardServlet?reload=yes");

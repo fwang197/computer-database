@@ -1,13 +1,13 @@
-package main.java.com.excilys.cdb.ui;
+package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import main.java.com.excilys.cdb.mapper.Mapper;
-import main.java.com.excilys.cdb.model.Company;
-import main.java.com.excilys.cdb.model.Computer;
-import main.java.com.excilys.cdb.service.ServiceCompany;
-import main.java.com.excilys.cdb.service.ServiceComputer;
-import main.java.com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.dao.DateMapper;
+import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceCompany;
+import com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -55,7 +55,7 @@ public class UpdateComputerAction extends Action {
 					System.out.print("> ");
 					res = sc.nextLine();
 					if (!res.equals(""))
-						c.setIntroduced(res.equals("null") ? null : Mapper
+						c.setIntroduced(res.equals("null") ? null : DateMapper
 								.toLocalDateTime(java.sql.Timestamp
 										.valueOf(res)));
 
@@ -63,7 +63,7 @@ public class UpdateComputerAction extends Action {
 					System.out.print("> ");
 					res = sc.nextLine();
 					if (!res.equals(""))
-						c.setIntroduced(res.equals("null") ? null : Mapper
+						c.setIntroduced(res.equals("null") ? null : DateMapper
 								.toLocalDateTime(java.sql.Timestamp
 										.valueOf(res)));
 

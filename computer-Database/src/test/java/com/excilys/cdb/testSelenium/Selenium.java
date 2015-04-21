@@ -1,17 +1,10 @@
-package test.java.com.excilys.cdb.testSelenium;
+package com.excilys.cdb.testSelenium;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
-import main.java.com.excilys.cdb.dao.ComputerDao;
-import main.java.com.excilys.cdb.dao.IComputerDao;
-import main.java.com.excilys.cdb.mapper.Mapper;
-import main.java.com.excilys.cdb.model.Company;
-import main.java.com.excilys.cdb.model.Computer;
-import main.java.com.excilys.cdb.tools.Tools;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +13,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import com.excilys.cdb.dao.ComputerDao;
+import com.excilys.cdb.dao.DateMapper;
+import com.excilys.cdb.dao.IComputerDao;
+import com.excilys.cdb.model.Company;
+import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.tools.Tools;
 
 public class Selenium {
 	private static IComputerDao comp;
@@ -86,7 +86,7 @@ public class Selenium {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
 		Computer expected = new Computer(7, "test3",
-				Mapper.toDateFormat("2000-01-03"), null, new Company(1,
+				DateMapper.toDateFormat("2000-01-03"), null, new Company(1,
 						"Apple Inc."));
 		comp.create(expected);
 		Computer actual = comp.find(7);
@@ -109,8 +109,9 @@ public class Selenium {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
 		Computer expected = new Computer(7, "test4",
-				Mapper.toDateFormat("2000-01-03"),
-				Mapper.toDateFormat("2001-01-03"), new Company(1, "Apple Inc."));
+				DateMapper.toDateFormat("2000-01-03"),
+				DateMapper.toDateFormat("2001-01-03"), new Company(1,
+						"Apple Inc."));
 		comp.create(expected);
 		Computer actual = comp.find(7);
 		assertEquals(expected, actual);

@@ -1,6 +1,6 @@
-package main.java.com.excilys.cdb.main;
+package com.excilys.cdb.main;
 
-import main.java.com.excilys.cdb.ui.Menu;
+import com.excilys.cdb.ui.Menu;
 
 // TODO: Auto-generated Javadoc
 /**

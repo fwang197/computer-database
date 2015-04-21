@@ -1,15 +1,15 @@
-package main.java.com.excilys.cdb.service;
+package com.excilys.cdb.service;
 
 import java.util.List;
 
-import main.java.com.excilys.cdb.dao.CompanyDao;
-import main.java.com.excilys.cdb.model.Company;
+import com.excilys.cdb.dao.CompanyDao;
+import com.excilys.cdb.model.Company;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Enum ServiceCompany.
  */
-public enum ServiceCompany {
+public enum ServiceCompany implements IServiceCompany {
 
 	/** The instance. */
 	INSTANCE;

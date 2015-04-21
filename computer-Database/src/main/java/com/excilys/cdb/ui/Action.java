@@ -1,4 +1,4 @@
-package main.java.com.excilys.cdb.ui;
+package com.excilys.cdb.ui;
 
 // TODO: Auto-generated Javadoc
 /**

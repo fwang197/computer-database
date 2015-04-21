@@ -43,9 +43,9 @@ public class ComputerDaoTest {
 	public void testCreate() {
 		Tools.process();
 		Computer expected = new Computer(7, "test", null,
-				DateMapper.toDateFormat("2000-01-02 00:00:00"), null);
-		comp.create(expected);
-		Computer actual = comp.find(7);
+				DateMapper.toDateFormat("2000-01-02"), null);
+		int id = comp.create(expected);
+		Computer actual = comp.find(id);
 		assertEquals(expected, actual);
 	}
 
@@ -74,19 +74,19 @@ public class ComputerDaoTest {
 		ArrayList<Computer> lexpected = new ArrayList<Computer>();
 		lexpected.add(new Computer(1, "MacBook Pro 15.4 inch", null, null,
 				new Company(1, "Apple Inc.")));
-		lexpected.add(new Computer(2, "MacBook Pro", DateMapper
-				.toDateFormat("2006-01-10 00:00:00"), null, new Company(1,
-				"Apple Inc.")));
+		lexpected
+				.add(new Computer(2, "MacBook Pro", DateMapper
+						.toDateFormat("2006-01-10"), null, new Company(1,
+						"Apple Inc.")));
 		lexpected.add(new Computer(3, "Apple III", DateMapper
-				.toDateFormat("1980-05-01 00:00:00"), DateMapper
-				.toDateFormat("1984-04-01 00:00:00"), new Company(1,
-				"Apple Inc.")));
+				.toDateFormat("1980-05-01"), DateMapper
+				.toDateFormat("1984-04-01"), new Company(1, "Apple Inc.")));
 		lexpected.add(new Computer(4, "Powerbook 100", null, null, null));
 		lexpected.add(new Computer(5, "Manchester Mark I", DateMapper
-				.toDateFormat("1989-01-01 00:00:00"), null, null));
+				.toDateFormat("1989-01-01"), null, null));
 		lexpected.add(new Computer(6, "Xerox Daybreak", DateMapper
-				.toDateFormat("1985-01-01 00:00:00"), DateMapper
-				.toDateFormat("1989-01-01 00:00:00"), null));
+				.toDateFormat("1985-01-01"), DateMapper
+				.toDateFormat("1989-01-01"), null));
 		ArrayList<Computer> lactual = new ArrayList<Computer>(comp.findAll());
 		assertTrue(lexpected.equals(lactual));
 	}

@@ -12,6 +12,7 @@ import com.excilys.cdb.exception.DaoException;
 import com.excilys.cdb.jdbc.ConnectionFactory;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
+import com.mysql.jdbc.Statement;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -28,13 +29,15 @@ public enum ComputerDao implements IComputerDao {
 	 * @see
 	 * com.excilys.cdb.dao.ComputerDao#create(com.excilys.cdb.model.Computer)
 	 */
-	public void create(Computer comp) {
+	public int create(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
 		try {
 			conn = ConnectionFactory.INSTANCE.getConnection();
 			prepare = conn
-					.prepareStatement("insert into computer(name,introduced,discontinued,company_id) values (?,?,?,?)");
+					.prepareStatement(
+							"insert into computer(name,introduced,discontinued,company_id) values (?,?,?,?)",
+							Statement.RETURN_GENERATED_KEYS);
 			prepare.setString(1, comp.getName());
 			prepare.setTimestamp(2,
 					DateMapper.toTimeStamp(comp.getIntroduced()));
@@ -46,6 +49,11 @@ public enum ComputerDao implements IComputerDao {
 				prepare.setLong(4, comp.getCompany().getId());
 			}
 			prepare.executeUpdate();
+			ResultSet rs = prepare.getGeneratedKeys();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			return -1;
 		} catch (SQLException e) {
 			throw new DaoException();
 		} finally {

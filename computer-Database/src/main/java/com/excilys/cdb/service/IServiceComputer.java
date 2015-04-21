@@ -5,7 +5,7 @@ import java.util.List;
 import com.excilys.cdb.model.Computer;
 
 public interface IServiceComputer {
-	public void createComputer(Computer c);
+	public int createComputer(Computer c);
 
 	public Computer findComputer(long id);
 

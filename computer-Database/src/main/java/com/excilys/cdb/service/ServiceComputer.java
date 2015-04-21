@@ -20,8 +20,8 @@ public enum ServiceComputer implements IServiceComputer {
 	 * @param c
 	 *            the c
 	 */
-	public void createComputer(Computer c) {
-		ComputerDao.INSTANCE.create(c);
+	public int createComputer(Computer c) {
+		return ComputerDao.INSTANCE.create(c);
 	}
 
 	/**

@@ -16,7 +16,7 @@ public interface IComputerDao {
 	 * @param obj
 	 *            the obj
 	 */
-	public void create(Computer obj);
+	public int create(Computer obj);
 
 	/**
 	 * Find.

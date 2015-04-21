@@ -50,7 +50,7 @@
         </ul>
 
         <div class="btn-group btn-group-sm pull-right" role="group" >
-         <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >10</button>" range="10"/>
-         <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >50</button>" range="50"/>
-         <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >100</button>" range="100"/>
+         <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >10</button>" range="10" pageNum="0"/>
+         <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >50</button>" range="50" pageNum="0"/>
+         <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >100</button>" range="100" pageNum="0"/>
         </div>

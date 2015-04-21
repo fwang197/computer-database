@@ -21,21 +21,11 @@ import com.excilys.cdb.tools.Tools;
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<ComputerDto> lcomp;
-	private int nb;
-	private int offset;
-	private int range;
-	private int pageNum;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public DashboardServlet() {
 		super();
-		nb = ServiceComputer.INSTANCE.getCountComputer();
-		offset = 0;
-		range = 50;
-		pageNum = 0;
 	}
 
 	/**
@@ -44,20 +34,17 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// On recupère la page de l'utilisateur
+		int nb = ServiceComputer.INSTANCE.getCountComputer();
+		int offset = 0;
+		int pageNum = 0;
+		int range = 50;
+
 		String p = request.getParameter("pageNum");
 		String srange = request.getParameter("range");
-		String reload = request.getParameter("reload");
-		if (!Tools.isNull(reload)) {
-			nb = ServiceComputer.INSTANCE.getCountComputer();
-		}
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
 		}
 		if (Tools.isNumber(srange)) {
-			if (range != Integer.parseInt(srange)) {
-				pageNum = 0;
-			}
 			range = Integer.parseInt(srange);
 		}
 
@@ -65,8 +52,11 @@ public class DashboardServlet extends HttpServlet {
 		if (offset < 0) {
 			offset = 0;
 		}
-
-		lcomp = new ArrayList<ComputerDto>();
+		System.out.println("offset " + offset);
+		System.out.println("pageNum " + pageNum);
+		System.out.println("range " + range);
+		System.out.println("nb " + nb);
+		ArrayList<ComputerDto> lcomp = new ArrayList<ComputerDto>();
 		for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(offset,
 				range)) {
 			lcomp.add(ComputerDTOMapper.toComputerDto(c));

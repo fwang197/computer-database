@@ -68,7 +68,7 @@ public class AddComputerServlet extends HttpServlet {
 							.toDateFormat(discon), comp));
 			System.out.println("OK");
 
-			response.sendRedirect("DashboardServlet?reload=yes");
+			response.sendRedirect("DashboardServlet");
 		} else {
 			request.setAttribute("list", lcomp);
 			this.getServletContext()

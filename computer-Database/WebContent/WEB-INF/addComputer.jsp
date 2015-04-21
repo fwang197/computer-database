@@ -29,11 +29,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" placeholder="Introduced date" name="introduced">
+                                <input type="date" class="form-control" id="introduced" placeholder="Introduced date (YYYY-MM-DD)" name="introduced">
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" placeholder="Discontinued date" name="discontinued">
+                                <input type="date" class="form-control" id="discontinued" placeholder="Discontinued date (YYYY-MM-DD)" name="discontinued">
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>

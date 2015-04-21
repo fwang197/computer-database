@@ -105,9 +105,10 @@ public class Mapper {
 		Pattern p = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
 		Matcher m = p.matcher(date);
 		if (m.matches()) {
-			System.out.println(date);
-			ldt = Mapper.toLocalDateTime(java.sql.Timestamp.valueOf(date
-					+ " 00:00:00"));
+			if (Tools.checkGoodDate(date)) {
+				ldt = Mapper.toLocalDateTime(java.sql.Timestamp.valueOf(date
+						+ " 00:00:00"));
+			}
 		}
 		return ldt;
 	}

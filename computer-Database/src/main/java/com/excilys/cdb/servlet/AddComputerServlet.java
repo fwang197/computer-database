@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.com.excilys.cdb.mapper.Mapper;
 import main.java.com.excilys.cdb.model.Company;
 import main.java.com.excilys.cdb.model.Computer;
 import main.java.com.excilys.cdb.service.ServiceCompany;
@@ -59,12 +58,12 @@ public class AddComputerServlet extends HttpServlet {
 		System.out.println(name + " " + intro + " " + discon + " " + id);
 		if (!name.equals("")) {
 			Company comp = null;
+
 			if (Tools.isNumber(id)) {
 				comp = ServiceCompany.INSTANCE.findCompany(Long.parseLong(id));
 			}
 			ServiceComputer.INSTANCE.createComputer(new Computer(0, name,
-					Mapper.toDateFormat(intro), Mapper.toDateFormat(discon),
-					comp));
+					ldtIntro, ldtDiscon, comp));
 			System.out.println("OK");
 
 			response.sendRedirect("DashboardServlet?reload=yes");

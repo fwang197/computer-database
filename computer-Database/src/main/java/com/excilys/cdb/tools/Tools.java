@@ -78,4 +78,32 @@ public class Tools {
 		}
 	}
 
+	/**
+	 * La date est de format YYYY-MM-DD. La fonction verifie sa validité.
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static boolean checkGoodDate(String date) {
+		String[] res = date.split("-");
+		int year = Integer.parseInt(res[0]);
+		int month = Integer.parseInt(res[1]);
+		int day = Integer.parseInt(res[2]);
+
+		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8
+				|| month == 10 || month == 12) { // 31 jours
+			if (day > 0 && day <= 31)
+				return true;
+		} else if (month == 4 || month == 6 || month == 9 || month == 1) { // 30
+																			// jours
+			if (day > 0 && day <= 30)
+				return true;
+		} else if (month == 2) {
+			if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+				return true;
+			else
+				return false;
+		}
+		return false;
+	}
 }

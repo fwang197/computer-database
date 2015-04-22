@@ -60,18 +60,30 @@
                             </span>
                         </th>
                         <th>
-                            <a href="OrderByServlet">Computer name</a>
+                            Computer name
+                         
+                          <mylib:link target="DashboardServlet" order="desc" field="computer.name" body="&uarr;"/>
+                          <mylib:link target="DashboardServlet" order="asc" field="computer.name" body="&darr;"/>
                         </th>
                         <th>
                             Introduced date
+                            
+                          <mylib:link target="DashboardServlet" order="desc" field="introduced" body="&uarr;"/>
+                          <mylib:link target="DashboardServlet" order="asc" field="introduced" body="&darr;"/>
                         </th>
                         <!-- Table header for Discontinued Date -->
                         <th>
                             Discontinued date
+                            
+                          <mylib:link target="DashboardServlet" order="desc" field="discontinued" body="&uarr;"/>
+                          <mylib:link target="DashboardServlet" order="asc" field="discontinued" body="&darr;"/>
                         </th>
                         <!-- Table header for Company -->
                         <th>
                             Company
+                            
+                          <mylib:link target="DashboardServlet" order="desc" field="company.name" body="&uarr;"/>
+                          <mylib:link target="DashboardServlet" order="asc" field="company.name" body="&darr;"/>
                         </th>
 
                     </tr>

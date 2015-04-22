@@ -64,22 +64,25 @@ public enum ServiceComputer implements IServiceComputer {
 		return ComputerDao.INSTANCE.findAll();
 	}
 
-	public List<Computer> findAllRangeComputer(int offset, int range) {
-		return ComputerDao.INSTANCE.findAllRange(offset, range);
-	}
-
 	public int getCountComputer() {
 		return ComputerDao.INSTANCE.getCount();
 	}
 
 	@Override
-	public List<Computer> findAllRangePatternComputer(int offset, int range,
-			String pattern) {
-		return ComputerDao.INSTANCE.findAllRangePattern(offset, range, pattern);
+	public int getCountPatternComputer(String pattern) {
+		return ComputerDao.INSTANCE.getCountPattern(pattern);
 	}
 
 	@Override
-	public int getCountPatternComputer(String pattern) {
-		return ComputerDao.INSTANCE.getCountPattern(pattern);
+	public List<Computer> findAllRangeOrderComputer(int offset, int range,
+			String by, String order) {
+		return ComputerDao.INSTANCE.findAllRangeOrder(offset, range, by, order);
+	}
+
+	@Override
+	public List<Computer> findAllRangePatternOrderComputer(int offset,
+			int range, String pattern, String by, String order) {
+		return ComputerDao.INSTANCE.findAllRangePatternOrder(offset, range,
+				pattern, by, order);
 	}
 }

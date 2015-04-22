@@ -8,8 +8,8 @@ import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.excilys.cdb.dao.jdbc.ConnectionFactory;
 import com.excilys.cdb.exception.DaoException;
-import com.excilys.cdb.jdbc.ConnectionFactory;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 import com.mysql.jdbc.Statement;
@@ -180,36 +180,6 @@ public enum ComputerDao implements IComputerDao {
 	}
 
 	@Override
-	public List<Computer> findAllRange(int offset, int range) {
-		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
-
-		PreparedStatement prepare = null;
-		ResultSet rs = null;
-		Connection conn = null;
-		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
-			prepare = conn
-					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "limit "
-							+ range + " offset " + offset);
-			rs = prepare.executeQuery();
-			if (rs.isBeforeFirst()) {
-				while (!rs.isLast()) {
-					lcomputer.add(ComputerMapper.toComputer(rs));
-				}
-			}
-		} catch (SQLException e) {
-			throw new DaoException();
-		} finally {
-			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
-		}
-		return lcomputer;
-	}
-
-	@Override
 	public int getCount() {
 		int res = 0;
 		PreparedStatement prepare = null;
@@ -232,8 +202,36 @@ public enum ComputerDao implements IComputerDao {
 	}
 
 	@Override
-	public List<Computer> findAllRangePattern(int offset, int range,
-			String pattern) {
+	public int getCountPattern(String pattern) {
+		int res = 0;
+		PreparedStatement prepare = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn
+					.prepareStatement("select count(*) as nb "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "where computer.name like ? "
+							+ "or company.name like ? ");
+			prepare.setString(1, "%" + pattern + "%");
+			prepare.setString(2, "%" + pattern + "%");
+			rs = prepare.executeQuery();
+			rs.next();
+			res = rs.getInt("nb");
+		} catch (SQLException e) {
+			throw new DaoException();
+		} finally {
+			Tools.closeProperly(rs, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+		return res;
+	}
+
+	@Override
+	public List<Computer> findAllRangeOrder(int offset, int range, String by,
+			String order) {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
 
 		PreparedStatement prepare = null;
@@ -245,13 +243,14 @@ public enum ComputerDao implements IComputerDao {
 					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
 							+ "from computer left outer join company "
 							+ "on computer.company_id = company.id "
-							+ "where computer.name regexp '"
-							+ pattern
-							+ "' "
-							+ "or company.name regexp '"
-							+ pattern
-							+ "' "
-							+ "limit " + range + " offset " + offset);
+							+ "order by "
+							+ by
+							+ " "
+							+ order
+							+ " "
+							+ "limit ? offset ?");
+			prepare.setInt(1, range);
+			prepare.setInt(2, offset);
 			rs = prepare.executeQuery();
 			if (rs.isBeforeFirst()) {
 				while (!rs.isLast()) {
@@ -268,27 +267,42 @@ public enum ComputerDao implements IComputerDao {
 	}
 
 	@Override
-	public int getCountPattern(String pattern) {
-		int res = 0;
+	public List<Computer> findAllRangePatternOrder(int offset, int range,
+			String pattern, String by, String order) {
+		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
+
 		PreparedStatement prepare = null;
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
 			conn = ConnectionFactory.INSTANCE.getConnection();
-			prepare = conn.prepareStatement("select count(*) as nb "
-					+ "from computer left outer join company "
-					+ "on computer.company_id = company.id "
-					+ "where computer.name regexp '" + pattern + "' "
-					+ "or company.name regexp '" + pattern + "' ");
+			prepare = conn
+					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "where computer.name like ? or company.name like ? "
+							+ "order by "
+							+ by
+							+ " "
+							+ order
+							+ " "
+							+ "limit ? offset ?");
+			prepare.setString(1, "%" + pattern + "%");
+			prepare.setString(2, "%" + pattern + "%");
+			prepare.setInt(3, range);
+			prepare.setInt(4, offset);
 			rs = prepare.executeQuery();
-			rs.next();
-			res = rs.getInt("nb");
+			if (rs.isBeforeFirst()) {
+				while (!rs.isLast()) {
+					lcomputer.add(ComputerMapper.toComputer(rs));
+				}
+			}
 		} catch (SQLException e) {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
 			ConnectionFactory.INSTANCE.closeConnection(conn);
 		}
-		return res;
+		return lcomputer;
 	}
 }

@@ -7,6 +7,8 @@
 <%@ attribute name="ariaLabel" required="false" type="java.lang.String"%>
 <%@ attribute name="search" required="false" type="java.lang.String" %>
 <%@ attribute name="compId" required="false" type="java.lang.Long" %>
+<%@ attribute name="order" required="false" type="java.lang.String" %>
+<%@ attribute name="field" required="false" type="java.lang.String" %>
 
-<a href="${target}?range=${range}&pageNum=${pageNum}&search=${search}&compId=${compId}" aria-label="${ariaLabel}">${body}</a>
+<a href="${target}?range=${range}&pageNum=${pageNum}&search=${search}&compId=${compId}&order=${order}&field=${field}" aria-label="${ariaLabel}">${body}</a>
 	

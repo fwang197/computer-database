@@ -39,8 +39,8 @@ public class PageComputer {
 	 */
 	private void forward() {
 		ArrayList<Computer> l = new ArrayList<Computer>(
-				ServiceComputer.INSTANCE.findAllRangeComputer(offset + range,
-						range));
+				ServiceComputer.INSTANCE.findAllRangeOrderComputer(offset
+						+ range, range, "computer.id", ""));
 		for (Computer c : l)
 			System.out.println(c);
 		if (l.size() != range) {
@@ -59,7 +59,8 @@ public class PageComputer {
 			tmp = 0;
 		}
 		ArrayList<Computer> l = new ArrayList<Computer>(
-				ServiceComputer.INSTANCE.findAllRangeComputer(tmp, range));
+				ServiceComputer.INSTANCE.findAllRangeOrderComputer(tmp, range,
+						"computer.id", ""));
 		for (Computer c : l)
 			System.out.println(c);
 		offset = tmp;

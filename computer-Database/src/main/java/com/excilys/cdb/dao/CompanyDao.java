@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.excilys.cdb.dao.jdbc.ConnectionFactory;
 import com.excilys.cdb.exception.DaoException;
-import com.excilys.cdb.jdbc.ConnectionFactory;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.tools.Tools;
 

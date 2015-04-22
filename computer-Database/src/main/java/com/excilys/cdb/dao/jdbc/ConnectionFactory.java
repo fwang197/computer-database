@@ -1,4 +1,4 @@
-package com.excilys.cdb.jdbc;
+package com.excilys.cdb.dao.jdbc;
 
 import java.io.IOException;
 import java.io.InputStream;

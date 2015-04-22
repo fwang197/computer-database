@@ -41,8 +41,12 @@ public class DashboardServlet extends HttpServlet {
 		String search = request.getParameter("search");
 		String p = request.getParameter("pageNum");
 		String srange = request.getParameter("range");
-
+		String order = request.getParameter("order");
+		String field = request.getParameter("field");
 		ArrayList<ComputerDto> lcomp = new ArrayList<ComputerDto>();
+
+		System.out.println(order);
+		System.out.println(field);
 
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
@@ -56,18 +60,38 @@ public class DashboardServlet extends HttpServlet {
 			offset = 0;
 		}
 
-		if (search == null || search.equals("")) {
-			for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(
-					offset, range)) {
-				lcomp.add(ComputerDTOMapper.toComputerDto(c));
+		if (search == null || search.isEmpty()) {
+
+			if (order == null || order.isEmpty()) {
+				for (Computer c : ServiceComputer.INSTANCE
+						.findAllRangeOrderComputer(offset, range,
+								"computer.id", "")) {
+					lcomp.add(ComputerDTOMapper.toComputerDto(c));
+				}
+			} else {
+				for (Computer c : ServiceComputer.INSTANCE
+						.findAllRangeOrderComputer(offset, range, field, order)) {
+					lcomp.add(ComputerDTOMapper.toComputerDto(c));
+				}
 			}
 			nb = ServiceComputer.INSTANCE.getCountComputer();
 		} else {
-			for (Computer c : ServiceComputer.INSTANCE
-					.findAllRangePatternComputer(offset, range, search)) {
-				lcomp.add(ComputerDTOMapper.toComputerDto(c));
+
+			if (order == null || order.isEmpty()) {
+				for (Computer c : ServiceComputer.INSTANCE
+						.findAllRangePatternOrderComputer(offset, range,
+								search, "computer.id", "")) {
+					lcomp.add(ComputerDTOMapper.toComputerDto(c));
+				}
+			} else {
+				for (Computer c : ServiceComputer.INSTANCE
+						.findAllRangePatternOrderComputer(offset, range,
+								search, field, order)) {
+					lcomp.add(ComputerDTOMapper.toComputerDto(c));
+				}
 			}
 			nb = ServiceComputer.INSTANCE.getCountPatternComputer(search);
+
 		}
 
 		System.out.println("offset " + offset);
@@ -80,6 +104,8 @@ public class DashboardServlet extends HttpServlet {
 		request.setAttribute("range", range);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("search", search);
+		request.setAttribute("order", order);
+		request.setAttribute("field", field);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp")
 				.forward(request, response);
 	}

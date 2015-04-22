@@ -15,12 +15,14 @@ public interface IServiceComputer {
 
 	public List<Computer> findAllComputer();
 
-	public List<Computer> findAllRangeComputer(int offset, int range);
-
 	public int getCountComputer();
 
-	public List<Computer> findAllRangePatternComputer(int offset, int range,
-			String pattern);
-
 	public int getCountPatternComputer(String pattern);
+
+	public List<Computer> findAllRangeOrderComputer(int offset, int range,
+			String by, String order);
+
+	public List<Computer> findAllRangePatternOrderComputer(int offset,
+			int range, String pattern, String by, String order);
+
 }

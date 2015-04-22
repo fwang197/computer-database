@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <form id="deleteForm" action="#" method="POST">
+        <form id="deleteForm" action="DeleteComputerServlet" method="POST">
             <input type="hidden" name="selection" value="">
         </form>
 
@@ -54,13 +54,13 @@
                         <th class="editMode" style="width: 60px; height: 22px;">
                             <input type="checkbox" id="selectall" /> 
                             <span style="vertical-align: top;">
-                                 -  <a href="" id="deleteSelected" onclick="$.fn.deleteSelected();">
+                                 -  <a href="#" id="deleteSelected" onclick="$.fn.deleteSelected();">
                                         <i class="fa fa-trash-o fa-lg"></i>
                                     </a>
                             </span>
                         </th>
                         <th>
-                            Computer name
+                            <a href="OrderByServlet">Computer name</a>
                         </th>
                         <th>
                             Introduced date
@@ -81,7 +81,7 @@
                     
                    	<c:forEach var="i" items="${list}">	
 							<tr>
-								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="0"></td>
+								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="${i.id}"></td>
 								<td><mylib:link target="EditComputerServlet" body="${i.name}" compId="${i.id}"/></td>
 								<td>${i.introduced}</td>
 								<td>${i.discontinued}</td>

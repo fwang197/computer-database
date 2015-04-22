@@ -51,10 +51,9 @@
                             <a href="DashboardServlet" class="btn btn-default">Cancel</a>
                         </div>
                     </form>
-                
-<!-- 					<script type="text/javascript" src="js/jquery.min.js"></script> -->
-<!-- 					<script type="text/javascript" src="js/jquery.validate.min.js"></script> -->
-<!--                     <script src="js/script.js"></script> -->
+                	<script type="text/javascript" src="js/jquery.min.js"></script>
+					<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+                    <script src="js/script.js"></script>
                 </div>
             </div>
         </div>

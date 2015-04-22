@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.dao.DateMapper;
+import com.excilys.cdb.mapper.ComputerDTOMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ServiceCompany;
@@ -17,17 +18,18 @@ import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 /**
- * Servlet implementation class AddComputerServlet
+ * Servlet implementation class EditComputerServlet
  */
-@WebServlet("/AddComputerServlet")
-public class AddComputerServlet extends HttpServlet {
+@WebServlet("/EditComputerServlet")
+public class EditComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddComputerServlet() {
+	public EditComputerServlet() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,12 +38,28 @@ public class AddComputerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("GET");
+		String sid = request.getParameter("compId");
+		long id = 0;
+		if (Tools.isNumber(sid)) {
+			id = Long.parseLong(sid);
+		}
 
 		ArrayList<Company> lcomp = new ArrayList<Company>(
 				ServiceCompany.INSTANCE.findAllCompany());
 		request.setAttribute("list", lcomp);
+
+		ComputerDto comp = ComputerDTOMapper
+				.toComputerDto(ServiceComputer.INSTANCE.findComputer(id));
+		request.setAttribute("compId", comp.getId());
+		request.setAttribute("name", comp.getName());
+		request.setAttribute("intro", comp.getIntroduced());
+		request.setAttribute("discon", comp.getDiscontinued());
+		request.setAttribute("compName", comp.getCompany_name());
+		request.setAttribute("companyId", comp.getCompany_id());
+		request.setAttribute("list", lcomp);
 		this.getServletContext()
-				.getRequestDispatcher("/WEB-INF/addComputer.jsp")
+				.getRequestDispatcher("/WEB-INF/editComputer.jsp")
 				.forward(request, response);
 	}
 
@@ -54,8 +72,11 @@ public class AddComputerServlet extends HttpServlet {
 		String name = request.getParameter("computerName");
 		String intro = request.getParameter("introduced");
 		String discon = request.getParameter("discontinued");
-		String id = request.getParameter("companyId");
-		System.out.println(name + " " + intro + " " + discon + " " + id);
+		String compid = request.getParameter("companyId");
+		String id = request.getParameter("compId");
+
+		System.out.println(id + " " + name + " " + intro + " " + discon + " "
+				+ compid);
 
 		ArrayList<Company> lcomp = new ArrayList<Company>(
 				ServiceCompany.INSTANCE.findAllCompany());
@@ -64,19 +85,21 @@ public class AddComputerServlet extends HttpServlet {
 		if (!name.equals("")) {
 			Company comp = null;
 
-			if (Tools.isNumber(id)) {
-				comp = ServiceCompany.INSTANCE.findCompany(Long.parseLong(id));
+			if (Tools.isNumber(compid)) {
+				comp = ServiceCompany.INSTANCE.findCompany(Long
+						.parseLong(compid));
 			}
-			ServiceComputer.INSTANCE.createComputer(new Computer(0, name,
-					DateMapper.toDateFormat(intro), DateMapper
-							.toDateFormat(discon), comp));
-			System.out.println("OK");
-
-			response.sendRedirect("DashboardServlet");
+			if (Tools.isNumber(id)) {
+				ServiceComputer.INSTANCE.updateComputer(new Computer(Long
+						.parseLong(id), name, DateMapper.toDateFormat(intro),
+						DateMapper.toDateFormat(discon), comp));
+				System.out.println("OK");
+				response.sendRedirect("DashboardServlet");
+			}
 		} else {
-			request.setAttribute("list", lcomp);
+			request.setAttribute("compId", Long.parseLong(id));
 			this.getServletContext()
-					.getRequestDispatcher("/WEB-INF/addComputer.jsp")
+					.getRequestDispatcher("/WEB-INF/editComputer.jsp")
 					.forward(request, response);
 		}
 	}

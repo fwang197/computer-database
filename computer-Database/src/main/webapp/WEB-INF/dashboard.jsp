@@ -82,7 +82,7 @@
                    	<c:forEach var="i" items="${list}">	
 							<tr>
 								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="0"></td>
-								<td><a href="editComputer.html" onclick="">${i.name}</a></td>
+								<td><mylib:link target="EditComputerServlet" body="${i.name}" compId="${i.id}"/></td>
 								<td>${i.introduced}</td>
 								<td>${i.discontinued}</td>
 								<td>${i.company_name}</td>

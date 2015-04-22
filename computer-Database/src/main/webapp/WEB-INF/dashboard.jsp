@@ -26,7 +26,8 @@
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
                     <form id="searchForm" action="DashboardServlet" method="GET" class="form-inline">
-
+						
+      				    <input type="hidden" value="${range}" name="range">
                         <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" />
                         <input type="submit" id="searchsubmit" value="Filter by name"
                         class="btn btn-primary" />
@@ -53,7 +54,7 @@
                         <th class="editMode" style="width: 60px; height: 22px;">
                             <input type="checkbox" id="selectall" /> 
                             <span style="vertical-align: top;">
-                                 -  <a href="#" id="deleteSelected" onclick="$.fn.deleteSelected();">
+                                 -  <a href="" id="deleteSelected" onclick="$.fn.deleteSelected();">
                                         <i class="fa fa-trash-o fa-lg"></i>
                                     </a>
                             </span>

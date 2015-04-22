@@ -248,6 +248,9 @@ public enum ComputerDao implements IComputerDao {
 							+ "where computer.name regexp '"
 							+ pattern
 							+ "' "
+							+ "or company.name regexp '"
+							+ pattern
+							+ "' "
 							+ "limit " + range + " offset " + offset);
 			rs = prepare.executeQuery();
 			if (rs.isBeforeFirst()) {
@@ -272,9 +275,11 @@ public enum ComputerDao implements IComputerDao {
 		Connection conn = null;
 		try {
 			conn = ConnectionFactory.INSTANCE.getConnection();
-			prepare = conn
-					.prepareStatement("select count(*) as nb from computer where name regexp '"
-							+ pattern + "'");
+			prepare = conn.prepareStatement("select count(*) as nb "
+					+ "from computer left outer join company "
+					+ "on computer.company_id = company.id "
+					+ "where computer.name regexp '" + pattern + "' "
+					+ "or company.name regexp '" + pattern + "' ");
 			rs = prepare.executeQuery();
 			rs.next();
 			res = rs.getInt("nb");

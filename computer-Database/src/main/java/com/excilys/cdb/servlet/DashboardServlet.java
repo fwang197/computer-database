@@ -44,6 +44,18 @@ public class DashboardServlet extends HttpServlet {
 
 		ArrayList<ComputerDto> lcomp = new ArrayList<ComputerDto>();
 
+		if (Tools.isNumber(p)) {
+			pageNum = Integer.parseInt(p);
+		}
+		if (Tools.isNumber(srange)) {
+			range = Integer.parseInt(srange);
+		}
+
+		offset = pageNum * range;
+		if (offset < 0) {
+			offset = 0;
+		}
+
 		if (search == null || search.equals("")) {
 			for (Computer c : ServiceComputer.INSTANCE.findAllRangeComputer(
 					offset, range)) {
@@ -57,22 +69,17 @@ public class DashboardServlet extends HttpServlet {
 			}
 			nb = ServiceComputer.INSTANCE.getCountPatternComputer(search);
 		}
-		if (Tools.isNumber(p)) {
-			pageNum = Integer.parseInt(p);
-		}
-		if (Tools.isNumber(srange)) {
-			range = Integer.parseInt(srange);
-		}
 
-		offset = pageNum * range;
-		if (offset < 0) {
-			offset = 0;
-		}
+		System.out.println("offset " + offset);
+		System.out.println("range " + range);
+		System.out.println("pageNum " + pageNum);
+		System.out.println();
 
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);
 		request.setAttribute("range", range);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("search", search);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp")
 				.forward(request, response);
 	}

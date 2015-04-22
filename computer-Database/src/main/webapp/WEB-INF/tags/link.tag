@@ -5,6 +5,7 @@
 <%@ attribute name="body" required="false" type="java.lang.String"%>
 <%@ attribute name="pageNum" required="false" type="java.lang.Integer"%>
 <%@ attribute name="ariaLabel" required="false" type="java.lang.String"%>
+<%@ attribute name="search" required="false" type="java.lang.String" %>
 
-<a href="${target}?range=${range}&pageNum=${pageNum}" aria-label="${ariaLabel}">${body}</a>
+<a href="${target}?range=${range}&pageNum=${pageNum}&search=${search}" aria-label="${ariaLabel}">${body}</a>
 	

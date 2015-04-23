@@ -1,7 +1,10 @@
 package com.excilys.cdb.dao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
+import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
 // TODO: Auto-generated Javadoc
@@ -43,19 +46,19 @@ public interface IComputerDao {
 	 */
 	public void delete(Computer obj);
 
-	/**
-	 * Find all.
-	 *
-	 * @return the list
-	 */
-	public List<Computer> findAll();
+	public void delete(Computer obj, Connection conn) throws SQLException;
 
 	public int getCount();
 
 	public int getCount(String pattern);
 
+	public List<Computer> findAll();
+
 	public List<Computer> findAll(int offset, int range, String by, String order);
 
 	public List<Computer> findAll(int offset, int range, String pattern,
 			String by, String order);
+
+	public List<Computer> findAll(Company obj);
+
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.excilys.cdb.dao.jdbc.ConnectionFactory;
 import com.excilys.cdb.exception.DaoException;
+import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 import com.mysql.jdbc.Statement;
@@ -142,6 +143,22 @@ public enum ComputerDao implements IComputerDao {
 			prepare.executeUpdate();
 		} catch (SQLException e) {
 			throw new DaoException();
+		} finally {
+			Tools.closeProperly(null, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+	}
+
+	public void delete(Computer comp, Connection conn) throws SQLException {
+		PreparedStatement prepare = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn
+					.prepareStatement("delete from computer where id = ?");
+			prepare.setLong(1, comp.getId());
+			prepare.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLException();
 		} finally {
 			Tools.closeProperly(null, prepare);
 			ConnectionFactory.INSTANCE.closeConnection(conn);
@@ -295,6 +312,34 @@ public enum ComputerDao implements IComputerDao {
 				while (!rs.isLast()) {
 					lcomputer.add(ComputerMapper.toComputer(rs));
 				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException();
+		} finally {
+			Tools.closeProperly(rs, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+		return lcomputer;
+	}
+
+	@Override
+	public List<Computer> findAll(Company obj) {
+		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
+
+		PreparedStatement prepare = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn
+					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "where company.id = ?");
+			prepare.setLong(1, obj.getId());
+			rs = prepare.executeQuery();
+			while (!rs.isLast()) {
+				lcomputer.add(ComputerMapper.toComputer(rs));
 			}
 		} catch (SQLException e) {
 			throw new DaoException();

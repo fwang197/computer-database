@@ -39,7 +39,8 @@ public class Menu {
 		menu.put(4, new CreateComputerAction("Create a computer"));
 		menu.put(5, new UpdateComputerAction("Update a computer"));
 		menu.put(6, new DeleteComputerAction("Delete a computer"));
-		menu.put(7, new LeaveAppAction("Quit"));
+		menu.put(7, new DeleteCompanyAction("Delete a company"));
+		menu.put(8, new LeaveAppAction("Quit"));
 	}
 
 	/**

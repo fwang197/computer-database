@@ -47,6 +47,22 @@ public enum CompanyDao implements ICompanyDao {
 		return comp;
 	}
 
+	public void delete(Company comp, Connection conn) throws SQLException {
+		PreparedStatement prepare = null;
+		try {
+			conn = ConnectionFactory.INSTANCE.getConnection();
+			prepare = conn.prepareStatement("delete from company where id = ?");
+			prepare.setLong(1, comp.getId());
+
+			prepare.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLException();
+		} finally {
+			Tools.closeProperly(null, prepare);
+			ConnectionFactory.INSTANCE.closeConnection(conn);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

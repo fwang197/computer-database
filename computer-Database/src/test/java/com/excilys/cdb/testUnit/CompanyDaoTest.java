@@ -5,13 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import com.excilys.cdb.model.Company;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.ICompanyDao;
+import com.excilys.cdb.model.Company;
 
 public class CompanyDaoTest {
 	private static ICompanyDao comp;

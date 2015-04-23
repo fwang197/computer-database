@@ -12,13 +12,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.excilys.cdb.dao.ComputerDao;
-import com.excilys.cdb.dao.IComputerDao;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 public class EditComputerTest {
-	private static IComputerDao comp;
+	private static ServiceComputer comp;
 	private WebDriver driver;
 	private String baseUrl;
 
@@ -28,7 +27,7 @@ public class EditComputerTest {
 		driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8080/computer-Database/DashboardServlet";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		comp = ComputerDao.INSTANCE;
+		comp = ServiceComputer.INSTANCE;
 	}
 
 	@Test
@@ -44,7 +43,7 @@ public class EditComputerTest {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
 		Computer expected = new Computer(1, "test", null, null, null);
-		Computer actual = comp.find(1);
+		Computer actual = comp.findComputer(1);
 
 		assertEquals(expected, actual);
 	}

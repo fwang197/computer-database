@@ -13,15 +13,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.DateMapper;
-import com.excilys.cdb.dao.IComputerDao;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 public class AddComputerTest {
-	private static IComputerDao comp;
+	private static ServiceComputer comp;
 	private WebDriver driver;
 	private String baseUrl;
 
@@ -31,7 +30,7 @@ public class AddComputerTest {
 		driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8080/computer-Database/DashboardServlet";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		comp = ComputerDao.INSTANCE;
+		comp = ServiceComputer.INSTANCE;
 	}
 
 	@Test
@@ -45,7 +44,7 @@ public class AddComputerTest {
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
 		Computer expected = new Computer(7, "test1", null, null, null);
-		Computer actual = comp.find(7);
+		Computer actual = comp.findComputer(7);
 
 		assertEquals(expected, actual);
 	}
@@ -63,7 +62,7 @@ public class AddComputerTest {
 
 		Computer expected = new Computer(7, "test2", null, null, new Company(1,
 				"Apple Inc."));
-		Computer actual = comp.find(7);
+		Computer actual = comp.findComputer(7);
 		assertEquals(expected, actual);
 	}
 
@@ -83,7 +82,7 @@ public class AddComputerTest {
 		Computer expected = new Computer(7, "test3",
 				DateMapper.toDateFormat("2000-01-03"), null, new Company(1,
 						"Apple Inc."));
-		Computer actual = comp.find(7);
+		Computer actual = comp.findComputer(7);
 		assertEquals(expected, actual);
 	}
 
@@ -106,7 +105,7 @@ public class AddComputerTest {
 				DateMapper.toDateFormat("2000-01-03"),
 				DateMapper.toDateFormat("2001-01-03"), new Company(1,
 						"Apple Inc."));
-		Computer actual = comp.find(7);
+		Computer actual = comp.findComputer(7);
 		assertEquals(expected, actual);
 	}
 
@@ -120,7 +119,7 @@ public class AddComputerTest {
 		new Select(driver.findElement(By.id("companyId")))
 				.selectByVisibleText("Apple Inc.");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
-		ArrayList<Computer> l = new ArrayList<Computer>(comp.findAll());
+		ArrayList<Computer> l = new ArrayList<Computer>(comp.findAllComputer());
 		assertEquals(6, l.size());
 	}
 

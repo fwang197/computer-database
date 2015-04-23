@@ -13,14 +13,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import com.excilys.cdb.dao.ComputerDao;
-import com.excilys.cdb.dao.IComputerDao;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 public class DeleteComputerTest {
-	private static IComputerDao comp;
+	private static ServiceComputer comp;
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -31,7 +30,7 @@ public class DeleteComputerTest {
 		driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8080/computer-Database/DashboardServlet";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		comp = ComputerDao.INSTANCE;
+		comp = ServiceComputer.INSTANCE;
 	}
 
 	@Test
@@ -47,7 +46,7 @@ public class DeleteComputerTest {
 						"^Are you sure you want to delete the selected computers[\\s\\S]$"));
 
 		Computer expected = null;
-		Computer actual = comp.find(1);
+		Computer actual = comp.findComputer(1);
 		System.out.println(actual);
 		assertEquals(expected, actual);
 	}
@@ -66,7 +65,7 @@ public class DeleteComputerTest {
 
 		Computer expected = null;
 
-		assertEquals(expected, comp.find(1));
+		assertEquals(expected, comp.findComputer(1));
 	}
 
 	@Test
@@ -82,7 +81,7 @@ public class DeleteComputerTest {
 						"^Are you sure you want to delete the selected computers[\\s\\S]$"));
 		Computer expected = new Computer(1, "MacBook Pro 15.4 inch", null,
 				null, new Company(1, "Apple Inc."));
-		Computer actual = comp.find(1);
+		Computer actual = comp.findComputer(1);
 		assertEquals(expected, actual);
 	}
 

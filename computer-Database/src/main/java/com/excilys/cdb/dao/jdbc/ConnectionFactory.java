@@ -3,11 +3,13 @@ package com.excilys.cdb.dao.jdbc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.excilys.cdb.exception.BoneCPException;
 import com.excilys.cdb.exception.PropertiesNotFound;
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -25,6 +27,7 @@ public enum ConnectionFactory {
 	 */
 
 	private Properties prop;
+	private BoneCP pool;
 
 	private ConnectionFactory() {
 
@@ -34,21 +37,24 @@ public enum ConnectionFactory {
 		try {
 			input = getClass().getClassLoader().getResourceAsStream(
 					"config.properties");
-			if (input != null) {
-				prop.load(input);
-			}
-		} catch (IOException ex) {
-			throw new PropertiesNotFound();
-		} finally {
-			try {
-				input.close();
-			} catch (IOException e) {
-				throw new PropertiesNotFound();
-			}
-		}
+			prop.load(input);
 
-		try {
 			Class.forName(prop.getProperty("driver"));
+
+			BoneCPConfig conf = new BoneCPConfig();
+			conf.setJdbcUrl(prop.getProperty("url"));
+			conf.setUsername(prop.getProperty("user"));
+			conf.setPassword(prop.getProperty("password"));
+			conf.setMinConnectionsPerPartition(1);
+			conf.setMaxConnectionsPerPartition(5);
+			conf.setPartitionCount(2);
+			pool = new BoneCP(conf);
+		} catch (IOException ex) {
+			System.out.println(ex.getMessage());
+			throw new PropertiesNotFound();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new BoneCPException();
 		} catch (ClassNotFoundException e) {
 			System.err.println("Driver not found!");
 			throw new RuntimeException();
@@ -59,8 +65,7 @@ public enum ConnectionFactory {
 	public Connection getConnection() {
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection(prop.getProperty("url"),
-					prop.getProperty("user"), prop.getProperty("password"));
+			connection = pool.getConnection();
 
 		} catch (SQLException e) {
 			System.err.println("Error : Connection!");
@@ -79,6 +84,7 @@ public enum ConnectionFactory {
 		try {
 			conn.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.err.println("Error : Close Connection");
 			throw new RuntimeException();
 		}

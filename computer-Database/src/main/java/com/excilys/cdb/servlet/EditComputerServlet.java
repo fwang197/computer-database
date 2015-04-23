@@ -38,7 +38,6 @@ public class EditComputerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("GET");
 		String sid = request.getParameter("compId");
 		long id = 0;
 		if (Tools.isNumber(sid)) {

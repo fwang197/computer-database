@@ -45,9 +45,6 @@ public class DashboardServlet extends HttpServlet {
 		String field = request.getParameter("field");
 		ArrayList<ComputerDto> lcomp = new ArrayList<ComputerDto>();
 
-		System.out.println(order);
-		System.out.println(field);
-
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
 		}
@@ -91,13 +88,7 @@ public class DashboardServlet extends HttpServlet {
 				}
 			}
 			nb = ServiceComputer.INSTANCE.getCountPatternComputer(search);
-
 		}
-
-		System.out.println("offset " + offset);
-		System.out.println("range " + range);
-		System.out.println("pageNum " + pageNum);
-		System.out.println();
 
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);

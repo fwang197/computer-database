@@ -9,5 +9,5 @@ public interface IServiceCompany {
 
 	public List<Company> findAllCompany();
 
-	public List<Company> findAllRangeCompany(int offset, int range);
+	public List<Company> findAllCompany(int offset, int range);
 }

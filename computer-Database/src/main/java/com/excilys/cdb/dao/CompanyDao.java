@@ -76,7 +76,7 @@ public enum CompanyDao implements ICompanyDao {
 	}
 
 	@Override
-	public List<Company> findAllRange(int offset, int range) {
+	public List<Company> findAll(int offset, int range) {
 		LinkedList<Company> lcompany = new LinkedList<Company>();
 		PreparedStatement prepare = null;
 		ResultSet rs = null;

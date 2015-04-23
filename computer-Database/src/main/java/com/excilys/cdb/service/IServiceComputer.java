@@ -17,12 +17,12 @@ public interface IServiceComputer {
 
 	public int getCountComputer();
 
-	public int getCountPatternComputer(String pattern);
+	public int getCountComputer(String pattern);
 
-	public List<Computer> findAllRangeOrderComputer(int offset, int range,
-			String by, String order);
+	public List<Computer> findAllComputer(int offset, int range, String by,
+			String order);
 
-	public List<Computer> findAllRangePatternOrderComputer(int offset,
-			int range, String pattern, String by, String order);
+	public List<Computer> findAllComputer(int offset, int range,
+			String pattern, String by, String order);
 
 }

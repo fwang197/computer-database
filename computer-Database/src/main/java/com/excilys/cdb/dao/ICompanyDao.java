@@ -26,6 +26,6 @@ public interface ICompanyDao {
 	 */
 	public List<Company> findAll();
 
-	public List<Company> findAllRange(int offset, int range);
+	public List<Company> findAll(int offset, int range);
 
 }

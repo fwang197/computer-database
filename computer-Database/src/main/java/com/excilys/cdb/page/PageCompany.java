@@ -28,7 +28,7 @@ public class PageCompany {
 	 */
 	private void forward() {
 		ArrayList<Company> l = new ArrayList<Company>(
-				ServiceCompany.INSTANCE.findAllRangeCompany(offset, range));
+				ServiceCompany.INSTANCE.findAllCompany(offset, range));
 		for (Company c : l)
 			System.out.println(c);
 		if (l.size() != range) {
@@ -47,7 +47,7 @@ public class PageCompany {
 			tmp = 0;
 		}
 		ArrayList<Company> l = new ArrayList<Company>(
-				ServiceCompany.INSTANCE.findAllRangeCompany(tmp, range));
+				ServiceCompany.INSTANCE.findAllCompany(tmp, range));
 		for (Company c : l)
 			System.out.println(c);
 		offset = tmp;

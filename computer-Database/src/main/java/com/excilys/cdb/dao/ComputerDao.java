@@ -202,7 +202,7 @@ public enum ComputerDao implements IComputerDao {
 	}
 
 	@Override
-	public int getCountPattern(String pattern) {
+	public int getCount(String pattern) {
 		int res = 0;
 		PreparedStatement prepare = null;
 		ResultSet rs = null;
@@ -230,8 +230,7 @@ public enum ComputerDao implements IComputerDao {
 	}
 
 	@Override
-	public List<Computer> findAllRangeOrder(int offset, int range, String by,
-			String order) {
+	public List<Computer> findAll(int offset, int range, String by, String order) {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
 
 		PreparedStatement prepare = null;
@@ -267,8 +266,8 @@ public enum ComputerDao implements IComputerDao {
 	}
 
 	@Override
-	public List<Computer> findAllRangePatternOrder(int offset, int range,
-			String pattern, String by, String order) {
+	public List<Computer> findAll(int offset, int range, String pattern,
+			String by, String order) {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
 
 		PreparedStatement prepare = null;

@@ -58,36 +58,28 @@ public class DashboardServlet extends HttpServlet {
 		}
 
 		if (search == null || search.isEmpty()) {
-
 			if (order == null || order.isEmpty()) {
-				for (Computer c : ServiceComputer.INSTANCE
-						.findAllRangeOrderComputer(offset, range,
-								"computer.id", "")) {
-					lcomp.add(ComputerDTOMapper.toComputerDto(c));
-				}
-			} else {
-				for (Computer c : ServiceComputer.INSTANCE
-						.findAllRangeOrderComputer(offset, range, field, order)) {
-					lcomp.add(ComputerDTOMapper.toComputerDto(c));
-				}
+				order = "";
+				field = "computer.id";
+			}
+			for (Computer c : ServiceComputer.INSTANCE.findAllComputer(offset,
+					range, field, order)) {
+				lcomp.add(ComputerDTOMapper.toComputerDto(c));
+
 			}
 			nb = ServiceComputer.INSTANCE.getCountComputer();
 		} else {
 
 			if (order == null || order.isEmpty()) {
-				for (Computer c : ServiceComputer.INSTANCE
-						.findAllRangePatternOrderComputer(offset, range,
-								search, "computer.id", "")) {
-					lcomp.add(ComputerDTOMapper.toComputerDto(c));
-				}
-			} else {
-				for (Computer c : ServiceComputer.INSTANCE
-						.findAllRangePatternOrderComputer(offset, range,
-								search, field, order)) {
-					lcomp.add(ComputerDTOMapper.toComputerDto(c));
-				}
+				order = "";
+				field = "computer.id";
 			}
-			nb = ServiceComputer.INSTANCE.getCountPatternComputer(search);
+			for (Computer c : ServiceComputer.INSTANCE.findAllComputer(offset,
+					range, search, field, order)) {
+				lcomp.add(ComputerDTOMapper.toComputerDto(c));
+
+			}
+			nb = ServiceComputer.INSTANCE.getCountComputer(search);
 		}
 
 		request.setAttribute("list", lcomp);

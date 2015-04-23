@@ -52,11 +52,10 @@ public interface IComputerDao {
 
 	public int getCount();
 
-	public int getCountPattern(String pattern);
+	public int getCount(String pattern);
 
-	public List<Computer> findAllRangeOrder(int offset, int range, String by,
-			String order);
+	public List<Computer> findAll(int offset, int range, String by, String order);
 
-	public List<Computer> findAllRangePatternOrder(int offset, int range,
-			String pattern, String by, String order);
+	public List<Computer> findAll(int offset, int range, String pattern,
+			String by, String order);
 }

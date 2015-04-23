@@ -34,8 +34,8 @@ public enum ServiceCompany implements IServiceCompany {
 		return CompanyDao.INSTANCE.findAll();
 	}
 
-	public List<Company> findAllRangeCompany(int offset, int range) {
-		return CompanyDao.INSTANCE.findAllRange(offset, range);
+	public List<Company> findAllCompany(int offset, int range) {
+		return CompanyDao.INSTANCE.findAll(offset, range);
 	}
 
 }

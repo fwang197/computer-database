@@ -67,7 +67,7 @@ public class DashboardServlet extends HttpServlet {
 				lcomp.add(ComputerDTOMapper.toComputerDto(c));
 
 			}
-			nb = ServiceComputer.INSTANCE.getCountComputer();
+			search = "";
 		} else {
 
 			if (order == null || order.isEmpty()) {
@@ -79,8 +79,8 @@ public class DashboardServlet extends HttpServlet {
 				lcomp.add(ComputerDTOMapper.toComputerDto(c));
 
 			}
-			nb = ServiceComputer.INSTANCE.getCountComputer(search);
 		}
+		nb = ServiceComputer.INSTANCE.getCountComputer(search);
 
 		request.setAttribute("list", lcomp);
 		request.setAttribute("nb", nb);

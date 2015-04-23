@@ -161,7 +161,6 @@ public enum ComputerDao implements IComputerDao {
 			throw new SQLException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
 		}
 	}
 

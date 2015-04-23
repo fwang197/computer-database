@@ -8,6 +8,8 @@ import com.excilys.cdb.tools.Tools;
 
 public class DeleteCompanyAction extends Action {
 
+	private Scanner sc;
+
 	public DeleteCompanyAction(String description) {
 		this.description = description;
 	}
@@ -16,7 +18,7 @@ public class DeleteCompanyAction extends Action {
 	public void execute() {
 		System.out.println("Company id to delete ? : ");
 		System.out.print("> ");
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);

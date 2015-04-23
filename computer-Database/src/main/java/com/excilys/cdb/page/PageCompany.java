@@ -11,6 +11,7 @@ public class PageCompany {
 	private int offset = 0;
 	/** The range. */
 	private int range;
+	private Scanner sc;
 
 	/**
 	 * Instantiates a new page.
@@ -58,7 +59,7 @@ public class PageCompany {
 	 * La méthode qui s'occupe de la pagination.
 	 */
 	public void navigation() {
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String res = "";
 		while (!res.equals("q")) {
 			System.out.println("<- (-)		exit(q)		-> (+)");

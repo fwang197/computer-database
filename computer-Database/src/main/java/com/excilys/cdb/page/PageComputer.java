@@ -19,8 +19,7 @@ public class PageComputer {
 	private int offset = 0;
 	/** The range. */
 	private int range;
-
-	private String table;
+	private Scanner sc;
 
 	/**
 	 * Instantiates a new page.
@@ -28,8 +27,7 @@ public class PageComputer {
 	 * @param range
 	 *            the range
 	 */
-	public PageComputer(String table, int range) {
-		this.table = table;
+	public PageComputer(int range) {
 		this.range = range;
 	}
 
@@ -71,7 +69,7 @@ public class PageComputer {
 	 * La méthode qui s'occupe de la pagination.
 	 */
 	public void navigation() {
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String res = "";
 		while (!res.equals("q")) {
 			System.out.println("<- (-)		exit(q)		-> (+)");

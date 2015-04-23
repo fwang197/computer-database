@@ -18,6 +18,8 @@ import com.excilys.cdb.tools.Tools;
  */
 public class UpdateComputerAction extends Action {
 
+	private Scanner sc;
+
 	/**
 	 * Instantiates a new update computer action.
 	 *
@@ -36,7 +38,7 @@ public class UpdateComputerAction extends Action {
 	public void execute() {
 		System.out
 				.println("Computer id to update ? (just press enter if you want the value untouched) : ");
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String res = sc.nextLine();
 		try {
 			if (Tools.isNumber(res)) {

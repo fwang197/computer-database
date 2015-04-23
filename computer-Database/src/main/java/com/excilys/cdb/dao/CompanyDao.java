@@ -59,7 +59,6 @@ public enum CompanyDao implements ICompanyDao {
 			throw new SQLException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
 		}
 	}
 

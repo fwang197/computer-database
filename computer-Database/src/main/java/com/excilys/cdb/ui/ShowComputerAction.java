@@ -15,6 +15,8 @@ import com.excilys.cdb.tools.Tools;
  */
 public class ShowComputerAction extends Action {
 
+	private Scanner sc;
+
 	/**
 	 * Instantiates a new show computer action.
 	 *
@@ -33,7 +35,7 @@ public class ShowComputerAction extends Action {
 	public void execute() {
 		System.out.println("Computer id ? : ");
 		System.out.print("> ");
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);

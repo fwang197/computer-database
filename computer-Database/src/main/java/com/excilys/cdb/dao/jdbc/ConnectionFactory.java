@@ -50,10 +50,8 @@ public enum ConnectionFactory {
 			conf.setPartitionCount(2);
 			pool = new BoneCP(conf);
 		} catch (IOException ex) {
-			System.out.println(ex.getMessage());
 			throw new PropertiesNotFound();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			throw new BoneCPException();
 		} catch (ClassNotFoundException e) {
 			System.err.println("Driver not found!");

@@ -15,6 +15,8 @@ import com.excilys.cdb.tools.Tools;
  */
 public class DeleteComputerAction extends Action {
 
+	private Scanner sc;
+
 	/**
 	 * Instantiates a new delete computer action.
 	 *
@@ -33,7 +35,7 @@ public class DeleteComputerAction extends Action {
 	public void execute() {
 		System.out.println("Computer id to delete ? : ");
 		System.out.print("> ");
-		Scanner sc = new Scanner(System.in);
+		sc = new Scanner(System.in);
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);

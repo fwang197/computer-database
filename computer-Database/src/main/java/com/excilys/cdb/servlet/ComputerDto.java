@@ -103,4 +103,11 @@ public class ComputerDto {
 		return true;
 	}
 
+	public String toString() {
+		return "ComputerDto [id=" + id + ", name=" + name + ", introduced="
+				+ introduced + ", discontinued=" + discontinued
+				+ ", company_id=" + company_id + ", company_name="
+				+ company_name + "]";
+	}
+
 }

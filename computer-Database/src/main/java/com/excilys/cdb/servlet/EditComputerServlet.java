@@ -81,7 +81,8 @@ public class EditComputerServlet extends HttpServlet {
 				ServiceCompany.INSTANCE.findAllCompany());
 		request.setAttribute("list", lcomp);
 
-		if (!name.equals("")) {
+		if (!name.equals("") && Tools.checkGoodDate(intro)
+				&& Tools.checkGoodDate(discon)) {
 			Company comp = null;
 
 			if (Tools.isNumber(compid)) {

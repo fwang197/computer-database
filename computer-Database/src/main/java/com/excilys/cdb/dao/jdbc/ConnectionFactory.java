@@ -72,12 +72,6 @@ public enum ConnectionFactory {
 		return connection;
 	}
 
-	/**
-	 * Close connection.
-	 *
-	 * @param conn
-	 *            the conn
-	 */
 	public void closeConnection(Connection conn) {
 		try {
 			conn.close();

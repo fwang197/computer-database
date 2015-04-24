@@ -85,6 +85,16 @@ public class Tools {
 	 * @return
 	 */
 	public static boolean checkGoodDate(String date) {
+		if (date == null || date.isEmpty()) {
+			return true;
+		}
+		Pattern p = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		Matcher m = p.matcher(date);
+
+		if (!m.matches()) {
+			return false;
+		}
+
 		String[] res = date.split("-");
 		int year = Integer.parseInt(res[0]);
 		int month = Integer.parseInt(res[1]);

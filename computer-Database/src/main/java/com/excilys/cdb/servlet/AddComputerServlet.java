@@ -61,7 +61,14 @@ public class AddComputerServlet extends HttpServlet {
 				ServiceCompany.INSTANCE.findAllCompany());
 		request.setAttribute("list", lcomp);
 
-		if (!name.equals("")) {
+		System.out.println("name " + name);
+		System.out.println("intro " + intro + " : "
+				+ Tools.checkGoodDate(intro));
+		System.out.println("discon " + discon + " : "
+				+ Tools.checkGoodDate(discon));
+
+		if (!name.equals("") && Tools.checkGoodDate(intro)
+				&& Tools.checkGoodDate(discon)) {
 			Company comp = null;
 
 			if (Tools.isNumber(id)) {

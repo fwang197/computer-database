@@ -42,13 +42,14 @@ public enum CompanyDao implements ICompanyDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return comp;
 	}
 
-	public void delete(Company comp, Connection conn) throws SQLException {
+	public void delete(Company comp) throws SQLException {
 		PreparedStatement prepare = null;
+		Connection conn = null;
 		try {
 			conn = ConnectionFactory.INSTANCE.getConnection();
 			prepare = conn.prepareStatement("delete from company where id = ?");
@@ -85,7 +86,7 @@ public enum CompanyDao implements ICompanyDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return lcompany;
 	}
@@ -110,7 +111,7 @@ public enum CompanyDao implements ICompanyDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return lcompany;
 	}

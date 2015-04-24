@@ -59,7 +59,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 	}
 
@@ -88,7 +88,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return comp;
 	}
@@ -122,7 +122,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 	}
 
@@ -145,15 +145,14 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 	}
 
-	public void delete(Computer comp, Connection conn) throws SQLException {
+	public void deleteWithoutConnection(Computer comp) throws SQLException {
 		PreparedStatement prepare = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
-			prepare = conn
+			prepare = ConnectionFactory.INSTANCE.getConnection()
 					.prepareStatement("delete from computer where id = ?");
 			prepare.setLong(1, comp.getId());
 			prepare.executeUpdate();
@@ -190,7 +189,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -212,7 +211,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return res;
 	}
@@ -240,7 +239,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return res;
 	}
@@ -276,7 +275,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -316,7 +315,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -344,7 +343,7 @@ public enum ComputerDao implements IComputerDao {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			// ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return lcomputer;
 	}

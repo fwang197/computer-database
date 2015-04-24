@@ -1,6 +1,5 @@
 package com.excilys.cdb.dao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public interface IComputerDao {
 	 */
 	public void delete(Computer obj);
 
-	public void delete(Computer obj, Connection conn) throws SQLException;
+	public void deleteWithoutConnection(Computer obj) throws SQLException;
 
 	public int getCount();
 

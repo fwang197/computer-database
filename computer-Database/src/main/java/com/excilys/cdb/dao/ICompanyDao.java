@@ -1,6 +1,5 @@
 package com.excilys.cdb.dao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public interface ICompanyDao {
 	 */
 	public Company find(long id);
 
-	public void delete(Company obj, Connection conn) throws SQLException;
+	public void delete(Company obj) throws SQLException;
 
 	/**
 	 * Find all.

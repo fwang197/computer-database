@@ -1,6 +1,5 @@
 package com.excilys.cdb.service;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,25 +34,20 @@ public enum ServiceCompany implements IServiceCompany {
 
 	public void deleteCompany(Company obj) {
 		PreparedStatement prepare = null;
-		Connection conn = null;
+		ConnectionFactory.INSTANCE.getConnection();
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
-			conn.setAutoCommit(false);
+			ConnectionFactory.INSTANCE.startTransaction();
 			for (Computer comp : ComputerDao.INSTANCE.findAll(obj)) {
-				ComputerDao.INSTANCE.delete(comp, conn);
+				ComputerDao.INSTANCE.deleteWithoutConnection(comp);
 			}
-			CompanyDao.INSTANCE.delete(obj, conn);
-			conn.commit();
+			CompanyDao.INSTANCE.delete(obj);
+			ConnectionFactory.INSTANCE.commit();
 		} catch (SQLException e) {
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				throw new ServiceException();
-			}
+			ConnectionFactory.INSTANCE.rollback();
 			throw new ServiceException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection(conn);
+			ConnectionFactory.INSTANCE.closeConnection();
 		}
 	}
 

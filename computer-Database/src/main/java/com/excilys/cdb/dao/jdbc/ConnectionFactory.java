@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import com.excilys.cdb.exception.BoneCPException;
 import com.excilys.cdb.exception.PropertiesNotFound;
+import com.excilys.cdb.exception.ServiceException;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
@@ -28,6 +29,7 @@ public enum ConnectionFactory {
 
 	private Properties prop;
 	private BoneCP pool;
+	public static final ThreadLocal<Connection> threadConnection = new ThreadLocal<Connection>();
 
 	private ConnectionFactory() {
 
@@ -61,24 +63,61 @@ public enum ConnectionFactory {
 	}
 
 	public Connection getConnection() {
-		Connection connection = null;
 		try {
-			connection = pool.getConnection();
+			if (threadConnection.get() == null) {
+				threadConnection.set(pool.getConnection());
+			}
+			return threadConnection.get();
 
 		} catch (SQLException e) {
 			System.err.println("Error : Connection!");
 			throw new RuntimeException();
 		}
-		return connection;
 	}
 
-	public void closeConnection(Connection conn) {
+	public void closeConnection() {
+
 		try {
-			conn.close();
+			Connection conn = threadConnection.get();
+			if (conn != null)
+				conn.close();
+			threadConnection.remove();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Error : Close Connection");
 			throw new RuntimeException();
+		}
+	}
+
+	public void startTransaction() throws SQLException {
+		Connection conn = threadConnection.get();
+		try {
+			conn.setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+	}
+
+	public void commit() throws SQLException {
+
+		Connection conn = threadConnection.get();
+		try {
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException();
+		}
+	}
+
+	public void rollback() {
+
+		Connection conn = threadConnection.get();
+		try {
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ServiceException();
 		}
 	}
 }

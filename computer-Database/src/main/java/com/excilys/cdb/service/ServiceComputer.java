@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Page;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -74,14 +75,15 @@ public enum ServiceComputer implements IServiceComputer {
 	}
 
 	@Override
-	public List<Computer> findAllComputer(int offset, int range, String by,
-			String order) {
-		return ComputerDao.INSTANCE.findAll(offset, range, by, order);
+	public List<Computer> findAllComputer(Page page, String by, String order) {
+		return ComputerDao.INSTANCE.findAll(page.getOffset(), page.getRange(),
+				by, order);
 	}
 
 	@Override
-	public List<Computer> findAllComputer(int offset, int range,
-			String pattern, String by, String order) {
-		return ComputerDao.INSTANCE.findAll(offset, range, pattern, by, order);
+	public List<Computer> findAllComputer(Page page, String pattern, String by,
+			String order) {
+		return ComputerDao.INSTANCE.findAll(page.getOffset(), page.getRange(),
+				pattern, by, order);
 	}
 }

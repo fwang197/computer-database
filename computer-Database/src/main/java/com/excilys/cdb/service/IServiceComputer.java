@@ -3,6 +3,7 @@ package com.excilys.cdb.service;
 import java.util.List;
 
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Page;
 
 public interface IServiceComputer {
 	public long createComputer(Computer c);
@@ -19,10 +20,9 @@ public interface IServiceComputer {
 
 	public int getCountComputer(String pattern);
 
-	public List<Computer> findAllComputer(int offset, int range, String by,
-			String order);
+	public List<Computer> findAllComputer(Page page, String by, String order);
 
-	public List<Computer> findAllComputer(int offset, int range,
-			String pattern, String by, String order);
+	public List<Computer> findAllComputer(Page page, String pattern, String by,
+			String order);
 
 }

@@ -21,13 +21,13 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-                ${nb} Computers found
+                ${page.nb} Computers found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
                     <form id="searchForm" action="DashboardServlet" method="GET" class="form-inline">
 						
-      				    <input type="hidden" value="${range}" name="range">
+      				    <input type="hidden" value="${page.range}" name="range">
                         <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" />
                         <input type="submit" id="searchsubmit" value="Filter by name"
                         class="btn btn-primary" />
@@ -91,7 +91,7 @@
                 <!-- Browse attribute computers -->
                 <tbody id="results">
                     
-                   	<c:forEach var="i" items="${list}">	
+                   	<c:forEach var="i" items="${page.lcomp}">	
 							<tr>
 								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="${i.id}"></td>
 								<td><mylib:link target="EditComputerServlet" body="${i.name}" compId="${i.id}"/></td>

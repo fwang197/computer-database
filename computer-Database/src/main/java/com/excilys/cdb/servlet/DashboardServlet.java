@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.cdb.mapper.ComputerDTOMapper;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
@@ -34,10 +35,9 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		int nb = 0;
-		int offset = 0;
 		int pageNum = 0;
 		int range = 50;
+		Page page = new Page();
 		String search = request.getParameter("search");
 		String p = request.getParameter("pageNum");
 		String srange = request.getParameter("range");
@@ -52,18 +52,15 @@ public class DashboardServlet extends HttpServlet {
 			range = Integer.parseInt(srange);
 		}
 
-		offset = pageNum * range;
-		if (offset < 0) {
-			offset = 0;
-		}
+		page.turn(pageNum, range);
 
 		if (search == null || search.isEmpty()) {
 			if (order == null || order.isEmpty()) {
 				order = "";
 				field = "computer.id";
 			}
-			for (Computer c : ServiceComputer.INSTANCE.findAllComputer(offset,
-					range, field, order)) {
+			for (Computer c : ServiceComputer.INSTANCE.findAllComputer(page,
+					field, order)) {
 				lcomp.add(ComputerDTOMapper.toComputerDto(c));
 
 			}
@@ -74,18 +71,16 @@ public class DashboardServlet extends HttpServlet {
 				order = "";
 				field = "computer.id";
 			}
-			for (Computer c : ServiceComputer.INSTANCE.findAllComputer(offset,
-					range, search, field, order)) {
+			for (Computer c : ServiceComputer.INSTANCE.findAllComputer(page,
+					search, field, order)) {
 				lcomp.add(ComputerDTOMapper.toComputerDto(c));
 
 			}
 		}
-		nb = ServiceComputer.INSTANCE.getCountComputer(search);
+		page.setNb(ServiceComputer.INSTANCE.getCountComputer(search));
+		page.setLcomp(lcomp);
 
-		request.setAttribute("list", lcomp);
-		request.setAttribute("nb", nb);
-		request.setAttribute("range", range);
-		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("page", page);
 		request.setAttribute("search", search);
 		request.setAttribute("order", order);
 		request.setAttribute("field", field);

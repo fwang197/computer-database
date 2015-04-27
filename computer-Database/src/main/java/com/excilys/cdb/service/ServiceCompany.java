@@ -21,13 +21,6 @@ public enum ServiceCompany implements IServiceCompany {
 	/** The instance. */
 	INSTANCE;
 
-	/**
-	 * Find company.
-	 *
-	 * @param id
-	 *            the id
-	 * @return the company
-	 */
 	public Company findCompany(long id) {
 		return CompanyDao.INSTANCE.find(id);
 	}
@@ -51,11 +44,6 @@ public enum ServiceCompany implements IServiceCompany {
 		}
 	}
 
-	/**
-	 * Find all company.
-	 *
-	 * @return the list
-	 */
 	public List<Company> findAllCompany() {
 		return CompanyDao.INSTANCE.findAll();
 	}

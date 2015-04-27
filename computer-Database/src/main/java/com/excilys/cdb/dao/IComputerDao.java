@@ -13,18 +13,17 @@ import com.excilys.cdb.model.Computer;
 public interface IComputerDao {
 
 	/**
-	 * Creates the.
+	 * Creates the computer.
 	 *
 	 * @param obj
-	 *            the obj
+	 * @return the id
 	 */
 	public long create(Computer obj);
 
 	/**
-	 * Find.
+	 * Find a computer according to its id.
 	 *
 	 * @param id
-	 *            the id
 	 * @return the computer
 	 */
 	public Computer find(long id);
@@ -33,7 +32,6 @@ public interface IComputerDao {
 	 * Update.
 	 *
 	 * @param obj
-	 *            the obj
 	 */
 	public void update(Computer obj);
 
@@ -41,23 +39,72 @@ public interface IComputerDao {
 	 * Delete.
 	 *
 	 * @param obj
-	 *            the obj
 	 */
 	public void delete(Computer obj);
 
+	/**
+	 * Delete without connection.
+	 *
+	 * @param obj
+	 * @throws SQLException
+	 */
 	public void deleteWithoutConnection(Computer obj) throws SQLException;
 
+	/**
+	 * Gets the count of computers.
+	 *
+	 * @return the count
+	 */
 	public int getCount();
 
+	/**
+	 * Gets the count of computers according to a pattern in the companies or
+	 * computers name.
+	 *
+	 * @param pattern
+	 * @return the count
+	 */
 	public int getCount(String pattern);
 
+	/**
+	 * Find all computers.
+	 *
+	 * @return the list
+	 */
 	public List<Computer> findAll();
 
+	/**
+	 * Find a range of computers order by column name and its way (ASC or DESC).
+	 *
+	 * @param offset
+	 * @param range
+	 * @param by
+	 * @param order
+	 * @return the list
+	 */
 	public List<Computer> findAll(int offset, int range, String by, String order);
 
+	/**
+	 * Find a range of computers according to a pattern and order by column name
+	 * and its way (ASC or DESC).
+	 *
+	 * @param offset
+	 * @param range
+	 * @param pattern
+	 * @param by
+	 * @param order
+	 * @return the list
+	 */
 	public List<Computer> findAll(int offset, int range, String pattern,
 			String by, String order);
 
+	/**
+	 * Find all the computers who belong to a company.
+	 *
+	 * @param obj
+	 *            the obj
+	 * @return the list
+	 */
 	public List<Computer> findAll(Company obj);
 
 }

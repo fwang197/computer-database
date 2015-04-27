@@ -9,10 +9,9 @@ import com.excilys.cdb.model.Computer;
 public class ComputerMapper {
 
 	/**
-	 * To computer.
+	 * Convert a line of the resultSet to an object Computer.
 	 *
 	 * @param rs
-	 *            the rs
 	 * @return the computer
 	 */
 	public static Computer toComputer(ResultSet rs) throws SQLException {

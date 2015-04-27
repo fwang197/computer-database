@@ -21,11 +21,6 @@ public enum CompanyDao implements ICompanyDao {
 	/** The instance. */
 	INSTANCE;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.excilys.cdb.dao.CompanyDao#find(long)
-	 */
 	public Company find(long id) {
 		Company comp = null;
 		PreparedStatement prepare = null;
@@ -63,11 +58,6 @@ public enum CompanyDao implements ICompanyDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.excilys.cdb.dao.CompanyDao#findAll()
-	 */
 	public List<Company> findAll() {
 
 		LinkedList<Company> lcompany = new LinkedList<Company>();
@@ -91,7 +81,6 @@ public enum CompanyDao implements ICompanyDao {
 		return lcompany;
 	}
 
-	@Override
 	public List<Company> findAll(int offset, int range) {
 		LinkedList<Company> lcompany = new LinkedList<Company>();
 		PreparedStatement prepare = null;

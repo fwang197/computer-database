@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.excilys.cdb.exception.DaoException;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Tools.
@@ -17,11 +19,10 @@ import java.util.regex.Pattern;
 public class Tools {
 
 	/**
-	 * Checks if is number.
+	 * Checks if the string is a number.
 	 *
 	 * @param num
-	 *            the num
-	 * @return true, if is number
+	 * @return true, if its number
 	 */
 	public static boolean isNumber(String num) {
 		if (num == null)
@@ -32,23 +33,20 @@ public class Tools {
 	}
 
 	/**
-	 * Checks if is null.
+	 * Checks if an object is null.
 	 *
 	 * @param o
-	 *            the o
-	 * @return true, if is null
+	 * @return true, if its null
 	 */
 	public static boolean isNull(Object o) {
 		return o == null;
 	}
 
 	/**
-	 * Close properly.
+	 * Close properly the ResultSet and the PreparedStatement.
 	 *
 	 * @param rs
-	 *            the rs
 	 * @param pstat
-	 *            the pstat
 	 */
 	public static void closeProperly(ResultSet rs, PreparedStatement pstat) {
 		try {
@@ -59,11 +57,14 @@ public class Tools {
 				pstat.close();
 			}
 		} catch (SQLException e) {
-			System.err.println("Appeler DAOException");
+			throw new DaoException();
 		}
 
 	}
 
+	/**
+	 * Execute a script who rebuild the test database.
+	 */
 	public static void process() {
 		ProcessBuilder p = new ProcessBuilder("./src/test/resources/script.sh");
 		try {
@@ -79,10 +80,11 @@ public class Tools {
 	}
 
 	/**
-	 * La date est de format YYYY-MM-DD. La fonction verifie sa validité.
-	 * 
+	 * The date has the following format YYYY-MM−DD. The method check its
+	 * validity.
+	 *
 	 * @param date
-	 * @return
+	 * @return true, if its successful
 	 */
 	public static boolean checkGoodDate(String date) {
 		if (date == null || date.isEmpty()) {
@@ -109,10 +111,13 @@ public class Tools {
 			if (day > 0 && day <= 30)
 				return true;
 		} else if (month == 2) {
-			if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
-				return true;
-			else
-				return false;
+			if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+				if (day > 0 && day <= 29)
+					return true;
+			} else {
+				if (day > 0 && day <= 28)
+					return true;
+			}
 		}
 		return false;
 	}

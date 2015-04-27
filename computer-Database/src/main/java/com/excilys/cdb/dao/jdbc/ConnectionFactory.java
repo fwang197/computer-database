@@ -21,16 +21,18 @@ public enum ConnectionFactory {
 	/** The instance. */
 	INSTANCE;
 
-	/**
-	 * Gets the connection.
-	 *
-	 * @return the connection
-	 */
-
+	/** The prop. */
 	private Properties prop;
+
+	/** The pool of connections. */
 	private BoneCP pool;
+
+	/** The Constant threadConnection. */
 	public static final ThreadLocal<Connection> threadConnection = new ThreadLocal<Connection>();
 
+	/**
+	 * Instantiates a new connection factory.
+	 */
 	private ConnectionFactory() {
 
 		prop = new Properties();
@@ -62,6 +64,11 @@ public enum ConnectionFactory {
 
 	}
 
+	/**
+	 * Gets the connection.
+	 *
+	 * @return the connection
+	 */
 	public Connection getConnection() {
 		try {
 			if (threadConnection.get() == null) {
@@ -75,6 +82,9 @@ public enum ConnectionFactory {
 		}
 	}
 
+	/**
+	 * Close connection.
+	 */
 	public void closeConnection() {
 
 		try {
@@ -89,6 +99,12 @@ public enum ConnectionFactory {
 		}
 	}
 
+	/**
+	 * Start transaction.
+	 *
+	 * @throws SQLException
+	 *             the SQL exception
+	 */
 	public void startTransaction() throws SQLException {
 		Connection conn = threadConnection.get();
 		try {
@@ -99,6 +115,12 @@ public enum ConnectionFactory {
 		}
 	}
 
+	/**
+	 * Commit.
+	 *
+	 * @throws SQLException
+	 *             the SQL exception
+	 */
 	public void commit() throws SQLException {
 
 		Connection conn = threadConnection.get();
@@ -110,11 +132,14 @@ public enum ConnectionFactory {
 		}
 	}
 
+	/**
+	 * Rollback.
+	 */
 	public void rollback() {
 
 		Connection conn = threadConnection.get();
 		try {
-			conn.commit();
+			conn.rollback();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ServiceException();

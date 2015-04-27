@@ -7,10 +7,9 @@ import com.excilys.cdb.model.Company;
 
 public class CompanyMapper {
 	/**
-	 * To company.
+	 * Convert a line of the resultSet to an object Company.
 	 *
 	 * @param rs
-	 *            the rs
 	 * @return the company
 	 */
 	public static Company toCompany(ResultSet rs) throws SQLException {

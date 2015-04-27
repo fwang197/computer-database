@@ -24,12 +24,6 @@ public enum ComputerDao implements IComputerDao {
 	/** The instance. */
 	INSTANCE;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.excilys.cdb.dao.ComputerDao#create(com.excilys.cdb.model.Computer)
-	 */
 	public long create(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
@@ -63,11 +57,6 @@ public enum ComputerDao implements IComputerDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.excilys.cdb.dao.ComputerDao#find(long)
-	 */
 	public Computer find(long id) {
 
 		Computer comp = null;
@@ -93,12 +82,6 @@ public enum ComputerDao implements IComputerDao {
 		return comp;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.excilys.cdb.dao.ComputerDao#update(com.excilys.cdb.model.Computer)
-	 */
 	public void update(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
@@ -126,12 +109,6 @@ public enum ComputerDao implements IComputerDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.excilys.cdb.dao.ComputerDao#delete(com.excilys.cdb.model.Computer)
-	 */
 	public void delete(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
@@ -163,11 +140,6 @@ public enum ComputerDao implements IComputerDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.excilys.cdb.dao.ComputerDao#findAll()
-	 */
 	public List<Computer> findAll() {
 
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
@@ -194,7 +166,6 @@ public enum ComputerDao implements IComputerDao {
 		return lcomputer;
 	}
 
-	@Override
 	public int getCount() {
 		int res = 0;
 		PreparedStatement prepare = null;
@@ -216,7 +187,6 @@ public enum ComputerDao implements IComputerDao {
 		return res;
 	}
 
-	@Override
 	public int getCount(String pattern) {
 		int res = 0;
 		PreparedStatement prepare = null;
@@ -244,7 +214,6 @@ public enum ComputerDao implements IComputerDao {
 		return res;
 	}
 
-	@Override
 	public List<Computer> findAll(int offset, int range, String by, String order) {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
 
@@ -280,7 +249,6 @@ public enum ComputerDao implements IComputerDao {
 		return lcomputer;
 	}
 
-	@Override
 	public List<Computer> findAll(int offset, int range, String pattern,
 			String by, String order) {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
@@ -320,7 +288,6 @@ public enum ComputerDao implements IComputerDao {
 		return lcomputer;
 	}
 
-	@Override
 	public List<Computer> findAll(Company obj) {
 		LinkedList<Computer> lcomputer = new LinkedList<Computer>();
 

@@ -1,6 +1,7 @@
 package com.excilys.cdb.ui;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.excilys.cdb.tools.Tools;
@@ -18,7 +19,7 @@ public class Menu {
 
 	// Le menu
 	/** The menu. */
-	private static HashMap<Integer, Action> menu;
+	private static Map<Integer, Action> menu;
 
 	/** The sc. */
 	static Scanner sc = new Scanner(System.in);

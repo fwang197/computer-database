@@ -13,11 +13,11 @@ public class CompanyMapper {
 	 * @return the company
 	 */
 	public static Company toCompany(ResultSet rs) throws SQLException {
-		Company comp = null;
+		Company company = null;
 		if (rs.next()) {
-			comp = new Company.CompanyBuilder(rs.getString("name")).setId(
+			company = new Company.CompanyBuilder(rs.getString("name")).setId(
 					rs.getLong("id")).build();
 		}
-		return comp;
+		return company;
 	}
 }

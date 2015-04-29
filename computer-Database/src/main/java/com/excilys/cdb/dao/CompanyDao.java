@@ -27,7 +27,7 @@ public enum CompanyDao implements IDao<Company> {
 	private final Logger logger = LoggerFactory.getLogger(CompanyDao.class);
 
 	public Company find(long id) {
-		Company comp = null;
+		Company company = null;
 		PreparedStatement prepare = null;
 		ResultSet rs = null;
 		Connection conn = null;
@@ -37,7 +37,7 @@ public enum CompanyDao implements IDao<Company> {
 					.prepareStatement("select * from company where id = ?");
 			prepare.setLong(1, id);
 			rs = prepare.executeQuery();
-			comp = CompanyMapper.toCompany(rs);
+			company = CompanyMapper.toCompany(rs);
 		} catch (SQLException e) {
 			logger.error("Find Company error : {} ", id);
 			throw new DaoException();
@@ -45,7 +45,7 @@ public enum CompanyDao implements IDao<Company> {
 			Tools.closeProperly(rs, prepare);
 			ConnectionFactory.INSTANCE.closeConnection();
 		}
-		return comp;
+		return company;
 	}
 
 	public void deleteWithoutConnection(Company comp) throws SQLException {

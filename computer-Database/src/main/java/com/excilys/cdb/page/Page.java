@@ -143,4 +143,19 @@ public class Page {
 		setPageNum(npageNum);
 		setRange(nrange);
 	}
+
+	/**
+	 * Validate the page , if the data are wrong we apply default values.
+	 */
+	public void validate() {
+		if (range > 100) {
+			setRange(50);
+		}
+		if (pageNum > (nb / range)) {
+			setPageNum(0);
+			setOffset(0);
+		}
+
+	}
+
 }

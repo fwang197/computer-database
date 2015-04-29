@@ -64,7 +64,7 @@ public enum ComputerDao implements IDao<Computer> {
 
 	public Computer find(long id) {
 
-		Computer comp = null;
+		Computer computer = null;
 		PreparedStatement prepare = null;
 		ResultSet rs = null;
 		Connection conn = null;
@@ -77,7 +77,7 @@ public enum ComputerDao implements IDao<Computer> {
 							+ "on computer.company_id = company.id where computer.id = ?");
 			prepare.setLong(1, id);
 			rs = prepare.executeQuery();
-			comp = ComputerMapper.toComputer(rs);
+			computer = ComputerMapper.toComputer(rs);
 		} catch (SQLException e) {
 			logger.error("Find Computer error : {} ");
 			throw new DaoException();
@@ -85,7 +85,7 @@ public enum ComputerDao implements IDao<Computer> {
 			Tools.closeProperly(rs, prepare);
 			ConnectionFactory.INSTANCE.closeConnection();
 		}
-		return comp;
+		return computer;
 	}
 
 	public void update(Computer comp) {

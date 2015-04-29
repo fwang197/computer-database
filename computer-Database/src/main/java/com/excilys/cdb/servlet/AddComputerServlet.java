@@ -15,6 +15,7 @@ import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.tools.Validator;
 
 /**
  * Servlet implementation class AddComputerServlet
@@ -60,8 +61,8 @@ public class AddComputerServlet extends HttpServlet {
 				ServiceCompany.INSTANCE.findAllCompany());
 		request.setAttribute("list", lcomp);
 
-		if (!name.equals("") && Tools.checkGoodDate(intro)
-				&& Tools.checkGoodDate(discon)) {
+		if (!name.equals("") && Validator.isDateValid(intro)
+				&& Validator.isDateValid(discon)) {
 			Company comp = null;
 
 			if (Tools.isNumber(id)) {

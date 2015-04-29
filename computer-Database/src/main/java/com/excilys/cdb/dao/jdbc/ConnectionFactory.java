@@ -99,7 +99,6 @@ public enum ConnectionFactory {
 				conn.close();
 			threadConnection.remove();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			logger.error("Connection Factory : close Connection error");
 			throw new RuntimeException();
 		}

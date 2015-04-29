@@ -16,6 +16,7 @@ import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
+import com.excilys.cdb.tools.Validator;
 
 /**
  * Servlet implementation class EditComputerServlet
@@ -42,6 +43,9 @@ public class EditComputerServlet extends HttpServlet {
 		long id = 0;
 		if (Tools.isNumber(sid)) {
 			id = Long.parseLong(sid);
+			if (ServiceComputer.INSTANCE.findComputer(id) == null) {
+				id = 1;
+			}
 		}
 
 		ArrayList<Company> lcomp = new ArrayList<Company>(
@@ -69,36 +73,38 @@ public class EditComputerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("computerName");
-		String intro = request.getParameter("introduced");
-		String discon = request.getParameter("discontinued");
-		String compid = request.getParameter("companyId");
-		String id = request.getParameter("compId");
+		String introduced = request.getParameter("introduced");
+		String discontinued = request.getParameter("discontinued");
+		String scompanyid = request.getParameter("companyId");
+		String scomputerid = request.getParameter("compId");
 
 		ArrayList<Company> lcomp = new ArrayList<Company>(
 				ServiceCompany.INSTANCE.findAllCompany());
 		request.setAttribute("list", lcomp);
 
-		if (!name.equals("") && Tools.checkGoodDate(intro)
-				&& Tools.checkGoodDate(discon)) {
-			Company comp = null;
+		if (!name.equals("") && Validator.isDateValid(introduced)
+				&& Validator.isDateValid(discontinued)) {
+			Company company = null;
 
-			if (Tools.isNumber(compid)) {
-				comp = ServiceCompany.INSTANCE.findCompany(Long
-						.parseLong(compid));
+			if (Tools.isNumber(scompanyid)) {
+				company = ServiceCompany.INSTANCE.findCompany(Long
+						.parseLong(scompanyid));
 			}
-			if (Tools.isNumber(id)) {
+			if (Tools.isNumber(scomputerid)) {
+
 				ServiceComputer.INSTANCE
 						.updateComputer(new Computer.ComputerBuilder(name)
-								.setId(Long.parseLong(id))
-								.setIntroduced(DateMapper.toDateFormat(intro))
+								.setId(Long.parseLong(scomputerid))
+								.setIntroduced(
+										DateMapper.toDateFormat(introduced))
 								.setDiscontinued(
-										DateMapper.toDateFormat(discon))
-								.setCompany(comp).build());
+										DateMapper.toDateFormat(discontinued))
+								.setCompany(company).build());
 				System.out.println("OK");
 				response.sendRedirect("DashboardServlet");
 			}
 		} else {
-			request.setAttribute("compId", Long.parseLong(id));
+			request.setAttribute("compId", Long.parseLong(scomputerid));
 			this.getServletContext()
 					.getRequestDispatcher("/WEB-INF/editComputer.jsp")
 					.forward(request, response);

@@ -15,22 +15,23 @@ public class ComputerMapper {
 	 * @return the computer
 	 */
 	public static Computer toComputer(ResultSet rs) throws SQLException {
-		Computer comp = null;
+		Computer computer = null;
 		if (rs.next()) {
-			comp = new Computer();
-			comp.setId(rs.getLong("c_id"));
-			comp.setIntroduced(DateMapper.toLocalDateTime(rs
+			computer = new Computer();
+			computer.setId(rs.getLong("c_id"));
+			computer.setIntroduced(DateMapper.toLocalDateTime(rs
 					.getTimestamp("introduced")));
 
-			comp.setDiscontinued(DateMapper.toLocalDateTime(rs
+			computer.setDiscontinued(DateMapper.toLocalDateTime(rs
 					.getTimestamp("discontinued")));
 
-			comp.setName(rs.getString("c_name"));
+			computer.setName(rs.getString("c_name"));
 			if (rs.getLong("company_id") != 0) {
-				comp.setCompany(new Company.CompanyBuilder(rs.getString("name"))
-						.setId(rs.getLong("company_id")).build());
+				computer.setCompany(new Company.CompanyBuilder(rs
+						.getString("name")).setId(rs.getLong("company_id"))
+						.build());
 			}
 		}
-		return comp;
+		return computer;
 	}
 }

@@ -53,6 +53,7 @@ public class DashboardServlet extends HttpServlet {
 		}
 
 		page.turn(pageNum, range);
+		page.validate();
 
 		if (search == null || search.isEmpty()) {
 			if (order == null || order.isEmpty()) {

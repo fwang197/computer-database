@@ -4,25 +4,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.excilys.cdb.dao.jdbc.ConnectionFactory;
 import com.excilys.cdb.exception.DaoException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
-import com.mysql.jdbc.Statement;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Enum ConcreteComputerDao.
  */
-public enum ComputerDao implements IComputerDao {
+public enum ComputerDao implements IDao<Computer> {
 
 	/** The instance. */
 	INSTANCE;
+	private final Logger logger = LoggerFactory.getLogger(ComputerDao.class);
 
 	public long create(Computer comp) {
 		PreparedStatement prepare = null;
@@ -50,6 +54,7 @@ public enum ComputerDao implements IComputerDao {
 			}
 			return -1;
 		} catch (SQLException e) {
+			logger.error("Create Computer error : {} ", comp);
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -74,6 +79,7 @@ public enum ComputerDao implements IComputerDao {
 			rs = prepare.executeQuery();
 			comp = ComputerMapper.toComputer(rs);
 		} catch (SQLException e) {
+			logger.error("Find Computer error : {} ");
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
@@ -102,6 +108,7 @@ public enum ComputerDao implements IComputerDao {
 			prepare.setLong(5, comp.getId());
 			prepare.executeUpdate();
 		} catch (SQLException e) {
+			logger.error("Update Computer error : {} ", comp);
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -119,6 +126,7 @@ public enum ComputerDao implements IComputerDao {
 			prepare.setLong(1, comp.getId());
 			prepare.executeUpdate();
 		} catch (SQLException e) {
+			logger.error("Delete Computer error : {} ", comp);
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -134,6 +142,7 @@ public enum ComputerDao implements IComputerDao {
 			prepare.setLong(1, comp.getId());
 			prepare.executeUpdate();
 		} catch (SQLException e) {
+			logger.error("Delete Computer without Connection : {} ", comp);
 			throw new SQLException();
 		} finally {
 			Tools.closeProperly(null, prepare);
@@ -158,6 +167,7 @@ public enum ComputerDao implements IComputerDao {
 				lcomputer.add(ComputerMapper.toComputer(rs));
 			}
 		} catch (SQLException e) {
+			logger.error("Find all Computer error");
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
@@ -168,20 +178,20 @@ public enum ComputerDao implements IComputerDao {
 
 	public int getCount() {
 		int res = 0;
-		PreparedStatement prepare = null;
+		Statement stmt = null;
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
 			conn = ConnectionFactory.INSTANCE.getConnection();
-			prepare = conn
-					.prepareStatement("select count(*) as nb from computer");
-			rs = prepare.executeQuery();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select count(*) as nb from computer");
 			rs.next();
 			res = rs.getInt("nb");
 		} catch (SQLException e) {
+			logger.error("Get all Computer count error");
 			throw new DaoException();
 		} finally {
-			Tools.closeProperly(rs, prepare);
+			Tools.closeProperly(rs, stmt);
 			ConnectionFactory.INSTANCE.closeConnection();
 		}
 		return res;
@@ -206,6 +216,7 @@ public enum ComputerDao implements IComputerDao {
 			rs.next();
 			res = rs.getInt("nb");
 		} catch (SQLException e) {
+			logger.error("Get all Computer with pattern {} error", pattern);
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
@@ -241,6 +252,8 @@ public enum ComputerDao implements IComputerDao {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("Find all range Computer like {} order by {} ", by,
+					order);
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
@@ -280,6 +293,9 @@ public enum ComputerDao implements IComputerDao {
 				}
 			}
 		} catch (SQLException e) {
+			logger.error(
+					"Find all range Computer like {} order by {} with pattern {} ",
+					by, order, pattern);
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
@@ -307,6 +323,7 @@ public enum ComputerDao implements IComputerDao {
 				lcomputer.add(ComputerMapper.toComputer(rs));
 			}
 		} catch (SQLException e) {
+			logger.error("Find all Computer with a Company : {} ", obj);
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);

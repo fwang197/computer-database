@@ -42,7 +42,8 @@ public class EditComputerTest {
 		driver.findElement(By.id("computerName")).sendKeys("test");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
-		Computer expected = new Computer(1, "test", null, null, null);
+		Computer expected = new Computer.ComputerBuilder("test").setId(1)
+				.build();
 		Computer actual = comp.findComputer(1);
 
 		assertEquals(expected, actual);

@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.jdbc.ConnectionFactory;
@@ -20,6 +23,7 @@ public enum ServiceCompany implements IServiceCompany {
 
 	/** The instance. */
 	INSTANCE;
+	private final Logger logger = LoggerFactory.getLogger(ServiceCompany.class);
 
 	public Company findCompany(long id) {
 		return CompanyDao.INSTANCE.find(id);
@@ -33,9 +37,10 @@ public enum ServiceCompany implements IServiceCompany {
 			for (Computer comp : ComputerDao.INSTANCE.findAll(obj)) {
 				ComputerDao.INSTANCE.deleteWithoutConnection(comp);
 			}
-			CompanyDao.INSTANCE.delete(obj);
+			CompanyDao.INSTANCE.deleteWithoutConnection(obj);
 			ConnectionFactory.INSTANCE.commit();
 		} catch (SQLException e) {
+			logger.error("Service Company : delete Company error : {} ", obj);
 			ConnectionFactory.INSTANCE.rollback();
 			throw new ServiceException();
 		} finally {

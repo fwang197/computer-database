@@ -79,8 +79,13 @@ public class DeleteComputerTest {
 		assertTrue(closeAlertAndGetItsText()
 				.matches(
 						"^Are you sure you want to delete the selected computers[\\s\\S]$"));
-		Computer expected = new Computer(1, "MacBook Pro 15.4 inch", null,
-				null, new Company(1, "Apple Inc."));
+		Computer expected = new Computer.ComputerBuilder(
+				"MacBook Pro 15.4 inch")
+				.setId(1)
+				.setCompany(
+						new Company.CompanyBuilder("Apple Inc.").setId(1)
+								.build()).build();
+
 		Computer actual = comp.findComputer(1);
 		assertEquals(expected, actual);
 	}

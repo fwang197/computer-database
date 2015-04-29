@@ -44,8 +44,9 @@ public class DeleteComputerServlet extends HttpServlet {
 		String res = request.getParameter("selection");
 		for (String s : res.split(",")) {
 			if (!s.equals("")) {
-				ServiceComputer.INSTANCE.deleteComputer(new Computer(Long
-						.parseLong(s), "", null, null, null));
+				ServiceComputer.INSTANCE
+						.deleteComputer(new Computer.ComputerBuilder("").setId(
+								Long.parseLong(s)).build());
 			}
 		}
 

@@ -15,9 +15,8 @@ public class CompanyMapper {
 	public static Company toCompany(ResultSet rs) throws SQLException {
 		Company comp = null;
 		if (rs.next()) {
-			comp = new Company();
-			comp.setId(rs.getLong("id"));
-			comp.setName(rs.getString("name"));
+			comp = new Company.CompanyBuilder(rs.getString("name")).setId(
+					rs.getLong("id")).build();
 		}
 		return comp;
 	}

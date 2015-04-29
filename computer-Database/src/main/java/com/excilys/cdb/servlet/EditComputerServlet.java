@@ -74,9 +74,6 @@ public class EditComputerServlet extends HttpServlet {
 		String compid = request.getParameter("companyId");
 		String id = request.getParameter("compId");
 
-		System.out.println(id + " " + name + " " + intro + " " + discon + " "
-				+ compid);
-
 		ArrayList<Company> lcomp = new ArrayList<Company>(
 				ServiceCompany.INSTANCE.findAllCompany());
 		request.setAttribute("list", lcomp);
@@ -90,9 +87,13 @@ public class EditComputerServlet extends HttpServlet {
 						.parseLong(compid));
 			}
 			if (Tools.isNumber(id)) {
-				ServiceComputer.INSTANCE.updateComputer(new Computer(Long
-						.parseLong(id), name, DateMapper.toDateFormat(intro),
-						DateMapper.toDateFormat(discon), comp));
+				ServiceComputer.INSTANCE
+						.updateComputer(new Computer.ComputerBuilder(name)
+								.setId(Long.parseLong(id))
+								.setIntroduced(DateMapper.toDateFormat(intro))
+								.setDiscontinued(
+										DateMapper.toDateFormat(discon))
+								.setCompany(comp).build());
 				System.out.println("OK");
 				response.sendRedirect("DashboardServlet");
 			}

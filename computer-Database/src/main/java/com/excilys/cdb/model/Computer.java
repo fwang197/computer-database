@@ -12,19 +12,14 @@ import java.time.LocalDateTime;
  *
  */
 public class Computer {
-	// ID
 	/** The id. */
 	private long id;
-	// Nom de la machine
 	/** The name. */
 	private String name;
-	// Date de debut de distribution
 	/** The introduced. */
 	private LocalDateTime introduced;
-	// Date de fin de distribution
 	/** The discontinued. */
 	private LocalDateTime discontinued;
-	// Compagnie à l'origine du produit
 	/** The company. */
 	private Company company;
 
@@ -42,13 +37,12 @@ public class Computer {
 	 * @param company
 	 *            the company
 	 */
-	public Computer(long id, String name, LocalDateTime introduced,
-			LocalDateTime discontinued, Company company) {
-		this.id = id;
-		this.name = name;
-		this.introduced = introduced;
-		this.discontinued = discontinued;
-		this.company = company;
+	public Computer(ComputerBuilder builder) {
+		this.id = builder.id;
+		this.name = builder.name;
+		this.introduced = builder.introduced;
+		this.discontinued = builder.discontinued;
+		this.company = builder.company;
 	}
 
 	/**
@@ -207,5 +201,41 @@ public class Computer {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public static class ComputerBuilder {
+		private long id;
+		private String name;
+		private LocalDateTime introduced;
+		private LocalDateTime discontinued;
+		private Company company;
+
+		public ComputerBuilder(String name) {
+			this.name = name;
+		}
+
+		public ComputerBuilder setId(long id) {
+			this.id = id;
+			return this;
+		}
+
+		public ComputerBuilder setIntroduced(LocalDateTime introduced) {
+			this.introduced = introduced;
+			return this;
+		}
+
+		public ComputerBuilder setDiscontinued(LocalDateTime discontinued) {
+			this.discontinued = discontinued;
+			return this;
+		}
+
+		public ComputerBuilder setCompany(Company company) {
+			this.company = company;
+			return this;
+		}
+
+		public Computer build() {
+			return new Computer(this);
+		}
 	}
 }

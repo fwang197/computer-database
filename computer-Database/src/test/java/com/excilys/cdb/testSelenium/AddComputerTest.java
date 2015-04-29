@@ -43,7 +43,8 @@ public class AddComputerTest {
 		driver.findElement(By.id("computerName")).sendKeys("test1");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
-		Computer expected = new Computer(7, "test1", null, null, null);
+		Computer expected = new Computer.ComputerBuilder("test1").setId(7)
+				.build();
 		Computer actual = comp.findComputer(7);
 
 		assertEquals(expected, actual);
@@ -60,8 +61,11 @@ public class AddComputerTest {
 				.selectByVisibleText("Apple Inc.");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
-		Computer expected = new Computer(7, "test2", null, null, new Company(1,
-				"Apple Inc."));
+		Computer expected = new Computer.ComputerBuilder("test2")
+				.setId(7)
+				.setCompany(
+						new Company.CompanyBuilder("Apple Inc.").setId(1)
+								.build()).build();
 		Computer actual = comp.findComputer(7);
 		assertEquals(expected, actual);
 	}
@@ -79,9 +83,12 @@ public class AddComputerTest {
 				.selectByVisibleText("Apple Inc.");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
-		Computer expected = new Computer(7, "test3",
-				DateMapper.toDateFormat("2000-01-03"), null, new Company(1,
-						"Apple Inc."));
+		Computer expected = new Computer.ComputerBuilder("test3")
+				.setId(7)
+				.setIntroduced(DateMapper.toDateFormat("2000-01-03"))
+				.setCompany(
+						new Company.CompanyBuilder("Apple Inc.").setId(1)
+								.build()).build();
 		Computer actual = comp.findComputer(7);
 		assertEquals(expected, actual);
 	}
@@ -101,10 +108,14 @@ public class AddComputerTest {
 				.selectByVisibleText("Apple Inc.");
 		driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
 
-		Computer expected = new Computer(7, "test4",
-				DateMapper.toDateFormat("2000-01-03"),
-				DateMapper.toDateFormat("2001-01-03"), new Company(1,
-						"Apple Inc."));
+		Computer expected = new Computer.ComputerBuilder("test4")
+				.setId(7)
+				.setIntroduced(DateMapper.toDateFormat("2000-01-03"))
+				.setDiscontinued(DateMapper.toDateFormat("2001-01-03"))
+				.setCompany(
+						new Company.CompanyBuilder("Apple Inc.").setId(1)
+								.build()).build();
+
 		Computer actual = comp.findComputer(7);
 		assertEquals(expected, actual);
 	}

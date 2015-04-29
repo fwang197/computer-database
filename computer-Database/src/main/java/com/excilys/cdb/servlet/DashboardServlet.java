@@ -45,7 +45,6 @@ public class DashboardServlet extends HttpServlet {
 		String field = request.getParameter("field");
 		List<ComputerDto> lcomp = new ArrayList<ComputerDto>();
 
-		System.out.println(srange);
 		if (Tools.isNumber(p)) {
 			pageNum = Integer.parseInt(p);
 		}

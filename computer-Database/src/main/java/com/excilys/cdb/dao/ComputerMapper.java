@@ -27,8 +27,8 @@ public class ComputerMapper {
 
 			comp.setName(rs.getString("c_name"));
 			if (rs.getLong("company_id") != 0) {
-				comp.setCompany(new Company(rs.getLong("company_id"), rs
-						.getString("name")));
+				comp.setCompany(new Company.CompanyBuilder(rs.getString("name"))
+						.setId(rs.getLong("company_id")).build());
 			}
 		}
 		return comp;

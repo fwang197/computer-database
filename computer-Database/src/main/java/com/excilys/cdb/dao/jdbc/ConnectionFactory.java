@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.cdb.exception.BoneCPException;
 import com.excilys.cdb.exception.PropertiesNotFound;
 import com.excilys.cdb.exception.ServiceException;
@@ -20,7 +23,8 @@ public enum ConnectionFactory {
 
 	/** The instance. */
 	INSTANCE;
-
+	private final Logger logger = LoggerFactory
+			.getLogger(ConnectionFactory.class);
 	/** The prop. */
 	private Properties prop;
 
@@ -54,11 +58,13 @@ public enum ConnectionFactory {
 			conf.setPartitionCount(2);
 			pool = new BoneCP(conf);
 		} catch (IOException ex) {
+			logger.error("Connection Factory : Input error");
 			throw new PropertiesNotFound();
 		} catch (SQLException e) {
+			logger.error("Connection Factory : BoneCP error");
 			throw new BoneCPException();
 		} catch (ClassNotFoundException e) {
-			System.err.println("Driver not found!");
+			logger.error("Connection Factory : Driver not found");
 			throw new RuntimeException();
 		}
 
@@ -77,7 +83,7 @@ public enum ConnectionFactory {
 			return threadConnection.get();
 
 		} catch (SQLException e) {
-			System.err.println("Error : Connection!");
+			logger.error("Connection Factory : get Connection error");
 			throw new RuntimeException();
 		}
 	}
@@ -94,7 +100,7 @@ public enum ConnectionFactory {
 			threadConnection.remove();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println("Error : Close Connection");
+			logger.error("Connection Factory : close Connection error");
 			throw new RuntimeException();
 		}
 	}
@@ -110,7 +116,7 @@ public enum ConnectionFactory {
 		try {
 			conn.setAutoCommit(false);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Connection Factory : start Transaction error");
 			throw new SQLException();
 		}
 	}
@@ -127,7 +133,7 @@ public enum ConnectionFactory {
 		try {
 			conn.commit();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Connection Factory : commit error");
 			throw new SQLException();
 		}
 	}
@@ -141,7 +147,7 @@ public enum ConnectionFactory {
 		try {
 			conn.rollback();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Connection Factory : rollback error");
 			throw new ServiceException();
 		}
 	}

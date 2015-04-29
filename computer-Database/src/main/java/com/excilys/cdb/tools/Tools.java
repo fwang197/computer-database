@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.excilys.cdb.exception.DaoException;
 
@@ -17,6 +20,8 @@ import com.excilys.cdb.exception.DaoException;
  * The Class Tools.
  */
 public class Tools {
+
+	private final static Logger logger = LoggerFactory.getLogger(Tools.class);
 
 	/**
 	 * Checks if the string is a number.
@@ -48,15 +53,16 @@ public class Tools {
 	 * @param rs
 	 * @param pstat
 	 */
-	public static void closeProperly(ResultSet rs, PreparedStatement pstat) {
+	public static void closeProperly(ResultSet rs, Statement stat) {
 		try {
 			if (!Tools.isNull(rs)) {
 				rs.close();
 			}
-			if (!Tools.isNull(pstat)) {
-				pstat.close();
+			if (!Tools.isNull(stat)) {
+				stat.close();
 			}
 		} catch (SQLException e) {
+			logger.error("Tools : can't close properly");
 			throw new DaoException();
 		}
 
@@ -75,7 +81,7 @@ public class Tools {
 			while (br.readLine() != null) {
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Tools : process error");
 		}
 	}
 

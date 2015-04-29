@@ -18,31 +18,9 @@ public class Company {
 	/**
 	 * Instantiates a new company.
 	 */
-	public Company() {
-
-	}
-
-	/**
-	 * Instantiates a new company.
-	 *
-	 * @param id
-	 *            the id
-	 * @param name
-	 *            the name
-	 */
-	public Company(long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-
-	/**
-	 * Instantiates a new company.
-	 *
-	 * @param name
-	 *            the name
-	 */
-	public Company(String name) {
-		this.name = name;
+	public Company(CompanyBuilder builder) {
+		this.id = builder.id;
+		this.name = builder.name;
 	}
 
 	/**
@@ -117,5 +95,23 @@ public class Company {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public static class CompanyBuilder {
+		private long id;
+		private String name;
+
+		public CompanyBuilder(String name) {
+			this.name = name;
+		}
+
+		public CompanyBuilder setId(long id) {
+			this.id = id;
+			return this;
+		}
+
+		public Company build() {
+			return new Company(this);
+		}
 	}
 }

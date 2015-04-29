@@ -55,17 +55,10 @@ public class AddComputerServlet extends HttpServlet {
 		String intro = request.getParameter("introduced");
 		String discon = request.getParameter("discontinued");
 		String id = request.getParameter("companyId");
-		System.out.println(name + " " + intro + " " + discon + " " + id);
 
 		ArrayList<Company> lcomp = new ArrayList<Company>(
 				ServiceCompany.INSTANCE.findAllCompany());
 		request.setAttribute("list", lcomp);
-
-		System.out.println("name " + name);
-		System.out.println("intro " + intro + " : "
-				+ Tools.checkGoodDate(intro));
-		System.out.println("discon " + discon + " : "
-				+ Tools.checkGoodDate(discon));
 
 		if (!name.equals("") && Tools.checkGoodDate(intro)
 				&& Tools.checkGoodDate(discon)) {
@@ -74,9 +67,11 @@ public class AddComputerServlet extends HttpServlet {
 			if (Tools.isNumber(id)) {
 				comp = ServiceCompany.INSTANCE.findCompany(Long.parseLong(id));
 			}
-			ServiceComputer.INSTANCE.createComputer(new Computer(0, name,
-					DateMapper.toDateFormat(intro), DateMapper
-							.toDateFormat(discon), comp));
+			ServiceComputer.INSTANCE
+					.createComputer(new Computer.ComputerBuilder(name)
+							.setIntroduced(DateMapper.toDateFormat(intro))
+							.setDiscontinued(DateMapper.toDateFormat(discon))
+							.setCompany(comp).build());
 			System.out.println("OK");
 
 			response.sendRedirect("DashboardServlet");

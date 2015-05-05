@@ -8,18 +8,26 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext.xml" })
 public class DeleteComputerTest {
-	private static ServiceComputer comp;
+
+	@Autowired
+	private ServiceComputer comp;
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -30,7 +38,7 @@ public class DeleteComputerTest {
 		driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8080/computer-Database/DashboardServlet";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		comp = ServiceComputer.INSTANCE;
+
 	}
 
 	@Test

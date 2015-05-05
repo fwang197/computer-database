@@ -5,19 +5,24 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.IServiceComputer;
-import com.excilys.cdb.service.ServiceComputer;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext.xml" })
 public class ServiceComputerFindTest {
 
-	private static IServiceComputer serv;
+	@Autowired
+	private IServiceComputer serv;
 
 	@BeforeClass
 	public static void initCompanyDao() {
-		serv = ServiceComputer.INSTANCE;
 	}
 
 	@Test

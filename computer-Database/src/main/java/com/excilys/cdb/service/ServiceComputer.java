@@ -6,54 +6,60 @@ import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Enum ServiceComputer.
- */
-public enum ServiceComputer implements IServiceComputer {
+public class ServiceComputer implements IServiceComputer {
 
-	/** The instance. */
-	INSTANCE;
+	private ComputerDao computerDao;
+
+	public ServiceComputer() {
+	}
 
 	public long createComputer(Computer c) {
-		return ComputerDao.INSTANCE.create(c);
+		return computerDao.create(c);
 	}
 
 	public Computer findComputer(long id) {
-		return ComputerDao.INSTANCE.find(id);
+		return computerDao.find(id);
 	}
 
 	public void updateComputer(Computer c) {
-		ComputerDao.INSTANCE.update(c);
+		computerDao.update(c);
 	}
 
 	public void deleteComputer(Computer c) {
-		ComputerDao.INSTANCE.delete(c);
+		computerDao.delete(c);
 	}
 
 	public List<Computer> findAllComputer() {
-		return ComputerDao.INSTANCE.findAll();
+		return computerDao.findAll();
 	}
 
 	public int getCountComputer() {
-		return ComputerDao.INSTANCE.getCount();
+		return computerDao.getCount();
 	}
 
 	@Override
 	public int getCountComputer(String pattern) {
-		return ComputerDao.INSTANCE.getCount(pattern);
+		return computerDao.getCount(pattern);
 	}
 
 	@Override
 	public List<Computer> findAllComputer(Page page, String by, String order) {
-		return ComputerDao.INSTANCE.findAll(page.getOffset(), page.getRange(),
-				by, order);
+		return computerDao
+				.findAll(page.getOffset(), page.getRange(), by, order);
 	}
 
 	@Override
 	public List<Computer> findAllComputer(Page page, String pattern, String by,
 			String order) {
-		return ComputerDao.INSTANCE.findAll(page.getOffset(), page.getRange(),
-				pattern, by, order);
+		return computerDao.findAll(page.getOffset(), page.getRange(), pattern,
+				by, order);
+	}
+
+	public ComputerDao getcomputerDao() {
+		return computerDao;
+	}
+
+	public void setcomputerDao(ComputerDao computerDao) {
+		this.computerDao = computerDao;
 	}
 }

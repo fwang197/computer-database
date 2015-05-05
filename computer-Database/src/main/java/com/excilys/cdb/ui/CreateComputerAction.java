@@ -2,6 +2,9 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import com.excilys.cdb.dao.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
@@ -16,7 +19,13 @@ import com.excilys.cdb.tools.Tools;
  * @author excilys
  *
  */
+@Controller
 public class CreateComputerAction extends Action {
+	@Autowired
+	private ServiceCompany servicecompany;
+
+	@Autowired
+	private ServiceComputer servicecomputer;
 
 	/**
 	 * Instantiates a new creates the computer action.
@@ -59,11 +68,10 @@ public class CreateComputerAction extends Action {
 
 			String res = sc.nextLine();
 			if (Tools.isNumber(res)) {
-				Company comp = ServiceCompany.INSTANCE.findCompany(Long
-						.parseLong(res));
+				Company comp = servicecompany.findCompany(Long.parseLong(res));
 				if (!Tools.isNull(comp)) {
 					c.setCompany(comp);
-					ServiceComputer.INSTANCE.createComputer(c);
+					servicecomputer.createComputer(c);
 					System.out.println("Computer added!");
 				} else {
 					System.err.println("Company ID is incorrect!");

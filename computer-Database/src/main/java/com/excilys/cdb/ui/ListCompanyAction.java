@@ -2,6 +2,9 @@ package com.excilys.cdb.ui;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.service.ServiceCompany;
 
@@ -13,7 +16,11 @@ import com.excilys.cdb.service.ServiceCompany;
  * @author excilys
  *
  */
+@Controller
 public class ListCompanyAction extends Action {
+
+	@Autowired
+	private ServiceCompany servicecompany;
 
 	/**
 	 * Instantiates a new list company action.
@@ -31,7 +38,7 @@ public class ListCompanyAction extends Action {
 	@Override
 	public void execute() {
 		ArrayList<Company> l = new ArrayList<Company>(
-				ServiceCompany.INSTANCE.findAllCompany());
+				servicecompany.findAllCompany());
 		for (Company comp : l) {
 			System.out.println(comp.getId() + " " + comp.toString());
 		}

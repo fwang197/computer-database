@@ -15,46 +15,73 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Enum ServiceCompany.
- */
-public enum ServiceCompany implements IServiceCompany {
+public class ServiceCompany implements IServiceCompany {
 
-	/** The instance. */
-	INSTANCE;
+	private ConnectionFactory connectionFact;
+
+	private CompanyDao companyDao;
+
+	private ComputerDao computerDao;
+
 	private final Logger logger = LoggerFactory.getLogger(ServiceCompany.class);
 
 	public Company findCompany(long id) {
-		return CompanyDao.INSTANCE.find(id);
+		return companyDao.find(id);
+	}
+
+	private ServiceCompany() {
 	}
 
 	public void deleteCompany(Company obj) {
 		PreparedStatement prepare = null;
-		ConnectionFactory.INSTANCE.getConnection();
+		connectionFact.getConnection();
 		try {
-			ConnectionFactory.INSTANCE.startTransaction();
-			for (Computer comp : ComputerDao.INSTANCE.findAll(obj)) {
-				ComputerDao.INSTANCE.deleteWithoutConnection(comp);
+			connectionFact.startTransaction();
+			for (Computer comp : computerDao.findAll(obj)) {
+				computerDao.deleteWithoutConnection(comp);
 			}
-			CompanyDao.INSTANCE.deleteWithoutConnection(obj);
-			ConnectionFactory.INSTANCE.commit();
+			companyDao.deleteWithoutConnection(obj);
+			connectionFact.commit();
 		} catch (SQLException e) {
 			logger.error("Service Company : delete Company error : {} ", obj);
-			ConnectionFactory.INSTANCE.rollback();
+			connectionFact.rollback();
 			throw new ServiceException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 	}
 
 	public List<Company> findAllCompany() {
-		return CompanyDao.INSTANCE.findAll();
+		return companyDao.findAll();
 	}
 
 	public List<Company> findAllCompany(int offset, int range) {
-		return CompanyDao.INSTANCE.findAll(offset, range);
+		return companyDao.findAll(offset, range);
+	}
+
+	public ConnectionFactory getConnectionFact() {
+		return connectionFact;
+	}
+
+	public void setConnectionFact(ConnectionFactory connectionFact) {
+		this.connectionFact = connectionFact;
+	}
+
+	public CompanyDao getCompanyDao() {
+		return companyDao;
+	}
+
+	public void setCompanyDao(CompanyDao companyDao) {
+		this.companyDao = companyDao;
+	}
+
+	public ComputerDao getComputerDao() {
+		return computerDao;
+	}
+
+	public void setComputerDao(ComputerDao computerDao) {
+		this.computerDao = computerDao;
 	}
 
 }

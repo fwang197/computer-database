@@ -18,21 +18,20 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Enum ConcreteComputerDao.
- */
-public enum ComputerDao implements IDao<Computer> {
+public class ComputerDao implements IDao<Computer> {
 
-	/** The instance. */
-	INSTANCE;
+	private ConnectionFactory connectionFact;
+
 	private final Logger logger = LoggerFactory.getLogger(ComputerDao.class);
+
+	public ComputerDao() {
+	}
 
 	public long create(Computer comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement(
 							"insert into computer(name,introduced,discontinued,company_id) values (?,?,?,?)",
@@ -58,7 +57,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 	}
 
@@ -69,7 +68,7 @@ public enum ComputerDao implements IDao<Computer> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 
 			prepare = conn
 					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
@@ -83,7 +82,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return computer;
 	}
@@ -92,7 +91,7 @@ public enum ComputerDao implements IDao<Computer> {
 		PreparedStatement prepare = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("update computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?");
 			prepare.setString(1, comp.getName());
@@ -112,7 +111,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 	}
 
@@ -120,7 +119,7 @@ public enum ComputerDao implements IDao<Computer> {
 		PreparedStatement prepare = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("delete from computer where id = ?");
 			prepare.setLong(1, comp.getId());
@@ -130,15 +129,15 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 	}
 
 	public void deleteWithoutConnection(Computer comp) throws SQLException {
 		PreparedStatement prepare = null;
 		try {
-			prepare = ConnectionFactory.INSTANCE.getConnection()
-					.prepareStatement("delete from computer where id = ?");
+			prepare = connectionFact.getConnection().prepareStatement(
+					"delete from computer where id = ?");
 			prepare.setLong(1, comp.getId());
 			prepare.executeUpdate();
 		} catch (SQLException e) {
@@ -157,7 +156,7 @@ public enum ComputerDao implements IDao<Computer> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
 							+ "from computer left outer join company "
@@ -171,7 +170,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -182,7 +181,7 @@ public enum ComputerDao implements IDao<Computer> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select count(*) as nb from computer");
 			rs.next();
@@ -192,7 +191,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, stmt);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return res;
 	}
@@ -203,7 +202,7 @@ public enum ComputerDao implements IDao<Computer> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("select count(*) as nb "
 							+ "from computer left outer join company "
@@ -220,7 +219,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return res;
 	}
@@ -232,7 +231,7 @@ public enum ComputerDao implements IDao<Computer> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
 							+ "from computer left outer join company "
@@ -257,7 +256,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -270,7 +269,7 @@ public enum ComputerDao implements IDao<Computer> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
 							+ "from computer left outer join company "
@@ -299,7 +298,7 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -311,7 +310,7 @@ public enum ComputerDao implements IDao<Computer> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
 							+ "from computer left outer join company "
@@ -327,8 +326,16 @@ public enum ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			// ConnectionFactory.INSTANCE.closeConnection();
+			// connectionFact.closeConnection();
 		}
 		return lcomputer;
+	}
+
+	public ConnectionFactory getConnectionFact() {
+		return connectionFact;
+	}
+
+	public void setConnectionFact(ConnectionFactory connectionFact) {
+		this.connectionFact = connectionFact;
 	}
 }

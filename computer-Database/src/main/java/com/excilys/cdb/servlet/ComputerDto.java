@@ -6,17 +6,20 @@ public class ComputerDto {
 	private String name;
 	private String introduced;
 	private String discontinued;
-	private long company_id;
-	private String company_name;
+	private long companyId;
+	private String companyName;
 
-	public ComputerDto(long id, String name, String introduced,
-			String discontinued, long company_id, String company_name) {
-		this.id = id;
-		this.name = name;
-		this.introduced = introduced;
-		this.discontinued = discontinued;
-		this.company_id = company_id;
-		this.company_name = company_name;
+	public ComputerDto() {
+
+	}
+
+	public ComputerDto(ComputerDtoBuilder builder) {
+		this.id = builder.id;
+		this.name = builder.name;
+		this.introduced = builder.introduced;
+		this.discontinued = builder.discontinued;
+		this.companyId = builder.companyId;
+		this.companyName = builder.companyName;
 	}
 
 	public long getId() {
@@ -51,20 +54,20 @@ public class ComputerDto {
 		this.discontinued = discontinued;
 	}
 
-	public long getCompany_id() {
-		return company_id;
+	public long getCompanyId() {
+		return companyId;
 	}
 
-	public void setCompany_id(long company_id) {
-		this.company_id = company_id;
+	public void setCompanyId(long companyId) {
+		this.companyId = companyId;
 	}
 
-	public String getCompany_name() {
-		return company_name;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setCompany_name(String company_name) {
-		this.company_name = company_name;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 	@Override
@@ -76,12 +79,12 @@ public class ComputerDto {
 		if (getClass() != obj.getClass())
 			return false;
 		ComputerDto other = (ComputerDto) obj;
-		if (company_id != other.company_id)
+		if (companyId != other.companyId)
 			return false;
-		if (company_name == null) {
-			if (other.company_name != null)
+		if (companyName == null) {
+			if (other.companyName != null)
 				return false;
-		} else if (!company_name.equals(other.company_name))
+		} else if (!companyName.equals(other.companyName))
 			return false;
 		if (discontinued == null) {
 			if (other.discontinued != null)
@@ -106,8 +109,50 @@ public class ComputerDto {
 	public String toString() {
 		return "ComputerDto [id=" + id + ", name=" + name + ", introduced="
 				+ introduced + ", discontinued=" + discontinued
-				+ ", company_id=" + company_id + ", company_name="
-				+ company_name + "]";
+				+ ", companyId=" + companyId + ", companyName=" + companyName
+				+ "]";
+	}
+
+	public static class ComputerDtoBuilder {
+		private long id;
+		private String name;
+		private String introduced;
+		private String discontinued;
+		private long companyId;
+		private String companyName;
+
+		public ComputerDtoBuilder(String name) {
+			this.name = name;
+		}
+
+		public ComputerDtoBuilder setId(long id) {
+			this.id = id;
+			return this;
+		}
+
+		public ComputerDtoBuilder setIntroduced(String introduced) {
+			this.introduced = introduced;
+			return this;
+		}
+
+		public ComputerDtoBuilder setDiscontinued(String discontinued) {
+			this.discontinued = discontinued;
+			return this;
+		}
+
+		public ComputerDtoBuilder setCompanyId(long cid) {
+			this.companyId = cid;
+			return this;
+		}
+
+		public ComputerDtoBuilder setCompanyName(String cname) {
+			this.companyName = cname;
+			return this;
+		}
+
+		public ComputerDto build() {
+			return new ComputerDto(this);
+		}
 	}
 
 }

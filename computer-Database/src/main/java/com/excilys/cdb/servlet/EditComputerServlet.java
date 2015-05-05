@@ -3,11 +3,16 @@ package com.excilys.cdb.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.cdb.dao.DateMapper;
 import com.excilys.cdb.mapper.ComputerDTOMapper;
@@ -21,16 +26,29 @@ import com.excilys.cdb.tools.Validator;
 /**
  * Servlet implementation class EditComputerServlet
  */
+@Controller
 @WebServlet("/EditComputerServlet")
 public class EditComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	private ServiceComputer servicecomputer;
+
+	@Autowired
+	private ServiceCompany servicecompany;
+
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+				config.getServletContext());
+
+	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public EditComputerServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -43,23 +61,23 @@ public class EditComputerServlet extends HttpServlet {
 		long id = 0;
 		if (Tools.isNumber(sid)) {
 			id = Long.parseLong(sid);
-			if (ServiceComputer.INSTANCE.findComputer(id) == null) {
+			if (servicecomputer.findComputer(id) == null) {
 				id = 1;
 			}
 		}
 
 		ArrayList<Company> lcomp = new ArrayList<Company>(
-				ServiceCompany.INSTANCE.findAllCompany());
+				servicecompany.findAllCompany());
 		request.setAttribute("list", lcomp);
 
-		ComputerDto comp = ComputerDTOMapper
-				.toComputerDto(ServiceComputer.INSTANCE.findComputer(id));
+		ComputerDto comp = ComputerDTOMapper.toComputerDto(servicecomputer
+				.findComputer(id));
 		request.setAttribute("compId", comp.getId());
 		request.setAttribute("name", comp.getName());
 		request.setAttribute("intro", comp.getIntroduced());
 		request.setAttribute("discon", comp.getDiscontinued());
-		request.setAttribute("compName", comp.getCompany_name());
-		request.setAttribute("companyId", comp.getCompany_id());
+		request.setAttribute("compName", comp.getCompanyName());
+		request.setAttribute("companyId", comp.getCompanyId());
 		request.setAttribute("list", lcomp);
 		this.getServletContext()
 				.getRequestDispatcher("/WEB-INF/editComputer.jsp")
@@ -79,7 +97,7 @@ public class EditComputerServlet extends HttpServlet {
 		String scomputerid = request.getParameter("compId");
 
 		ArrayList<Company> lcomp = new ArrayList<Company>(
-				ServiceCompany.INSTANCE.findAllCompany());
+				servicecompany.findAllCompany());
 		request.setAttribute("list", lcomp);
 
 		if (!name.equals("") && Validator.isDateValid(introduced)
@@ -87,19 +105,16 @@ public class EditComputerServlet extends HttpServlet {
 			Company company = null;
 
 			if (Tools.isNumber(scompanyid)) {
-				company = ServiceCompany.INSTANCE.findCompany(Long
-						.parseLong(scompanyid));
+				company = servicecompany
+						.findCompany(Long.parseLong(scompanyid));
 			}
 			if (Tools.isNumber(scomputerid)) {
 
-				ServiceComputer.INSTANCE
-						.updateComputer(new Computer.ComputerBuilder(name)
-								.setId(Long.parseLong(scomputerid))
-								.setIntroduced(
-										DateMapper.toDateFormat(introduced))
-								.setDiscontinued(
-										DateMapper.toDateFormat(discontinued))
-								.setCompany(company).build());
+				servicecomputer.updateComputer(new Computer.ComputerBuilder(
+						name).setId(Long.parseLong(scomputerid))
+						.setIntroduced(DateMapper.toDateFormat(introduced))
+						.setDiscontinued(DateMapper.toDateFormat(discontinued))
+						.setCompany(company).build());
 				System.out.println("OK");
 				response.sendRedirect("DashboardServlet");
 			}

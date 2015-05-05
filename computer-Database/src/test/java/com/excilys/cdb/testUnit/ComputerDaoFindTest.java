@@ -5,18 +5,24 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.IDao;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext.xml" })
 public class ComputerDaoFindTest {
-	private static IDao<Computer> comp;
+
+	@Autowired
+	private IDao<Computer> comp;
 
 	@BeforeClass
 	public static void initCompanyDao() {
-		comp = ComputerDao.INSTANCE;
 	}
 
 	@Test
@@ -32,13 +38,13 @@ public class ComputerDaoFindTest {
 	}
 
 	@Test
-	public void testNotValid() {
+	public void testNotValidOutRange() {
 		Computer actual = comp.find(7);
 		assertNull(actual);
 	}
 
 	@Test
-	public void testNotValid2() {
+	public void testNotValidValueNeg() {
 		Computer actual = comp.find(-1);
 		assertNull(actual);
 	}

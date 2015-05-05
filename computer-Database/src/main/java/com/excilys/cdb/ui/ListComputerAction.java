@@ -2,6 +2,9 @@ package com.excilys.cdb.ui;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.ServiceComputer;
 
@@ -13,7 +16,11 @@ import com.excilys.cdb.service.ServiceComputer;
  * @author excilys
  *
  */
+@Controller
 public class ListComputerAction extends Action {
+
+	@Autowired
+	private ServiceComputer servicecomputer;
 
 	/**
 	 * Instantiates a new list computer action.
@@ -31,7 +38,7 @@ public class ListComputerAction extends Action {
 	@Override
 	public void execute() {
 		ArrayList<Computer> l = new ArrayList<Computer>(
-				ServiceComputer.INSTANCE.findAllComputer());
+				servicecomputer.findAllComputer());
 		for (Computer comp : l)
 			System.out.println(comp.getId() + " " + comp.toString());
 	}

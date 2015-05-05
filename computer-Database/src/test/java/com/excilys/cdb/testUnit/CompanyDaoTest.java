@@ -7,21 +7,28 @@ import java.util.ArrayList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.IDao;
 import com.excilys.cdb.model.Company;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext.xml" })
 public class CompanyDaoTest {
-	private static IDao<Company> comp;
+
+	@Autowired
+	private IDao<Company> comp;
 
 	@BeforeClass
 	public static void initCompanyDao() {
-		comp = CompanyDao.INSTANCE;
+
 	}
 
 	@Test
-	public void testFind() {
+	public void testFindValid() {
 		Company expected = new Company.CompanyBuilder("Apple Inc.").setId(1)
 				.build();
 		Company actual = comp.find(1);
@@ -29,7 +36,7 @@ public class CompanyDaoTest {
 	}
 
 	@Test
-	public void testFindAll() {
+	public void testFindAllValid() {
 		ArrayList<Company> lexpected = new ArrayList<Company>();
 		lexpected
 				.add(new Company.CompanyBuilder("Apple Inc.").setId(1).build());

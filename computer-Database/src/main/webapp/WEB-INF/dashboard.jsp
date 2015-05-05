@@ -97,7 +97,7 @@
 								<td><mylib:link target="EditComputerServlet" body="${i.name}" compId="${i.id}"/></td>
 								<td>${i.introduced}</td>
 								<td>${i.discontinued}</td>
-								<td>${i.company_name}</td>
+								<td>${i.companyName}</td>
 							</tr>
 					</c:forEach>
                 </tbody>

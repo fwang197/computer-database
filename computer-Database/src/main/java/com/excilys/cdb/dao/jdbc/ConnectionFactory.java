@@ -1,35 +1,24 @@
 package com.excilys.cdb.dao.jdbc;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
+
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.cdb.exception.BoneCPException;
-import com.excilys.cdb.exception.PropertiesNotFound;
 import com.excilys.cdb.exception.ServiceException;
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating Connection objects.
  */
-public enum ConnectionFactory {
+public class ConnectionFactory {
 
-	/** The instance. */
-	INSTANCE;
 	private final Logger logger = LoggerFactory
 			.getLogger(ConnectionFactory.class);
-	/** The prop. */
-	private Properties prop;
 
-	/** The pool of connections. */
-	private BoneCP pool;
+	private DataSource datasource = null;
 
 	/** The Constant threadConnection. */
 	public static final ThreadLocal<Connection> threadConnection = new ThreadLocal<Connection>();
@@ -38,36 +27,6 @@ public enum ConnectionFactory {
 	 * Instantiates a new connection factory.
 	 */
 	private ConnectionFactory() {
-
-		prop = new Properties();
-		InputStream input = null;
-
-		try {
-			input = getClass().getClassLoader().getResourceAsStream(
-					"config.properties");
-			prop.load(input);
-
-			Class.forName(prop.getProperty("driver"));
-
-			BoneCPConfig conf = new BoneCPConfig();
-			conf.setJdbcUrl(prop.getProperty("url"));
-			conf.setUsername(prop.getProperty("user"));
-			conf.setPassword(prop.getProperty("password"));
-			conf.setMinConnectionsPerPartition(1);
-			conf.setMaxConnectionsPerPartition(5);
-			conf.setPartitionCount(2);
-			pool = new BoneCP(conf);
-		} catch (IOException ex) {
-			logger.error("Connection Factory : Input error");
-			throw new PropertiesNotFound();
-		} catch (SQLException e) {
-			logger.error("Connection Factory : BoneCP error");
-			throw new BoneCPException();
-		} catch (ClassNotFoundException e) {
-			logger.error("Connection Factory : Driver not found");
-			throw new RuntimeException();
-		}
-
 	}
 
 	/**
@@ -78,7 +37,7 @@ public enum ConnectionFactory {
 	public Connection getConnection() {
 		try {
 			if (threadConnection.get() == null) {
-				threadConnection.set(pool.getConnection());
+				threadConnection.set(datasource.getConnection());
 			}
 			return threadConnection.get();
 
@@ -149,5 +108,13 @@ public enum ConnectionFactory {
 			logger.error("Connection Factory : rollback error");
 			throw new ServiceException();
 		}
+	}
+
+	public DataSource getDatasource() {
+		return datasource;
+	}
+
+	public void setDatasource(DataSource datasource) {
+		this.datasource = datasource;
 	}
 }

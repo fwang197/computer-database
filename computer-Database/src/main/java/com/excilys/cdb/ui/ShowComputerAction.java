@@ -17,6 +17,8 @@ public class ShowComputerAction extends Action {
 
 	private Scanner sc;
 
+	private ServiceComputer servicecomputer;
+
 	/**
 	 * Instantiates a new show computer action.
 	 *
@@ -39,7 +41,7 @@ public class ShowComputerAction extends Action {
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
-			Computer c = ServiceComputer.INSTANCE.findComputer(id);
+			Computer c = servicecomputer.findComputer(id);
 			if (!Tools.isNull(c)) {
 				System.out.println(c.toString());
 			} else {

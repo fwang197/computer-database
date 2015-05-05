@@ -16,15 +16,14 @@ import com.excilys.cdb.exception.DaoException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.tools.Tools;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Enum ConcreteCompanyDao.
- */
-public enum CompanyDao implements IDao<Company> {
+public class CompanyDao implements IDao<Company> {
 
-	/** The instance. */
-	INSTANCE;
+	private ConnectionFactory connectionFact;
+
 	private final Logger logger = LoggerFactory.getLogger(CompanyDao.class);
+
+	private CompanyDao() {
+	}
 
 	public Company find(long id) {
 		Company company = null;
@@ -32,7 +31,7 @@ public enum CompanyDao implements IDao<Company> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn
 					.prepareStatement("select * from company where id = ?");
 			prepare.setLong(1, id);
@@ -43,7 +42,7 @@ public enum CompanyDao implements IDao<Company> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return company;
 	}
@@ -52,7 +51,7 @@ public enum CompanyDao implements IDao<Company> {
 		PreparedStatement prepare = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			prepare = conn.prepareStatement("delete from company where id = ?");
 			prepare.setLong(1, comp.getId());
 
@@ -73,7 +72,7 @@ public enum CompanyDao implements IDao<Company> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select * from company");
 			while (!rs.isLast()) {
@@ -84,7 +83,7 @@ public enum CompanyDao implements IDao<Company> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, stmt);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return lcompany;
 	}
@@ -95,7 +94,7 @@ public enum CompanyDao implements IDao<Company> {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = ConnectionFactory.INSTANCE.getConnection();
+			conn = connectionFact.getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select * from company limit " + range
 					+ " offset " + offset);
@@ -110,8 +109,16 @@ public enum CompanyDao implements IDao<Company> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, stmt);
-			ConnectionFactory.INSTANCE.closeConnection();
+			connectionFact.closeConnection();
 		}
 		return lcompany;
+	}
+
+	public ConnectionFactory getConnectionFact() {
+		return connectionFact;
+	}
+
+	public void setConnectionFact(ConnectionFactory connectionFact) {
+		this.connectionFact = connectionFact;
 	}
 }

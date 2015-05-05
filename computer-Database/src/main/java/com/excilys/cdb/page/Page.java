@@ -145,17 +145,17 @@ public class Page {
 	}
 
 	/**
-	 * Validate the page , if the data are wrong we apply default values.
+	 * Validate the page.
 	 */
-	public void validate() {
-		if (range > 100) {
-			setRange(50);
-		}
-		if (pageNum > (nb / range)) {
-			setPageNum(0);
-			setOffset(0);
-		}
+	public boolean validate() {
+		return range <= 100 && (pageNum <= (nb / range));
 
+	}
+
+	@Override
+	public String toString() {
+		return "Page [offset=" + offset + ", range=" + range + ", pageNum="
+				+ pageNum + ", nb=" + nb + ", lcomp=" + lcomp + "]";
 	}
 
 }

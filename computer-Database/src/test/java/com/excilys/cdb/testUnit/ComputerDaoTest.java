@@ -21,7 +21,7 @@ import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContextTest.xml" })
 public class ComputerDaoTest {
 
 	@Autowired

@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.excilys.cdb.tools.Tools;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContextTest.xml" })
 public class TotalCountTest {
 
 	private WebDriver driver;
@@ -32,7 +32,7 @@ public class TotalCountTest {
 	}
 
 	@Test
-	public void testSelenium1() throws Exception {
+	public void testSeleniumNbComputer() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 

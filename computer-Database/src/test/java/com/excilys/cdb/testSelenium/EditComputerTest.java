@@ -21,11 +21,12 @@ import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContextTest.xml" })
 public class EditComputerTest {
 
 	@Autowired
 	private ServiceComputer comp;
+
 	private WebDriver driver;
 	private String baseUrl;
 
@@ -38,7 +39,7 @@ public class EditComputerTest {
 	}
 
 	@Test
-	public void testSelenium1() throws Exception {
+	public void testSeleniumEditComputerValid() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 

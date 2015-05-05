@@ -23,11 +23,12 @@ import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContextTest.xml" })
 public class DeleteComputerTest {
 
 	@Autowired
 	private ServiceComputer comp;
+
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -42,7 +43,7 @@ public class DeleteComputerTest {
 	}
 
 	@Test
-	public void testSelenium1() throws Exception {
+	public void testSeleniumDeleteComputerValid() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 		;
@@ -55,12 +56,11 @@ public class DeleteComputerTest {
 
 		Computer expected = null;
 		Computer actual = comp.findComputer(1);
-		System.out.println(actual);
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSelenium2() throws Exception {
+	public void testSeleniuDeleteAllComputerValid() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 
@@ -77,7 +77,7 @@ public class DeleteComputerTest {
 	}
 
 	@Test
-	public void testSelenium3() throws Exception {
+	public void testSeleniumDeleteComputerFail() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 		driver.findElement(By.id("editComputer")).click();

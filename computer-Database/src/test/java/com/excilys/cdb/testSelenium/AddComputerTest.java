@@ -24,11 +24,12 @@ import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContextTest.xml" })
 public class AddComputerTest {
 
 	@Autowired
 	private ServiceComputer comp;
+
 	private WebDriver driver;
 	private String baseUrl;
 
@@ -42,7 +43,7 @@ public class AddComputerTest {
 	}
 
 	@Test
-	public void testSelenium1() throws Exception {
+	public void testSeleniumAddComputerValid() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 
@@ -59,7 +60,7 @@ public class AddComputerTest {
 	}
 
 	@Test
-	public void testSelenium2() throws Exception {
+	public void testSeleniumAddComputerCompanyValid() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 		driver.findElement(By.id("addComputer")).click();
@@ -79,7 +80,7 @@ public class AddComputerTest {
 	}
 
 	@Test
-	public void testSelenium3() throws Exception {
+	public void testSeleniumAddComputerCompanyIntroValid() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 		driver.findElement(By.id("addComputer")).click();
@@ -102,7 +103,8 @@ public class AddComputerTest {
 	}
 
 	@Test
-	public void testSelenium4() throws Exception {
+	public void testSeleniumAddComputerCompanyIntroDisconValid()
+			throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 		driver.findElement(By.id("addComputer")).click();
@@ -129,7 +131,7 @@ public class AddComputerTest {
 	}
 
 	@Test
-	public void testSelenium5() throws Exception {
+	public void testSeleniumAddComputerFail() throws Exception {
 		Tools.process();
 		driver.get(baseUrl);
 		driver.findElement(By.id("addComputer")).click();

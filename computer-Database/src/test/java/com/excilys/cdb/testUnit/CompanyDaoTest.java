@@ -16,7 +16,7 @@ import com.excilys.cdb.dao.IDao;
 import com.excilys.cdb.model.Company;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/applicationContextTest.xml" })
 public class CompanyDaoTest {
 
 	@Autowired

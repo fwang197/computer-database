@@ -70,8 +70,6 @@ public class DashboardServlet extends HttpServlet {
 		}
 
 		page.turn(pageNum, range);
-		page.validate();
-
 		if (search == null || search.isEmpty()) {
 			if (order == null || order.isEmpty()) {
 				order = "";
@@ -92,14 +90,20 @@ public class DashboardServlet extends HttpServlet {
 					.findAllComputer(page, search, field, order));
 		}
 		page.setNb(servicecomputer.getCountComputer(search));
-		page.setLcomp(lcomp);
+		if (!page.validate()) {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/404.jsp")
+					.forward(request, response);
+		} else {
+			page.setLcomp(lcomp);
 
-		request.setAttribute("page", page);
-		request.setAttribute("search", search);
-		request.setAttribute("order", order);
-		request.setAttribute("field", field);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp")
-				.forward(request, response);
+			request.setAttribute("page", page);
+			request.setAttribute("search", search);
+			request.setAttribute("order", order);
+			request.setAttribute("field", field);
+			this.getServletContext()
+					.getRequestDispatcher("/WEB-INF/dashboard.jsp")
+					.forward(request, response);
+		}
 	}
 
 	/**

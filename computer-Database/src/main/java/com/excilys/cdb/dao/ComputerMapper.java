@@ -11,19 +11,20 @@ import com.excilys.cdb.model.Computer;
 public class ComputerMapper implements RowMapper<Computer> {
 
 	public Computer mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Computer computer = new Computer();
-		computer.setId(rs.getLong("c_id"));
-		computer.setIntroduced(DateMapper.toLocalDateTime(rs
-				.getTimestamp("introduced")));
-
-		computer.setDiscontinued(DateMapper.toLocalDateTime(rs
-				.getTimestamp("discontinued")));
-
-		computer.setName(rs.getString("c_name"));
+		Computer computer = null;
+		computer = new Computer.ComputerBuilder(rs.getString("c_name"))
+				.setId(rs.getLong("c_id"))
+				.setIntroduced(
+						DateMapper.toLocalDateTime(rs
+								.getTimestamp("introduced")))
+				.setDiscontinued(
+						DateMapper.toLocalDateTime(rs
+								.getTimestamp("discontinued"))).build();
 		if (rs.getLong("company_id") != 0) {
 			computer.setCompany(new Company.CompanyBuilder(rs.getString("name"))
 					.setId(rs.getLong("company_id")).build());
 		}
+
 		return computer;
 	}
 }

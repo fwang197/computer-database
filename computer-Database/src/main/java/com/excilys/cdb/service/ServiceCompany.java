@@ -37,7 +37,6 @@ public class ServiceCompany implements IServiceCompany {
 	public void deleteCompany(Company obj) {
 		computerDao.delete(obj);
 		companyDao.delete(obj);
-		throw new RuntimeException();
 	}
 
 	public List<Company> findAllCompany() {

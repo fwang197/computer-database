@@ -2,14 +2,10 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import com.excilys.cdb.dao.DateMapper;
+import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ServiceCompany;
-import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
@@ -19,16 +15,9 @@ import com.excilys.cdb.tools.Tools;
  * @author excilys
  *
  */
-@Controller
 public class UpdateComputerAction extends Action {
 
 	private Scanner sc;
-
-	@Autowired
-	private ServiceCompany servicecompany;
-
-	@Autowired
-	private ServiceComputer servicecomputer;
 
 	/**
 	 * Instantiates a new update computer action.
@@ -53,7 +42,7 @@ public class UpdateComputerAction extends Action {
 		try {
 			if (Tools.isNumber(res)) {
 				long id = Long.parseLong(res);
-				Computer c = servicecomputer.findComputer(id);
+				Computer c = Main.servicecomputer.findComputer(id);
 				if (!Tools.isNull(c)) {
 					System.out.println(c.toString());
 
@@ -84,7 +73,7 @@ public class UpdateComputerAction extends Action {
 					res = sc.nextLine();
 					if (!res.equals("")) {
 						if (Tools.isNumber(res)) {
-							Company comp = servicecompany.findCompany(Long
+							Company comp = Main.servicecompany.findCompany(Long
 									.valueOf(res));
 							if (!Tools.isNull(comp)) {
 								c.setCompany(comp);
@@ -97,7 +86,7 @@ public class UpdateComputerAction extends Action {
 							return;
 						}
 					}
-					servicecomputer.updateComputer(c);
+					Main.servicecomputer.updateComputer(c);
 					System.out.println("Computer updated!");
 				} else {
 					System.err.println("ID is incorrect!");

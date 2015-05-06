@@ -1,26 +1,27 @@
 package com.excilys.cdb.service;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.jdbc.ConnectionFactory;
-import com.excilys.cdb.exception.ServiceException;
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.tools.Tools;
 
+@Service("serviceCompany")
 public class ServiceCompany implements IServiceCompany {
-
+	@Autowired
 	private ConnectionFactory connectionFact;
 
+	@Autowired
 	private CompanyDao companyDao;
 
+	@Autowired
 	private ComputerDao computerDao;
 
 	private final Logger logger = LoggerFactory.getLogger(ServiceCompany.class);
@@ -32,24 +33,11 @@ public class ServiceCompany implements IServiceCompany {
 	private ServiceCompany() {
 	}
 
+	@Transactional
 	public void deleteCompany(Company obj) {
-		PreparedStatement prepare = null;
-		connectionFact.getConnection();
-		try {
-			connectionFact.startTransaction();
-			for (Computer comp : computerDao.findAll(obj)) {
-				computerDao.deleteWithoutConnection(comp);
-			}
-			companyDao.deleteWithoutConnection(obj);
-			connectionFact.commit();
-		} catch (SQLException e) {
-			logger.error("Service Company : delete Company error : {} ", obj);
-			connectionFact.rollback();
-			throw new ServiceException();
-		} finally {
-			Tools.closeProperly(null, prepare);
-			connectionFact.closeConnection();
-		}
+		computerDao.delete(obj);
+		companyDao.delete(obj);
+		throw new RuntimeException();
 	}
 
 	public List<Company> findAllCompany() {

@@ -2,20 +2,13 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
+import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.service.ServiceCompany;
 import com.excilys.cdb.tools.Tools;
 
-@Controller
 public class DeleteCompanyAction extends Action {
 
 	private Scanner sc;
-
-	@Autowired
-	private ServiceCompany servicecompany;
 
 	public DeleteCompanyAction(String description) {
 		this.description = description;
@@ -30,9 +23,9 @@ public class DeleteCompanyAction extends Action {
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
-			Company c = servicecompany.findCompany(id);
+			Company c = Main.servicecompany.findCompany(id);
 			if (!Tools.isNull(c)) {
-				servicecompany.deleteCompany(c);
+				Main.servicecompany.deleteCompany(c);
 				System.out.println("Company deleted");
 			} else {
 				System.err.println("Company not found!");

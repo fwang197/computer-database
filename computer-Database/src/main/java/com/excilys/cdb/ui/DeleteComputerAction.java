@@ -2,11 +2,8 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
+import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.ServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
@@ -16,13 +13,9 @@ import com.excilys.cdb.tools.Tools;
  * @author excilys
  *
  */
-@Controller
 public class DeleteComputerAction extends Action {
 
 	private Scanner sc;
-
-	@Autowired
-	private ServiceComputer servicecomputer;
 
 	/**
 	 * Instantiates a new delete computer action.
@@ -46,9 +39,9 @@ public class DeleteComputerAction extends Action {
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
-			Computer c = servicecomputer.findComputer(id);
+			Computer c = Main.servicecomputer.findComputer(id);
 			if (!Tools.isNull(c)) {
-				servicecomputer.deleteComputer(c);
+				Main.servicecomputer.deleteComputer(c);
 				System.out.println("Computer deleted");
 			} else {
 				System.err.println("Computer not found!");

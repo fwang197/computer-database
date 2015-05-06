@@ -2,12 +2,17 @@ package com.excilys.cdb.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
 
+@Service("serviceComputer")
 public class ServiceComputer implements IServiceComputer {
 
+	@Autowired
 	private ComputerDao computerDao;
 
 	public ServiceComputer() {

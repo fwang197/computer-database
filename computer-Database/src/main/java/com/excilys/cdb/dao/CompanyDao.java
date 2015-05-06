@@ -10,14 +10,18 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.dao.jdbc.ConnectionFactory;
 import com.excilys.cdb.exception.DaoException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.tools.Tools;
 
+@Repository("companyDao")
 public class CompanyDao implements IDao<Company> {
 
+	@Autowired
 	private ConnectionFactory connectionFact;
 
 	private final Logger logger = LoggerFactory.getLogger(CompanyDao.class);
@@ -42,12 +46,11 @@ public class CompanyDao implements IDao<Company> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			connectionFact.closeConnection();
 		}
 		return company;
 	}
 
-	public void deleteWithoutConnection(Company comp) throws SQLException {
+	public void delete(Company comp) {
 		PreparedStatement prepare = null;
 		Connection conn = null;
 		try {
@@ -58,7 +61,7 @@ public class CompanyDao implements IDao<Company> {
 			prepare.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("Delete Company error : {} ", comp);
-			throw new SQLException();
+			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
 		}
@@ -83,7 +86,6 @@ public class CompanyDao implements IDao<Company> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, stmt);
-			connectionFact.closeConnection();
 		}
 		return lcompany;
 	}
@@ -109,7 +111,6 @@ public class CompanyDao implements IDao<Company> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, stmt);
-			connectionFact.closeConnection();
 		}
 		return lcompany;
 	}

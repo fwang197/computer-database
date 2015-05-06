@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,32 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.cdb.mapper.ComputerDTOMapper;
 import com.excilys.cdb.page.Page;
-import com.excilys.cdb.service.ServiceComputer;
+import com.excilys.cdb.service.IServiceComputer;
 import com.excilys.cdb.tools.Tools;
 
 /**
  * Servlet implementation class DashboardServlet
  */
-@Controller
+
 @WebServlet(name = "DashboardServlet", urlPatterns = { "/DashboardServlet" })
-public class DashboardServlet extends HttpServlet {
+public class DashboardServlet extends AbstractServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ServiceComputer servicecomputer;
-
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-				config.getServletContext());
-
-	}
+	private IServiceComputer servicecomputer;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

@@ -1,6 +1,5 @@
 package com.excilys.cdb.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.excilys.cdb.exception.NotImplemented;
@@ -42,16 +41,6 @@ public interface IDao<T> {
 	 * @param obj
 	 */
 	public default void delete(T obj) {
-		throw new NotImplemented();
-	}
-
-	/**
-	 * Delete without connection.
-	 *
-	 * @param obj
-	 * @throws SQLException
-	 */
-	public default void deleteWithoutConnection(T obj) throws SQLException {
 		throw new NotImplemented();
 	}
 

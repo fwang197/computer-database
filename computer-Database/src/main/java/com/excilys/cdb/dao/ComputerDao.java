@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.dao.jdbc.ConnectionFactory;
 import com.excilys.cdb.exception.DaoException;
@@ -18,8 +20,10 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
+@Repository("computerDao")
 public class ComputerDao implements IDao<Computer> {
 
+	@Autowired
 	private ConnectionFactory connectionFact;
 
 	private final Logger logger = LoggerFactory.getLogger(ComputerDao.class);
@@ -57,7 +61,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			connectionFact.closeConnection();
 		}
 	}
 
@@ -82,7 +85,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			connectionFact.closeConnection();
 		}
 		return computer;
 	}
@@ -111,7 +113,23 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(null, prepare);
-			connectionFact.closeConnection();
+		}
+	}
+
+	public void delete(Company comp) {
+		PreparedStatement prepare = null;
+		Connection conn = null;
+		try {
+			conn = connectionFact.getConnection();
+			prepare = conn
+					.prepareStatement("delete from computer where company_id = ?");
+			prepare.setLong(1, comp.getId());
+			prepare.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("Delete Computer error : {} ", comp);
+			throw new DaoException();
+		} finally {
+			Tools.closeProperly(null, prepare);
 		}
 	}
 
@@ -127,22 +145,6 @@ public class ComputerDao implements IDao<Computer> {
 		} catch (SQLException e) {
 			logger.error("Delete Computer error : {} ", comp);
 			throw new DaoException();
-		} finally {
-			Tools.closeProperly(null, prepare);
-			connectionFact.closeConnection();
-		}
-	}
-
-	public void deleteWithoutConnection(Computer comp) throws SQLException {
-		PreparedStatement prepare = null;
-		try {
-			prepare = connectionFact.getConnection().prepareStatement(
-					"delete from computer where id = ?");
-			prepare.setLong(1, comp.getId());
-			prepare.executeUpdate();
-		} catch (SQLException e) {
-			logger.error("Delete Computer without Connection : {} ", comp);
-			throw new SQLException();
 		} finally {
 			Tools.closeProperly(null, prepare);
 		}
@@ -170,7 +172,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			connectionFact.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -191,7 +192,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, stmt);
-			connectionFact.closeConnection();
 		}
 		return res;
 	}
@@ -219,7 +219,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			connectionFact.closeConnection();
 		}
 		return res;
 	}
@@ -256,7 +255,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			connectionFact.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -298,7 +296,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			connectionFact.closeConnection();
 		}
 		return lcomputer;
 	}
@@ -326,7 +323,6 @@ public class ComputerDao implements IDao<Computer> {
 			throw new DaoException();
 		} finally {
 			Tools.closeProperly(rs, prepare);
-			// connectionFact.closeConnection();
 		}
 		return lcomputer;
 	}

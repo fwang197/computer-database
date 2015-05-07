@@ -12,7 +12,7 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="DashboardServlet"> Application - Computer Database </a>
+            <a class="navbar-brand" href="Dashboard"> Application - Computer Database </a>
         </div>
     </header>
     <section id="main">
@@ -24,7 +24,7 @@
                     </div>
                     <h1>Edit Computer</h1>
 
-                    <form action="EditComputerServlet" method="POST">
+                    <form action="EditComputer" method="POST">
                         <input type="hidden" value="${compId}" name="compId"/>
                         <fieldset>
                             <div class="form-group">
@@ -59,7 +59,7 @@
                         <div class="actions pull-right">
                             <input type="submit" value="Edit" class="btn btn-primary">
                             or
-                            <a href="DashboardServlet" class="btn btn-default">Cancel</a>
+                            <a href="Dashboard" class="btn btn-default">Cancel</a>
                         </div>
                     </form>
                     <script type="text/javascript" src="js/jquery.min.js"></script>

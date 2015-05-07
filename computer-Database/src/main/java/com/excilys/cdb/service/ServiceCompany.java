@@ -2,29 +2,22 @@ package com.excilys.cdb.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.ComputerDao;
-import com.excilys.cdb.dao.jdbc.ConnectionFactory;
 import com.excilys.cdb.model.Company;
 
 @Service("serviceCompany")
 public class ServiceCompany implements IServiceCompany {
-	@Autowired
-	private ConnectionFactory connectionFact;
 
 	@Autowired
 	private CompanyDao companyDao;
 
 	@Autowired
 	private ComputerDao computerDao;
-
-	private final Logger logger = LoggerFactory.getLogger(ServiceCompany.class);
 
 	public Company findCompany(long id) {
 		return companyDao.find(id);
@@ -45,14 +38,6 @@ public class ServiceCompany implements IServiceCompany {
 
 	public List<Company> findAllCompany(int offset, int range) {
 		return companyDao.findAll(offset, range);
-	}
-
-	public ConnectionFactory getConnectionFact() {
-		return connectionFact;
-	}
-
-	public void setConnectionFact(ConnectionFactory connectionFact) {
-		this.connectionFact = connectionFact;
 	}
 
 	public CompanyDao getCompanyDao() {

@@ -38,8 +38,7 @@ public class CompanyDao implements IDao<Company> {
 					"select * from company where id = ?", new Object[] { id },
 					new CompanyMapper());
 		} catch (DataAccessException e) {
-			logger.error("Find Company error : {} ", id);
-			throw new DaoException();
+			logger.error("Find Company error : {} " + e.getMessage(), id);
 		}
 		return company;
 	}

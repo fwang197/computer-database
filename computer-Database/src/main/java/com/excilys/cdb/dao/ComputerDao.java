@@ -92,16 +92,18 @@ public class ComputerDao implements IDao<Computer> {
 	}
 
 	public void update(Computer comp) {
-
 		try {
+
 			this.jdbcTemplate
 					.update("update computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?",
 							comp.getName(), DateMapper.toTimeStamp(comp
 									.getIntroduced()), DateMapper
 									.toTimeStamp(comp.getDiscontinued()), Tools
-									.isNull(comp.getCompany()) ? Types.NULL
-									: comp.getCompany().getId(), comp.getId());
+									.isNull(comp.getCompany()) ? null : comp
+									.getCompany().getId(), comp.getId());
+
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			logger.error("Update Computer error : {} ", comp);
 			throw new DaoException();
 		}

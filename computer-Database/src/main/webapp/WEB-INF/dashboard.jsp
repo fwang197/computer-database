@@ -14,7 +14,7 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="DashboardServlet"> Application - Computer Database </a>
+            <a class="navbar-brand" href="Dashboard"> Application - Computer Database </a>
         </div>
     </header>
 
@@ -25,7 +25,7 @@
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
-                    <form id="searchForm" action="DashboardServlet" method="GET" class="form-inline">
+                    <form id="searchForm" action="Dashboard" method="GET" class="form-inline">
 						
       				    <input type="hidden" value="${page.range}" name="range">
                         <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" />
@@ -34,13 +34,13 @@
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="AddComputerServlet">Add Computer</a> 
+                    <a class="btn btn-success" id="addComputer" href="AddComputer">Add Computer</a> 
                     <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
                 </div>
             </div>
         </div>
 
-        <form id="deleteForm" action="DeleteComputerServlet" method="POST">
+        <form id="deleteForm" action="DeleteComputer" method="POST">
             <input type="hidden" name="selection" value="">
         </form>
 
@@ -62,28 +62,28 @@
                         <th>
                             Computer name
                          
-                          <mylib:link target="DashboardServlet" order="desc" field="computer.name" body="&uarr;"/>
-                          <mylib:link target="DashboardServlet" order="asc" field="computer.name" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="computer.name" body="&uarr;"/>
+                          <mylib:link target="Dashboard" order="asc" field="computer.name" body="&darr;"/>
                         </th>
                         <th>
                             Introduced date
                             
-                          <mylib:link target="DashboardServlet" order="desc" field="introduced" body="&uarr;"/>
-                          <mylib:link target="DashboardServlet" order="asc" field="introduced" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="introduced" body="&uarr;"/>
+                          <mylib:link target="Dashboard" order="asc" field="introduced" body="&darr;"/>
                         </th>
                         <!-- Table header for Discontinued Date -->
                         <th>
                             Discontinued date
                             
-                          <mylib:link target="DashboardServlet" order="desc" field="discontinued" body="&uarr;"/>
-                          <mylib:link target="DashboardServlet" order="asc" field="discontinued" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="discontinued" body="&uarr;"/>
+                          <mylib:link target="Dashboard" order="asc" field="discontinued" body="&darr;"/>
                         </th>
                         <!-- Table header for Company -->
                         <th>
                             Company
                             
-                          <mylib:link target="DashboardServlet" order="desc" field="company.name" body="&uarr;"/>
-                          <mylib:link target="DashboardServlet" order="asc" field="company.name" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="company.name" body="&uarr;"/>
+                          <mylib:link target="Dashboard" order="asc" field="company.name" body="&darr;"/>
                         </th>
 
                     </tr>
@@ -94,7 +94,7 @@
                    	<c:forEach var="i" items="${page.lcomp}">	
 							<tr>
 								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="${i.id}"></td>
-								<td><mylib:link target="EditComputerServlet" body="${i.name}" compId="${i.id}"/></td>
+								<td><mylib:link target="EditComputer" body="${i.name}" compId="${i.id}"/></td>
 								<td>${i.introduced}</td>
 								<td>${i.discontinued}</td>
 								<td>${i.companyName}</td>
@@ -106,7 +106,7 @@
     </section>
 
     <footer class="navbar-fixed-bottom">
-       <mylib:pagination target="DashboardServlet"/>
+       <mylib:pagination target="Dashboard"/>
 
     </footer>
 <script src="js/jquery.min.js"></script>

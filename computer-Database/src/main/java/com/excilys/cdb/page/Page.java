@@ -2,7 +2,7 @@ package com.excilys.cdb.page;
 
 import java.util.List;
 
-import com.excilys.cdb.servlet.ComputerDto;
+import com.excilys.cdb.controller.ComputerDto;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -21,6 +21,12 @@ public class Page {
 
 	/** The nb. */
 	private int nb;
+
+	private String search;
+
+	private String order;
+
+	private String field;
 
 	/** The lcomp. */
 	private List<ComputerDto> lcomp;
@@ -130,32 +136,66 @@ public class Page {
 	/**
 	 * Turn.
 	 *
-	 * @param npageNum
-	 *            the npage num
-	 * @param nrange
-	 *            the nrange
 	 */
-	public void turn(int npageNum, int nrange) {
-		offset = npageNum * nrange;
+	public void turn() {
+		offset = pageNum * range;
 		if (offset < 0) {
 			offset = 0;
 		}
-		setPageNum(npageNum);
-		setRange(nrange);
-	}
-
-	/**
-	 * Validate the page.
-	 */
-	public boolean validate() {
-		return range <= 100 && (pageNum <= (nb / range));
-
 	}
 
 	@Override
 	public String toString() {
 		return "Page [offset=" + offset + ", range=" + range + ", pageNum="
-				+ pageNum + ", nb=" + nb + ", lcomp=" + lcomp + "]";
+				+ pageNum + ", nb=" + nb + ", search=" + search + ", order="
+				+ order + ", field=" + field + ", lcomp=" + lcomp + "]";
 	}
 
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public String getField() {
+		return field;
+	}
+
+	public void setField(String field) {
+		this.field = field;
+	}
+
+	public void validate() {
+		if (range <= 0 || range > 100) {
+			range = 50;
+		}
+		if (search == null || search.isEmpty()) {
+			search = "";
+		}
+		if (order == null || order.isEmpty()) {
+			order = "";
+		}
+		if (field == null || field.isEmpty()) {
+			field = "computer.id";
+		}
+		if (range > 100) {
+			setRange(50);
+		}
+	}
+
+	public void validatePageNum() {
+		if (pageNum > (nb / range) || pageNum < 0) {
+			pageNum = 0;
+		}
+	}
 }

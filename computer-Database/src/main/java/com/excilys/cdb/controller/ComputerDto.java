@@ -1,10 +1,19 @@
-package com.excilys.cdb.servlet;
+package com.excilys.cdb.controller;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.excilys.cdb.tools.DateConstraint;
 
 public class ComputerDto {
 
-	private long id;
+	private long compId;
+	@NotNull
+	@Size(min = 2)
 	private String name;
+	@DateConstraint
 	private String introduced;
+	@DateConstraint
 	private String discontinued;
 	private long companyId;
 	private String companyName;
@@ -14,7 +23,7 @@ public class ComputerDto {
 	}
 
 	public ComputerDto(ComputerDtoBuilder builder) {
-		this.id = builder.id;
+		this.compId = builder.compId;
 		this.name = builder.name;
 		this.introduced = builder.introduced;
 		this.discontinued = builder.discontinued;
@@ -22,12 +31,12 @@ public class ComputerDto {
 		this.companyName = builder.companyName;
 	}
 
-	public long getId() {
-		return id;
+	public long getCompId() {
+		return compId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCompId(long id) {
+		this.compId = id;
 	}
 
 	public String getName() {
@@ -91,7 +100,7 @@ public class ComputerDto {
 				return false;
 		} else if (!discontinued.equals(other.discontinued))
 			return false;
-		if (id != other.id)
+		if (compId != other.compId)
 			return false;
 		if (introduced == null) {
 			if (other.introduced != null)
@@ -107,14 +116,14 @@ public class ComputerDto {
 	}
 
 	public String toString() {
-		return "ComputerDto [id=" + id + ", name=" + name + ", introduced="
+		return "ComputerDto [id=" + compId + ", name=" + name + ", introduced="
 				+ introduced + ", discontinued=" + discontinued
 				+ ", companyId=" + companyId + ", companyName=" + companyName
 				+ "]";
 	}
 
 	public static class ComputerDtoBuilder {
-		private long id;
+		private long compId;
 		private String name;
 		private String introduced;
 		private String discontinued;
@@ -125,8 +134,8 @@ public class ComputerDto {
 			this.name = name;
 		}
 
-		public ComputerDtoBuilder setId(long id) {
-			this.id = id;
+		public ComputerDtoBuilder setCompId(long id) {
+			this.compId = id;
 			return this;
 		}
 

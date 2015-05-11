@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.excilys.cdb.controller.ComputerDto;
+import com.excilys.cdb.dao.DateMapper;
+import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.servlet.ComputerDto;
 import com.excilys.cdb.tools.Tools;
 
 // TODO: Auto-generated Javadoc
@@ -24,7 +26,7 @@ public class ComputerDTOMapper {
 		ComputerDto c = null;
 		if (!Tools.isNull(comp)) {
 			c = new ComputerDto.ComputerDtoBuilder(comp.getName())
-					.setId(comp.getId())
+					.setCompId(comp.getId())
 					.setIntroduced(
 							comp.getIntroduced() == null ? "" : comp
 									.getIntroduced().toLocalDate().toString())
@@ -40,6 +42,28 @@ public class ComputerDTOMapper {
 
 		}
 		return c;
+	}
+
+	public static Computer toComputer(ComputerDto comp) {
+		Computer c = new Computer.ComputerBuilder(comp.getName())
+				.setId(comp.getCompId())
+				.setIntroduced(
+						comp.getIntroduced() == null
+								|| comp.getIntroduced().isEmpty() ? null
+								: DateMapper.toDateFormat(comp.getIntroduced()))
+				.setDiscontinued(
+						comp.getDiscontinued() == null
+								|| comp.getDiscontinued().isEmpty() ? null
+								: DateMapper.toDateFormat(comp
+										.getDiscontinued()))
+				.setCompany(
+						comp.getCompanyName() == null
+								|| comp.getCompanyName().isEmpty() ? null
+								: new Company.CompanyBuilder(comp
+										.getCompanyName()).setId(
+										comp.getCompanyId()).build()).build();
+		return c;
+
 	}
 
 	/**

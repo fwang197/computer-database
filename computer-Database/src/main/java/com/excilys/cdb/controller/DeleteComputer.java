@@ -1,4 +1,4 @@
-package com.excilys.cdb.servlet;
+package com.excilys.cdb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +29,6 @@ public class DeleteComputer {
 						.setId(Long.parseLong(s)).build());
 			}
 		}
-		return "dashboard";
+		return "redirect:/";
 	}
 }

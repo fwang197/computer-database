@@ -3,8 +3,6 @@ package com.excilys.cdb.dao;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +16,12 @@ import com.excilys.cdb.model.Company;
 @Repository("companyDao")
 public class CompanyDao implements IDao<Company> {
 
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	private final Logger logger = LoggerFactory.getLogger(CompanyDao.class);
 
 	private CompanyDao() {
-	}
-
-	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	public Company find(long id) {

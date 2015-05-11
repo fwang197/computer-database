@@ -8,14 +8,14 @@ import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -28,19 +28,18 @@ import com.excilys.cdb.tools.Tools;
 @Repository("computerDao")
 public class ComputerDao implements IDao<Computer> {
 
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private final Logger logger = LoggerFactory.getLogger(ComputerDao.class);
-
 	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+	private final Logger logger = LoggerFactory.getLogger(ComputerDao.class);
 
 	public ComputerDao() {
 	}
 
-	public long create(Computer comp) {
+	public void create(Computer comp) {
 		long res = -1;
 		PreparedStatementCreator preparestatementcreator = new PreparedStatementCreator() {
 
@@ -72,7 +71,7 @@ public class ComputerDao implements IDao<Computer> {
 			logger.error("Create Computer error : {} ", comp);
 			throw new DaoException();
 		}
-		return res;
+		comp.setId(res);
 	}
 
 	public Computer find(long id) {
@@ -93,7 +92,6 @@ public class ComputerDao implements IDao<Computer> {
 
 	public void update(Computer comp) {
 		try {
-
 			this.jdbcTemplate
 					.update("update computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?",
 							comp.getName(), DateMapper.toTimeStamp(comp
@@ -101,9 +99,7 @@ public class ComputerDao implements IDao<Computer> {
 									.toTimeStamp(comp.getDiscontinued()), Tools
 									.isNull(comp.getCompany()) ? null : comp
 									.getCompany().getId(), comp.getId());
-
 		} catch (DataAccessException e) {
-			e.printStackTrace();
 			logger.error("Update Computer error : {} ", comp);
 			throw new DaoException();
 		}
@@ -177,23 +173,19 @@ public class ComputerDao implements IDao<Computer> {
 
 	public List<Computer> findAll(int offset, int range, String by, String order) {
 		List<Computer> lcomputer = new LinkedList<Computer>();
-
 		try {
-			lcomputer = this.jdbcTemplate
-					.query("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "order by "
-							+ by
-							+ " "
-							+ order
-							+ " "
-							+ "limit ? offset ?",
-							new Object[] { range, offset },
-							new ComputerMapper());
+			String sql = "select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+					+ "from computer left outer join company "
+					+ "on computer.company_id = company.id "
+					+ "order :order by :by limit :limit offset :offset";
+			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
+					.addValue("order", order).addValue("by", by)
+					.addValue("limit", range).addValue("offset", offset);
+			lcomputer = this.namedParameterJdbcTemplate.query(sql,
+					namedParameters, new ComputerMapper());
 		} catch (DataAccessException e) {
-			logger.error("Find all range Computer like {} order by {} ", by,
-					order);
+			e.printStackTrace();
+			logger.error("Find all range Computer  by {} order {}", by, order);
 			throw new DaoException();
 		}
 		return lcomputer;

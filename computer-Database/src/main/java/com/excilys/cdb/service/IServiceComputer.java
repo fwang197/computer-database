@@ -17,7 +17,7 @@ public interface IServiceComputer {
 	 * @param c
 	 * @return the long
 	 */
-	public long createComputer(Computer c);
+	public void createComputer(Computer c);
 
 	/**
 	 * Find computer.
@@ -64,27 +64,13 @@ public interface IServiceComputer {
 	public List<Computer> findAllComputer();
 
 	/**
-	 * Find the computers that the page should have order by a column name and
-	 * its ways (ASC or DESC).
+	 * Find the computers that the page should have.
 	 *
 	 * @param page
 	 * @param by
 	 * @param order
 	 * @return the list
 	 */
-	public List<Computer> findAllComputer(Page page, String by, String order);
-
-	/**
-	 * Find the computers that the page should have according to a patter order
-	 * by a column name and its ways (ASC or DESC).
-	 *
-	 * @param page
-	 * @param pattern
-	 * @param by
-	 * @param order
-	 * @return the list
-	 */
-	public List<Computer> findAllComputer(Page page, String pattern, String by,
-			String order);
+	public List<Computer> findAllComputer(Page page);
 
 }

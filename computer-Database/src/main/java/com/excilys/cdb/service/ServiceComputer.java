@@ -18,8 +18,8 @@ public class ServiceComputer implements IServiceComputer {
 	public ServiceComputer() {
 	}
 
-	public long createComputer(Computer c) {
-		return computerDao.create(c);
+	public void createComputer(Computer c) {
+		computerDao.create(c);
 	}
 
 	public Computer findComputer(long id) {
@@ -48,16 +48,13 @@ public class ServiceComputer implements IServiceComputer {
 	}
 
 	@Override
-	public List<Computer> findAllComputer(Page page, String by, String order) {
-		return computerDao
-				.findAll(page.getOffset(), page.getRange(), by, order);
-	}
-
-	@Override
-	public List<Computer> findAllComputer(Page page, String pattern, String by,
-			String order) {
-		return computerDao.findAll(page.getOffset(), page.getRange(), pattern,
-				by, order);
+	public List<Computer> findAllComputer(Page page) {
+		if (page.getSearch().isEmpty()) {
+			return computerDao.findAll(page.getOffset(), page.getRange(),
+					page.getField(), page.getOrder());
+		}
+		return computerDao.findAll(page.getOffset(), page.getRange(),
+				page.getSearch(), page.getField(), page.getOrder());
 	}
 
 	public ComputerDao getcomputerDao() {

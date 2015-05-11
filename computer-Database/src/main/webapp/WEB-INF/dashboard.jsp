@@ -93,8 +93,8 @@
                     
                    	<c:forEach var="i" items="${page.lcomp}">	
 							<tr>
-								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="${i.id}"></td>
-								<td><mylib:link target="EditComputer" body="${i.name}" compId="${i.id}"/></td>
+								<td class="editMode"><input type="checkbox" name="cb" class="cb" value="${i.compId}"></td>
+								<td><mylib:link target="EditComputer" body="${i.name}" compId="${i.compId}"/></td>
 								<td>${i.introduced}</td>
 								<td>${i.discontinued}</td>
 								<td>${i.companyName}</td>

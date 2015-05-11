@@ -12,7 +12,7 @@ public interface IDao<T> {
 	 * @param obj
 	 * @return the id
 	 */
-	public default long create(T obj) {
+	public default void create(T obj) {
 		throw new NotImplemented();
 	}
 

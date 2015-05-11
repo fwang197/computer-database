@@ -20,35 +20,35 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <div class="label label-default pull-right">
-                        id: ${compId}
+                        id: ${compdto.compId}
                     </div>
                     <h1>Edit Computer</h1>
 
-                    <form action="EditComputer" method="POST">
-                        <input type="hidden" value="${compId}" name="compId"/>
+                    <form action="EditComputer" method="POST" id="">
+                        <input type="hidden" value="${compdto.compId}" name="compId"/>
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" name="computerName" placeholder="Computer name" value="${name}">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Computer name" value="${compdto.name}">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" name="introduced"placeholder="Introduced date" value="${intro}">
+                                <input type="date" class="form-control" id="introduced" name="introduced"placeholder="Introduced date" value="${compdto.introduced}">
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" name="discontinued" placeholder="Discontinued date" value="${discon}">
+                                <input type="date" class="form-control" id="discontinued" name="discontinued" placeholder="Discontinued date" value="${compdto.discontinued}">
                             </div>
                             
                             <div class="form-group">
                                 <label for="companyId">Company</label>
                                 <select class="form-control" id="companyId" name="companyId" >
-                                    <option value="${companyId}">${compName}</option>
+                                    <option value="${compdto.companyId}">${compdto.companyName}</option>
                                
                                     <option value="0">--</option>
                                     <c:forEach var="comp" items="${list}">
                                     	<c:choose>
-                                    		<c:when test="${comp.name != compName}">                                  
+                                    		<c:when test="${comp.name != compdto.companyName}">                                  
                              	   				<option value="${comp.id}">${comp.name}</option>
                                     		</c:when>
                                     	</c:choose>

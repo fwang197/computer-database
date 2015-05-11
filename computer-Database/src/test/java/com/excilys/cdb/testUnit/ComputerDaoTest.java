@@ -54,8 +54,8 @@ public class ComputerDaoTest {
 		Tools.process();
 		Computer expected = new Computer.ComputerBuilder("test").setId(7)
 				.setDiscontinued(DateMapper.toDateFormat("2000-01-02")).build();
-		long id = comp.create(expected);
-		Computer actual = comp.find(id);
+		comp.create(expected);
+		Computer actual = comp.find(expected.getId());
 		assertEquals(expected, actual);
 	}
 

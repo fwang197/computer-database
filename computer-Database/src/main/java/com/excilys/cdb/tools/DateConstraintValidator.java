@@ -1,19 +1,29 @@
 package com.excilys.cdb.tools;
 
+import java.util.Locale;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import org.springframework.context.i18n.LocaleContextHolder;
 
 public class DateConstraintValidator implements
 		ConstraintValidator<DateConstraint, String> {
 
 	@Override
 	public void initialize(DateConstraint arg0) {
-
 	}
 
 	@Override
 	public boolean isValid(String date, ConstraintValidatorContext arg1) {
-		return Validator.isDateValid(date);
+
+		Locale locale = LocaleContextHolder.getLocale();
+		if (locale.getCountry().equals("en")) {
+			return Validator.isDateValidEn(date);
+		} else if (locale.getCountry().equals("fr")) {
+			return Validator.isDateValidFr(date);
+		}
+		return false;
 
 	}
 

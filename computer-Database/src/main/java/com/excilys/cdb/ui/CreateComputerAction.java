@@ -2,8 +2,8 @@ package com.excilys.cdb.ui;
 
 import java.util.Scanner;
 
-import com.excilys.cdb.dao.DateMapper;
 import com.excilys.cdb.main.Main;
+import com.excilys.cdb.mapper.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;

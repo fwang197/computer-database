@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.excilys.cdb.dao.DateMapper;
 import com.excilys.cdb.dao.IDao;
+import com.excilys.cdb.mapper.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;

@@ -49,7 +49,6 @@
             </li>
         </ul>
 
-
         <div class="btn-group btn-group-sm pull-right" role="group" >
          <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >10</button>" range="10" pageNum="0" search="${page.search}" order="${page.order}" field="${page.field}"/>
          <mylib:link target="${target}" body="<button type='button' class='btn btn-default' >50</button>" range="50" pageNum="0" search="${page.search}" order="${page.order}" field="${page.field}"/>

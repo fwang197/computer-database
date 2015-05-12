@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,26 +23,26 @@
                     <div class="label label-default pull-right">
                         id: ${compdto.compId}
                     </div>
-                    <h1>Edit Computer</h1>
+                    <h1><spring:message code="edit.computer"/></h1>
 
-                    <form action="EditComputer" method="POST" id="">
+                    <form action="EditComputer" method="POST" id="add">
                         <input type="hidden" value="${compdto.compId}" name="compId"/>
                         <fieldset>
                             <div class="form-group">
-                                <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Computer name" value="${compdto.name}">
+                                <label for="computerName"><spring:message code="computer.name"/></label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="computer.name"/>" value="${compdto.name}">
                             </div>
                             <div class="form-group">
-                                <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" name="introduced"placeholder="Introduced date" value="${compdto.introduced}">
+                                <label for="introduced"><spring:message code="computer.intro"/></label>
+                                <input type="date" class="form-control" id="introduced" name="introduced"placeholder="<spring:message code="computer.intro.format"/>" value="${compdto.introduced}">
                             </div>
                             <div class="form-group">
-                                <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" name="discontinued" placeholder="Discontinued date" value="${compdto.discontinued}">
+                                <label for="discontinued"><spring:message code="computer.discon"/></label>
+                                <input type="date" class="form-control" id="discontinued" name="discontinued" placeholder="<spring:message code="computer.discon.format"/>" value="${compdto.discontinued}">
                             </div>
                             
                             <div class="form-group">
-                                <label for="companyId">Company</label>
+                                <label for="companyId"><spring:message code="company.name"/></label>
                                 <select class="form-control" id="companyId" name="companyId" >
                                     <option value="${compdto.companyId}">${compdto.companyName}</option>
                                
@@ -57,9 +58,9 @@
                             </div>            
                         </fieldset>
                         <div class="actions pull-right">
-                            <input type="submit" value="Edit" class="btn btn-primary">
-                            or
-                            <a href="Dashboard" class="btn btn-default">Cancel</a>
+                            <input type="submit" value=<spring:message code="edit.message"/> class="btn btn-primary">
+                            <spring:message code="or.message"/>
+                            <a href="Dashboard" class="btn btn-default"><spring:message code="cancel.message"/></a>
                         </div>
                     </form>
                     <script type="text/javascript" src="js/jquery.min.js"></script>

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.excilys.cdb.mapper.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 

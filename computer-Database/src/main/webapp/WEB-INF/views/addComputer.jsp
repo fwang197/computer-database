@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,23 +21,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
-                    <h1>Add Computer</h1>
+                    <h1><spring:message code="add.computer"/></h1>
                     <form action="AddComputer" method="POST" id="add">
                         <fieldset>
                             <div class="form-group">
-                                <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Computer name" name="name">
+                                <label for="computerName"><spring:message code="computer.name"/></label>
+                                <input type="text" class="form-control" id="name" placeholder="<spring:message code="computer.name"/>" name="name">
                             </div>
                             <div class="form-group">
-                                <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" placeholder="Introduced date (YYYY-MM-DD)" name="introduced">
+                                <label for="introduced"><spring:message code="computer.intro"/></label>
+                                <input type="date" class="form-control" id="introduced" placeholder="<spring:message code="computer.intro.format"/>" name="introduced">
                             </div>
                             <div class="form-group">
-                                <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" placeholder="Discontinued date (YYYY-MM-DD)" name="discontinued">
+                                <label for="discontinued"><spring:message code="computer.discon"/></label>
+                                <input type="date" class="form-control" id="discontinued" placeholder="<spring:message code="computer.discon.format"/>" name="discontinued">
                             </div>
                             <div class="form-group">
-                                <label for="companyId">Company</label>
+                                <label for="companyId"><spring:message code="company.name"/></label>
                                 <select class="form-control" id="companyId" name="companyId" >
                                     <option value="0">--</option>
                              	   	<c:forEach var="comp" items="${list}">	
@@ -46,9 +47,9 @@
                             </div>                  
                         </fieldset>
                         <div class="actions pull-right">
-                            <input type="submit" value="Add" class="btn btn-primary">
-                            or
-                            <a href="Dashboard" class="btn btn-default">Cancel</a>
+                            <input type="submit" value=<spring:message code="add.message"/> class="btn btn-primary">
+                            <spring:message code="or.message"/>
+                            <a href="Dashboard" class="btn btn-default"><spring:message code="cancel.message"/></a>
                         </div>
                     </form>
                 	<script type="text/javascript" src="js/jquery.min.js"></script>

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.excilys.cdb.dao.DateMapper;
 import com.excilys.cdb.mapper.ComputerDTOMapper;
+import com.excilys.cdb.mapper.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.IServiceCompany;

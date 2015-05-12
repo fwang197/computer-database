@@ -21,6 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.exception.DaoException;
+import com.excilys.cdb.mapper.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
@@ -173,8 +174,6 @@ public class ComputerDao implements IDao<Computer> {
 
 	public List<Computer> findAll(int offset, int range, String by, String order) {
 		List<Computer> lcomputer = new LinkedList<Computer>();
-		System.out.println("order by " + by + " limit " + range + " offset "
-				+ offset);
 		try {
 			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
 					.addValue("by", by).addValue("limit", range)
@@ -216,7 +215,7 @@ public class ComputerDao implements IDao<Computer> {
 							+ by
 							+ " "
 							+ order
-							+ " limit offset :offset", namedParameters,
+							+ " limit :limit offset :offset", namedParameters,
 							new ComputerMapper());
 		} catch (DataAccessException e) {
 			logger.error(

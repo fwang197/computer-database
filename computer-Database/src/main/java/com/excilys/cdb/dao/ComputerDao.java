@@ -173,16 +173,23 @@ public class ComputerDao implements IDao<Computer> {
 
 	public List<Computer> findAll(int offset, int range, String by, String order) {
 		List<Computer> lcomputer = new LinkedList<Computer>();
+		System.out.println("order by " + by + " limit " + range + " offset "
+				+ offset);
 		try {
-			String sql = "select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-					+ "from computer left outer join company "
-					+ "on computer.company_id = company.id "
-					+ "order :order by :by limit :limit offset :offset";
 			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
-					.addValue("order", order).addValue("by", by)
-					.addValue("limit", range).addValue("offset", offset);
-			lcomputer = this.namedParameterJdbcTemplate.query(sql,
-					namedParameters, new ComputerMapper());
+					.addValue("by", by).addValue("limit", range)
+					.addValue("offset", offset);
+			lcomputer = this.namedParameterJdbcTemplate
+					.query("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "order by "
+							+ by
+							+ " "
+							+ order
+							+ " limit :limit offset :offset", namedParameters,
+							new ComputerMapper());
+
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			logger.error("Find all range Computer  by {} order {}", by, order);
@@ -196,19 +203,21 @@ public class ComputerDao implements IDao<Computer> {
 		List<Computer> lcomputer = new LinkedList<Computer>();
 
 		try {
-			lcomputer = this.jdbcTemplate
+			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
+					.addValue("order", order).addValue("by", by)
+					.addValue("limit", range).addValue("offset", offset)
+					.addValue("pattern", "%" + pattern + "%");
+			lcomputer = this.namedParameterJdbcTemplate
 					.query("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
 							+ "from computer left outer join company "
 							+ "on computer.company_id = company.id "
-							+ "where computer.name like ? or company.name like ? "
+							+ "where computer.name like :pattern or company.name like :pattern "
 							+ "order by "
 							+ by
 							+ " "
 							+ order
-							+ " "
-							+ "limit ? offset ?", new Object[] {
-							"%" + pattern + "%", "%" + pattern + "%", range,
-							offset }, new ComputerMapper());
+							+ " limit offset :offset", namedParameters,
+							new ComputerMapper());
 		} catch (DataAccessException e) {
 			logger.error(
 					"Find all range Computer like {} order by {} with pattern {} ",

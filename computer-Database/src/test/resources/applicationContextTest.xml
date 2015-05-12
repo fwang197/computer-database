@@ -15,14 +15,16 @@
 
 	<!-- Connection -->
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
 		lazy-init="true">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/computer-database-db-test?zeroDateTimeBehavior=convertToNull" />
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull" />
 		<property name="username" value="admincdb" />
 		<property name="password" value="qwerty1234" />
+		<property name="maxConnectionsPerPartition" value="5" />
+		<property name="minConnectionsPerPartition" value="1" />
+		<property name="partitionCount" value="2" />
 	</bean>
 
 	<!-- Transaction -->

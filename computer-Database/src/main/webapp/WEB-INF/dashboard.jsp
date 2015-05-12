@@ -62,28 +62,28 @@
                         <th>
                             Computer name
                          
-                          <mylib:link target="Dashboard" order="desc" field="computer.name" body="&uarr;"/>
-                          <mylib:link target="Dashboard" order="asc" field="computer.name" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="computer.name" body="&uarr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
+                          <mylib:link target="Dashboard" order="asc" field="computer.name" body="&darr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
                         </th>
                         <th>
                             Introduced date
                             
-                          <mylib:link target="Dashboard" order="desc" field="introduced" body="&uarr;"/>
-                          <mylib:link target="Dashboard" order="asc" field="introduced" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="introduced" body="&uarr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
+                          <mylib:link target="Dashboard" order="asc" field="introduced" body="&darr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
                         </th>
                         <!-- Table header for Discontinued Date -->
                         <th>
                             Discontinued date
                             
-                          <mylib:link target="Dashboard" order="desc" field="discontinued" body="&uarr;"/>
-                          <mylib:link target="Dashboard" order="asc" field="discontinued" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="discontinued" body="&uarr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
+                          <mylib:link target="Dashboard" order="asc" field="discontinued" body="&darr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
                         </th>
                         <!-- Table header for Company -->
                         <th>
                             Company
                             
-                          <mylib:link target="Dashboard" order="desc" field="company.name" body="&uarr;"/>
-                          <mylib:link target="Dashboard" order="asc" field="company.name" body="&darr;"/>
+                          <mylib:link target="Dashboard" order="desc" field="company.name" body="&uarr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
+                          <mylib:link target="Dashboard" order="asc" field="company.name" body="&darr;" search="${page.search}" pageNum="${page.pageNum}" range="${page.range }"/>
                         </th>
 
                     </tr>

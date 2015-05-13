@@ -101,6 +101,7 @@ public class ComputerDao implements IDao<Computer> {
 									.isNull(comp.getCompany()) ? null : comp
 									.getCompany().getId(), comp.getId());
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			logger.error("Update Computer error : {} ", comp);
 			throw new DaoException();
 		}
@@ -172,7 +173,7 @@ public class ComputerDao implements IDao<Computer> {
 		return lcomputer;
 	}
 
-	public List<Computer> findAll(int offset, int range, String by, String order) {
+	public List<Computer> findAll(int offset, int range, Row by, Order order) {
 		List<Computer> lcomputer = new LinkedList<Computer>();
 		try {
 			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
@@ -188,7 +189,11 @@ public class ComputerDao implements IDao<Computer> {
 							+ order
 							+ " limit :limit offset :offset", namedParameters,
 							new ComputerMapper());
-
+			System.out
+					.println("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "order by " + by + " " + order);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			logger.error("Find all range Computer  by {} order {}", by, order);
@@ -198,12 +203,11 @@ public class ComputerDao implements IDao<Computer> {
 	}
 
 	public List<Computer> findAll(int offset, int range, String pattern,
-			String by, String order) {
+			Row by, Order order) {
 		List<Computer> lcomputer = new LinkedList<Computer>();
 
 		try {
 			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
-					.addValue("order", order).addValue("by", by)
 					.addValue("limit", range).addValue("offset", offset)
 					.addValue("pattern", "%" + pattern + "%");
 			lcomputer = this.namedParameterJdbcTemplate
@@ -217,6 +221,11 @@ public class ComputerDao implements IDao<Computer> {
 							+ order
 							+ " limit :limit offset :offset", namedParameters,
 							new ComputerMapper());
+			System.out
+					.println("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
+							+ "from computer left outer join company "
+							+ "on computer.company_id = company.id "
+							+ "order by " + by + " " + order);
 		} catch (DataAccessException e) {
 			logger.error(
 					"Find all range Computer like {} order by {} with pattern {} ",
@@ -236,10 +245,64 @@ public class ComputerDao implements IDao<Computer> {
 							+ "on computer.company_id = company.id "
 							+ "where company.id = ?",
 							new Object[] { obj.getId() }, new ComputerMapper());
+
 		} catch (DataAccessException e) {
 			logger.error("Find all Computer with a Company : {} ", obj);
 			throw new DaoException();
 		}
 		return lcomputer;
+	}
+
+	public enum Order {
+		ASC("asc"), DESC("desc");
+
+		private String name = "";
+
+		Order(String name) {
+			this.name = name;
+		}
+
+		public String toString() {
+			return name;
+		}
+
+		public static Order getOrder(String order) {
+			if (order.equals(ASC.toString())) {
+				return ASC;
+			} else if (order.equals(DESC.toString())) {
+				return DESC;
+			}
+			return ASC;
+		}
+	}
+
+	public enum Row {
+		NAME("computer.name"), INTRO("introduced"), DISCON("discontinued"), COMPANY(
+				"company.name"), ID("computer.id");
+
+		private String name = "";
+
+		Row(String name) {
+			this.name = name;
+		}
+
+		public String toString() {
+			return name;
+		}
+
+		public static Row getRow(String row) {
+			if (row.equals(NAME.toString())) {
+				return NAME;
+			} else if (row.equals(INTRO.toString())) {
+				return INTRO;
+			} else if (row.equals(DISCON.toString())) {
+				return DISCON;
+			} else if (row.equals(COMPANY.toString())) {
+				return COMPANY;
+			} else if (row.equals(ID.toString())) {
+				return ID;
+			}
+			return ID;
+		}
 	}
 }

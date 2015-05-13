@@ -32,6 +32,7 @@ public class Dashboard {
 		page.setNb(servicecomputer.getCountComputer(page.getSearch()));
 		page.validatePageNum();
 		page.turn();
+		System.out.println(page);
 		lcomp = ComputerDTOMapper.toListComputerDto(servicecomputer
 				.findAllComputer(page));
 		page.setLcomp(lcomp);

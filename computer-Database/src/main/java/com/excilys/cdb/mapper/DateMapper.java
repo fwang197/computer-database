@@ -2,6 +2,7 @@ package com.excilys.cdb.mapper;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -43,11 +44,23 @@ public class DateMapper {
 	public static LocalDateTime toDateFormat(String date) {
 		Locale locale = LocaleContextHolder.getLocale();
 		String[] res = date.split("-");
-		if (locale.getCountry().equals("en")) {
+		if (locale.getLanguage().equals("en")) {
 			return toDate(res[0], res[1], res[2]);
-		} else if (locale.getCountry().equals("fr")) {
+		} else if (locale.getLanguage().equals("fr")) {
 			return toDate(res[2], res[1], res[0]);
 		}
 		return null;
+	}
+
+	public static String toString(LocalDateTime ldt) {
+		Locale locale = LocaleContextHolder.getLocale();
+		if (locale.getLanguage().equals("en")) {
+			return ldt
+					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd", locale));
+		} else if (locale.getLanguage().equals("fr")) {
+			return ldt
+					.format(DateTimeFormatter.ofPattern("dd-MM-yyyy", locale));
+		}
+		return "";
 	}
 }

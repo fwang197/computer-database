@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.excilys.cdb.dao.ComputerDao;
+import com.excilys.cdb.dao.ComputerDao.Order;
+import com.excilys.cdb.dao.ComputerDao.Row;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
 
@@ -51,10 +53,12 @@ public class ServiceComputer implements IServiceComputer {
 	public List<Computer> findAllComputer(Page page) {
 		if (page.getSearch().isEmpty()) {
 			return computerDao.findAll(page.getOffset(), page.getRange(),
-					page.getField(), page.getOrder());
+					Row.getRow(page.getField()),
+					Order.getOrder(page.getOrder()));
 		}
 		return computerDao.findAll(page.getOffset(), page.getRange(),
-				page.getSearch(), page.getField(), page.getOrder());
+				page.getSearch(), Row.getRow(page.getField()),
+				Order.getOrder(page.getOrder()));
 	}
 
 	public ComputerDao getcomputerDao() {

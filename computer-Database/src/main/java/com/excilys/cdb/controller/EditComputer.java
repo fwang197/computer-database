@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.excilys.cdb.mapper.ComputerDTOMapper;
-import com.excilys.cdb.mapper.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.service.IServiceCompany;
@@ -62,18 +61,9 @@ public class EditComputer {
 		model.addAttribute("list", lcomp);
 
 		if (!bindingResult.hasErrors()) {
-			Company company = servicecompany.findCompany(computerDto
-					.getCompanyId());
-			Computer computer = new Computer.ComputerBuilder(
-					computerDto.getName())
-					.setId(computerDto.getCompId())
-					.setIntroduced(
-							DateMapper.toDateFormat(computerDto.getIntroduced()))
-					.setDiscontinued(
-							DateMapper.toDateFormat(computerDto
-									.getDiscontinued())).setCompany(company)
-					.build();
-			servicecomputer.updateComputer(computer);
+			Computer c = ComputerDTOMapper.toComputer(computerDto);
+			c.setCompany(servicecompany.findCompany(computerDto.getCompanyId()));
+			servicecomputer.updateComputer(c);
 			return "redirect:/";
 
 		} else {

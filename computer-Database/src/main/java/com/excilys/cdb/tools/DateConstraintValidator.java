@@ -18,9 +18,9 @@ public class DateConstraintValidator implements
 	public boolean isValid(String date, ConstraintValidatorContext arg1) {
 
 		Locale locale = LocaleContextHolder.getLocale();
-		if (locale.getCountry().equals("en")) {
+		if (locale.getLanguage().equals("en")) {
 			return Validator.isDateValidEn(date);
-		} else if (locale.getCountry().equals("fr")) {
+		} else if (locale.getLanguage().equals("fr")) {
 			return Validator.isDateValidFr(date);
 		}
 		return false;

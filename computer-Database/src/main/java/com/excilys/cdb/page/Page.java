@@ -183,7 +183,7 @@ public class Page {
 			search = "";
 		}
 		if (order == null || order.isEmpty()) {
-			order = "";
+			order = "asc";
 		}
 		if (field == null || field.isEmpty()) {
 			field = "computer.id";

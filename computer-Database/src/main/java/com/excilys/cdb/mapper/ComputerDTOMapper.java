@@ -23,15 +23,16 @@ public class ComputerDTOMapper {
 	 */
 	public static ComputerDto toComputerDto(Computer comp) {
 		ComputerDto c = null;
+
 		if (!Tools.isNull(comp)) {
 			c = new ComputerDto.ComputerDtoBuilder(comp.getName())
 					.setCompId(comp.getId())
 					.setIntroduced(
-							comp.getIntroduced() == null ? "" : comp
-									.getIntroduced().toLocalDate().toString())
+							comp.getIntroduced() == null ? "" : DateMapper
+									.toString(comp.getIntroduced()))
 					.setDiscontinued(
-							comp.getDiscontinued() == null ? "" : comp
-									.getDiscontinued().toLocalDate().toString())
+							comp.getDiscontinued() == null ? "" : DateMapper
+									.toString(comp.getDiscontinued()))
 					.setCompanyId(
 							comp.getCompany() == null ? 0 : comp.getCompany()
 									.getId())

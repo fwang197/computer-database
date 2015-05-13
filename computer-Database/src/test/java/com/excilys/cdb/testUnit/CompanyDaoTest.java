@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -37,13 +38,13 @@ public class CompanyDaoTest {
 
 	@Test
 	public void testFindAllValid() {
-		ArrayList<Company> lexpected = new ArrayList<Company>();
+		List<Company> lexpected = new ArrayList<Company>();
 		lexpected
 				.add(new Company.CompanyBuilder("Apple Inc.").setId(1).build());
 		lexpected.add(new Company.CompanyBuilder("Thinking Machines").setId(2)
 				.build());
 		lexpected.add(new Company.CompanyBuilder("RCA").setId(3).build());
-		ArrayList<Company> lactual = new ArrayList<Company>(comp.findAll());
+		List<Company> lactual = new ArrayList<Company>(comp.findAll());
 		assertTrue(lexpected.equals(lactual));
 
 	}

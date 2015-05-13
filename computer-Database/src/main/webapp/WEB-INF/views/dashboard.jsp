@@ -22,9 +22,7 @@
 
 	<section id="main">
 		<div class="container">
-			<spring:message code="lang.language"/>
-			: <a href="?lang=en"><spring:message code="lang.english"/> </a>|<a
-				href="?lang=fr"><spring:message code="lang.french"/> </a>
+			<mylib:lang/>
 			<h1 id="homeTitle">${page.nb} <spring:message code="dash.nb.computer"/></h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
@@ -33,7 +31,7 @@
 
 						<input type="hidden" value="${page.range}" name="range"> <input
 							type="search" id="searchbox" name="search" class="form-control"
-							placeholder=<spring:message code="dash.search"/> /> <input type="submit"
+							placeholder="<spring:message code="dash.search"/>" /> <input type="submit"
 							id="searchsubmit" value="<spring:message code="dash.filter"/>" class="btn btn-primary" />
 					</form>
 				</div>

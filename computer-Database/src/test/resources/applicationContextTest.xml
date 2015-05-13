@@ -19,7 +19,7 @@
 		lazy-init="true">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull" />
+			value="jdbc:mysql://localhost:3306/computer-database-db-test?zeroDateTimeBehavior=convertToNull" />
 		<property name="username" value="admincdb" />
 		<property name="password" value="qwerty1234" />
 		<property name="maxConnectionsPerPartition" value="5" />

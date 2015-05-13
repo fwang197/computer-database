@@ -34,7 +34,7 @@ public class EditComputerTest {
 	public void setUp() throws Exception {
 		Tools.process();
 		driver = new FirefoxDriver();
-		baseUrl = "http://localhost:8080/computer-Database/DashboardServlet";
+		baseUrl = "http://localhost:8080/computer-database/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 

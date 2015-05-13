@@ -53,7 +53,7 @@ public class ComputerDaoTest {
 	public void testCreate() {
 		Tools.process();
 		Computer expected = new Computer.ComputerBuilder("test").setId(7)
-				.setDiscontinued(DateMapper.toDateFormat("2000-01-02")).build();
+				.setDiscontinued(DateMapper.toDate("2000", "01", "02")).build();
 		comp.create(expected);
 		Computer actual = comp.find(expected.getId());
 		assertEquals(expected, actual);
@@ -94,26 +94,26 @@ public class ComputerDaoTest {
 								.build()).build());
 		lexpected.add(new Computer.ComputerBuilder("MacBook Pro")
 				.setId(2)
-				.setIntroduced(DateMapper.toDateFormat("2006-01-10"))
+				.setIntroduced(DateMapper.toDate("2006", "01", "10"))
 				.setCompany(
 						new Company.CompanyBuilder("Apple Inc.").setId(1)
 								.build()).build());
 		lexpected.add(new Computer.ComputerBuilder("Apple III")
 				.setId(3)
-				.setIntroduced(DateMapper.toDateFormat("1980-05-01"))
-				.setDiscontinued(DateMapper.toDateFormat("1984-04-01"))
+				.setIntroduced(DateMapper.toDate("1980", "05", "01"))
+				.setDiscontinued(DateMapper.toDate("1984", "04", "01"))
 				.setCompany(
 						new Company.CompanyBuilder("Apple Inc.").setId(1)
 								.build()).build());
 		lexpected.add(new Computer.ComputerBuilder("Powerbook 100").setId(4)
 				.build());
 		lexpected.add(new Computer.ComputerBuilder("Manchester Mark I")
-				.setId(5).setIntroduced(DateMapper.toDateFormat("1989-01-01"))
+				.setId(5).setIntroduced(DateMapper.toDate("1989", "01", "01"))
 				.build());
 		lexpected
 				.add(new Computer.ComputerBuilder("Xerox Daybreak").setId(6)
-						.setIntroduced(DateMapper.toDateFormat("1985-01-01"))
-						.setDiscontinued(DateMapper.toDateFormat("1989-01-01"))
+						.setIntroduced(DateMapper.toDate("1985", "01", "01"))
+						.setDiscontinued(DateMapper.toDate("1989", "01", "01"))
 						.build());
 		ArrayList<Computer> lactual = new ArrayList<Computer>(comp.findAll());
 		assertTrue(lexpected.equals(lactual));

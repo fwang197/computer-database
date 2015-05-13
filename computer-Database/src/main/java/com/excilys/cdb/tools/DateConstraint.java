@@ -12,7 +12,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = DateConstraintValidator.class)
 public @interface DateConstraint {
-	String message() default "DateConstraint";
+	String message() default "{error.form.date}";
 
 	Class<?>[] groups() default {};
 

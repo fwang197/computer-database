@@ -10,6 +10,10 @@ import org.springframework.context.i18n.LocaleContextHolder;
 public class DateConstraintValidator implements
 		ConstraintValidator<DateConstraint, String> {
 
+	String message() {
+		return "test";
+	}
+
 	@Override
 	public void initialize(DateConstraint arg0) {
 	}

@@ -45,7 +45,7 @@ public class EditComputer {
 
 			ComputerDto comp = ComputerDTOMapper.toComputerDto(servicecomputer
 					.findComputer(id));
-			model.addAttribute("compdto", comp);
+			model.addAttribute("computerDto", comp);
 			model.addAttribute("list", lcomp);
 			return "editComputer";
 		}
@@ -67,7 +67,7 @@ public class EditComputer {
 			return "redirect:/";
 
 		} else {
-			model.addAttribute("compdto", computerDto);
+			model.addAttribute("computerDto", computerDto);
 			return "editComputer";
 		}
 	}

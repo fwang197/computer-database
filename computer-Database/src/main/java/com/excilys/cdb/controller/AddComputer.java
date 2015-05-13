@@ -33,8 +33,8 @@ public class AddComputer {
 
 	@RequestMapping(method = RequestMethod.GET)
 	protected String doGet(ModelMap model) {
-
 		List<Company> lcomp = servicecompany.findAllCompany();
+		model.addAttribute("computerDto", new ComputerDto());
 		model.addAttribute("list", lcomp);
 		return "addComputer";
 	}
@@ -45,12 +45,12 @@ public class AddComputer {
 
 		List<Company> lcomp = servicecompany.findAllCompany();
 		model.addAttribute("list", lcomp);
-
 		if (!bindingResult.hasErrors()) {
 			servicecomputer.createComputer(ComputerDTOMapper
 					.toComputer(computerDto));
 			return "redirect:/";
 		} else {
+
 			return "addComputer";
 		}
 	}

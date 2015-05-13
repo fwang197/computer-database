@@ -9,7 +9,7 @@ public class ComputerDto {
 
 	private long compId;
 	@NotNull
-	@Size(min = 2)
+	@Size(min = 2, max = 64)
 	private String name;
 	@DateConstraint
 	private String introduced;

@@ -12,8 +12,10 @@
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
 <spring:message code="computer.name" var="name" />
-<spring:message code="computer.intro.format" var="intro" />
-<spring:message code="computer.discon.format" var="discon" />
+<spring:message code="computer.intro.format" var="introFormat" />
+<spring:message code="computer.discon.format" var="disconFormat" />
+<spring:message code="computer.intro" var="intro" />
+<spring:message code="computer.discon" var="discon" />
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
@@ -43,16 +45,15 @@
 							<div class="form-group">
 								<label for="introduced">${intro}</label>
 								<form:input path="introduced" type="date" class="form-control"
-									placeholder="${intro}" />
-								<form:errors path="introduced" class="alert alert-danger" />
+									placeholder="${introFormat}" />
 							</div>
+							<div class="form-group text-center"><form:errors path="introduced" class="alert alert-danger" /></div>
 							<div class="form-group">
 								<label for="discontinued">${discon}</label>
 								<form:input path="discontinued" type="date" class="form-control"
-									placeholder="${discon}" />
-								<form:errors path="discontinued"
-									cssStyle="color: #ff0000;font-weight: bold" />
+									placeholder="${disconFormat}" />
 							</div>
+							<div class="form-group text-center"><form:errors path="discontinued" class="alert alert-danger" /></div>
 							<div class="form-group">
 								<label for="companyId"><spring:message
 										code="company.name" /></label> <select class="form-control"

@@ -118,7 +118,7 @@ public class ComputerDao implements IDao<Computer> {
 		int res = 0;
 		try {
 			res = (int) this.sessionFactory.getCurrentSession()
-					.createQuery("select count(*) from computer")
+					.createQuery("select count(c) from Computer as c")
 					.uniqueResult();
 		} catch (DataAccessException e) {
 			logger.error("Get all Computer count error");
@@ -133,13 +133,9 @@ public class ComputerDao implements IDao<Computer> {
 			res = (int) this.sessionFactory
 					.getCurrentSession()
 					.createQuery(
-							"select count(*) "
-									+ "from Computer as compu left outer join Company as compa "
-									+ "on computer.company_id = company.id "
-									+ "where computer.name like ? "
-									+ "or company.name like ? ")
-					.setParameter(0, pattern).setParameter(1, pattern)
-					.uniqueResult();
+							"select count(c) from Computer as c where c.name like ? or c.company.name like ? ")
+					.setParameter(0, "%" + pattern + "%")
+					.setParameter(1, "%" + pattern + "%").uniqueResult();
 		} catch (DataAccessException e) {
 			logger.error("Get all Computer with pattern {} error", pattern);
 			throw new DaoException();
@@ -189,7 +185,8 @@ public class ComputerDao implements IDao<Computer> {
 					.createQuery(
 							"from Computer as c order by ? ? where c.name like ? or c.company.name like ?")
 					.setParameter(0, by).setParameter(1, order)
-					.setParameter(2, pattern).setParameter(3, pattern)
+					.setParameter(2, "%" + pattern + "%")
+					.setParameter(3, "%" + pattern + "%")
 					.setFirstResult(offset).setMaxResults(range).list();
 		} catch (DataAccessException e) {
 			logger.error(

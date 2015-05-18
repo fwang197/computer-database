@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.dao.ComputerDao.Order;
@@ -20,36 +21,42 @@ public class ServiceComputer implements IServiceComputer {
 	public ServiceComputer() {
 	}
 
+	@Transactional
 	public void createComputer(Computer c) {
 		computerDao.create(c);
 	}
 
+	@Transactional
 	public Computer findComputer(long id) {
 		return computerDao.find(id);
 	}
 
+	@Transactional
 	public void updateComputer(Computer c) {
 		computerDao.update(c);
 	}
 
+	@Transactional
 	public void deleteComputer(Computer c) {
 		computerDao.delete(c);
 	}
 
+	@Transactional
 	public List<Computer> findAllComputer() {
 		return computerDao.findAll();
 	}
 
+	@Transactional
 	public int getCountComputer() {
 		return computerDao.getCount();
 	}
 
-	@Override
+	@Transactional
 	public int getCountComputer(String pattern) {
 		return computerDao.getCount(pattern);
 	}
 
-	@Override
+	@Transactional
 	public List<Computer> findAllComputer(Page page) {
 		if (page.getSearch().isEmpty()) {
 			return computerDao.findAll(page.getOffset(), page.getRange(),

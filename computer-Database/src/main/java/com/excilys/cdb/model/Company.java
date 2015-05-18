@@ -1,5 +1,12 @@
 package com.excilys.cdb.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 // TODO: Auto-generated Javadoc
 /**
  * La classe Company représente une compagnie avec seulement un nom.
@@ -7,13 +14,23 @@ package com.excilys.cdb.model;
  * @author excilys
  *
  */
+@Entity
+@Table(name = "company")
 public class Company {
 
 	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private long id;
 
 	/** The name. */
+	@Column(name = "name")
 	private String name;
+
+	public Company() {
+
+	}
 
 	/**
 	 * Instantiates a new company.

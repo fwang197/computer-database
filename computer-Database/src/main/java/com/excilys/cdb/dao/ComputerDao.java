@@ -1,39 +1,24 @@
 package com.excilys.cdb.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.exception.DaoException;
-import com.excilys.cdb.mapper.DateMapper;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.tools.Tools;
 
 @Repository("computerDao")
 public class ComputerDao implements IDao<Computer> {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private SessionFactory sessionFactory;
 
 	private final Logger logger = LoggerFactory.getLogger(ComputerDao.class);
 
@@ -42,36 +27,37 @@ public class ComputerDao implements IDao<Computer> {
 
 	public void create(Computer comp) {
 		long res = -1;
-		PreparedStatementCreator preparestatementcreator = new PreparedStatementCreator() {
-
-			public PreparedStatement createPreparedStatement(Connection conn)
-					throws SQLException {
-				PreparedStatement prepare = conn
-						.prepareStatement(
-								"insert into computer(name,introduced,discontinued,company_id) values (?,?,?,?)",
-								Statement.RETURN_GENERATED_KEYS);
-				prepare.setString(1, comp.getName());
-				prepare.setTimestamp(2,
-						DateMapper.toTimeStamp(comp.getIntroduced()));
-				prepare.setTimestamp(3,
-						DateMapper.toTimeStamp(comp.getDiscontinued()));
-				if (Tools.isNull(comp.getCompany())) {
-					prepare.setNull(4, Types.NULL);
-				} else {
-					prepare.setLong(4, comp.getCompany().getId());
-				}
-				return prepare;
-			}
-		};
-
-		try {
-			KeyHolder holder = new GeneratedKeyHolder();
-			this.jdbcTemplate.update(preparestatementcreator, holder);
-			res = holder.getKey().longValue();
-		} catch (DataAccessException e) {
-			logger.error("Create Computer error : {} ", comp);
-			throw new DaoException();
-		}
+		// PreparedStatementCreator preparestatementcreator = new
+		// PreparedStatementCreator() {
+		//
+		// public PreparedStatement createPreparedStatement(Connection conn)
+		// throws SQLException {
+		// PreparedStatement prepare = conn
+		// .prepareStatement(
+		// "insert into computer(name,introduced,discontinued,company_id) values (?,?,?,?)",
+		// Statement.RETURN_GENERATED_KEYS);
+		// prepare.setString(1, comp.getName());
+		// prepare.setTimestamp(2,
+		// DateMapper.toTimeStamp(comp.getIntroduced()));
+		// prepare.setTimestamp(3,
+		// DateMapper.toTimeStamp(comp.getDiscontinued()));
+		// if (Tools.isNull(comp.getCompany())) {
+		// prepare.setNull(4, Types.NULL);
+		// } else {
+		// prepare.setLong(4, comp.getCompany().getId());
+		// }
+		// return prepare;
+		// }
+		// };
+		//
+		// try {
+		// KeyHolder holder = new GeneratedKeyHolder();
+		// this.jdbcTemplate.update(preparestatementcreator, holder);
+		// res = holder.getKey().longValue();
+		// } catch (DataAccessException e) {
+		// logger.error("Create Computer error : {} ", comp);
+		// throw new DaoException();
+		// }
 		comp.setId(res);
 	}
 
@@ -79,12 +65,9 @@ public class ComputerDao implements IDao<Computer> {
 
 		Computer computer = null;
 		try {
-			computer = this.jdbcTemplate
-					.queryForObject(
-							"select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-									+ "from computer left outer join company "
-									+ "on computer.company_id = company.id where computer.id = ?",
-							new Object[] { id }, new ComputerMapper());
+			computer = (Computer) this.sessionFactory.getCurrentSession()
+					.createQuery("from Computer as c where c.id = ?")
+					.setParameter(0, id).uniqueResult();
 		} catch (DataAccessException e) {
 			logger.error("Find Computer error : {} " + e.getMessage());
 		}
@@ -93,13 +76,15 @@ public class ComputerDao implements IDao<Computer> {
 
 	public void update(Computer comp) {
 		try {
-			this.jdbcTemplate
-					.update("update computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?",
-							comp.getName(), DateMapper.toTimeStamp(comp
-									.getIntroduced()), DateMapper
-									.toTimeStamp(comp.getDiscontinued()), Tools
-									.isNull(comp.getCompany()) ? null : comp
-									.getCompany().getId(), comp.getId());
+			this.sessionFactory
+					.getCurrentSession()
+					.createQuery(
+							"update Computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?")
+					.setParameter(0, comp.getName())
+					.setParameter(1, comp.getIntroduced())
+					.setParameter(2, comp.getDiscontinued())
+					.setParameter(3, comp.getCompany().getId())
+					.setParameter(4, comp.getId()).executeUpdate();
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			logger.error("Update Computer error : {} ", comp);
@@ -109,8 +94,9 @@ public class ComputerDao implements IDao<Computer> {
 
 	public void delete(Company comp) {
 		try {
-			this.jdbcTemplate.update(
-					"delete from computer where company_id = ?", comp.getId());
+			this.sessionFactory.getCurrentSession()
+					.createQuery("delete from computer where company_id = ?")
+					.setParameter(0, comp.getId());
 		} catch (DataAccessException e) {
 			logger.error("Delete Computer error : {} ", comp);
 			throw new DaoException();
@@ -119,8 +105,9 @@ public class ComputerDao implements IDao<Computer> {
 
 	public void delete(Computer comp) {
 		try {
-			this.jdbcTemplate.update("delete from computer where id = ?",
-					comp.getId());
+			this.sessionFactory.getCurrentSession()
+					.createQuery("delete from Computer where id = ?")
+					.setParameter(0, comp.getId());
 		} catch (DataAccessException e) {
 			logger.error("Delete Computer error : {} ", comp);
 			throw new DaoException();
@@ -130,8 +117,9 @@ public class ComputerDao implements IDao<Computer> {
 	public int getCount() {
 		int res = 0;
 		try {
-			res = this.jdbcTemplate.queryForObject(
-					"select count(*) from computer", Integer.class);
+			res = (int) this.sessionFactory.getCurrentSession()
+					.createQuery("select count(*) from computer")
+					.uniqueResult();
 		} catch (DataAccessException e) {
 			logger.error("Get all Computer count error");
 			throw new DaoException();
@@ -142,13 +130,16 @@ public class ComputerDao implements IDao<Computer> {
 	public int getCount(String pattern) {
 		int res = 0;
 		try {
-			res = this.jdbcTemplate.queryForObject(
-					"select count(*) as nb "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "where computer.name like ? "
-							+ "or company.name like ? ", Integer.class, "%"
-							+ pattern + "%", "%" + pattern + "%");
+			res = (int) this.sessionFactory
+					.getCurrentSession()
+					.createQuery(
+							"select count(*) "
+									+ "from Computer as compu left outer join Company as compa "
+									+ "on computer.company_id = company.id "
+									+ "where computer.name like ? "
+									+ "or company.name like ? ")
+					.setParameter(0, pattern).setParameter(1, pattern)
+					.uniqueResult();
 		} catch (DataAccessException e) {
 			logger.error("Get all Computer with pattern {} error", pattern);
 			throw new DaoException();
@@ -161,11 +152,9 @@ public class ComputerDao implements IDao<Computer> {
 		List<Computer> lcomputer = new LinkedList<Computer>();
 
 		try {
-			lcomputer = this.jdbcTemplate
-					.query("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id",
-							new ComputerMapper());
+
+			lcomputer = this.sessionFactory.getCurrentSession()
+					.createQuery("from Computer ").list();
 		} catch (DataAccessException e) {
 			logger.error("Find all Computer error");
 			throw new DaoException();
@@ -176,24 +165,11 @@ public class ComputerDao implements IDao<Computer> {
 	public List<Computer> findAll(int offset, int range, Row by, Order order) {
 		List<Computer> lcomputer = new LinkedList<Computer>();
 		try {
-			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
-					.addValue("by", by).addValue("limit", range)
-					.addValue("offset", offset);
-			lcomputer = this.namedParameterJdbcTemplate
-					.query("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "order by "
-							+ by
-							+ " "
-							+ order
-							+ " limit :limit offset :offset", namedParameters,
-							new ComputerMapper());
-			System.out
-					.println("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "order by " + by + " " + order);
+
+			lcomputer = this.sessionFactory.getCurrentSession()
+					.createQuery("from Computer order by ? ?")
+					.setParameter(0, by).setParameter(1, order)
+					.setFirstResult(offset).setMaxResults(range).list();
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 			logger.error("Find all range Computer  by {} order {}", by, order);
@@ -207,25 +183,14 @@ public class ComputerDao implements IDao<Computer> {
 		List<Computer> lcomputer = new LinkedList<Computer>();
 
 		try {
-			MapSqlParameterSource namedParameters = new MapSqlParameterSource()
-					.addValue("limit", range).addValue("offset", offset)
-					.addValue("pattern", "%" + pattern + "%");
-			lcomputer = this.namedParameterJdbcTemplate
-					.query("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "where computer.name like :pattern or company.name like :pattern "
-							+ "order by "
-							+ by
-							+ " "
-							+ order
-							+ " limit :limit offset :offset", namedParameters,
-							new ComputerMapper());
-			System.out
-					.println("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "order by " + by + " " + order);
+
+			lcomputer = this.sessionFactory
+					.getCurrentSession()
+					.createQuery(
+							"from Computer as c order by ? ? where c.name like ? or c.company.name like ?")
+					.setParameter(0, by).setParameter(1, order)
+					.setParameter(2, pattern).setParameter(3, pattern)
+					.setFirstResult(offset).setMaxResults(range).list();
 		} catch (DataAccessException e) {
 			logger.error(
 					"Find all range Computer like {} order by {} with pattern {} ",
@@ -239,13 +204,10 @@ public class ComputerDao implements IDao<Computer> {
 		List<Computer> lcomputer = new LinkedList<Computer>();
 
 		try {
-			lcomputer = this.jdbcTemplate
-					.query("select computer.id as c_id, computer.name as c_name,introduced,discontinued,company_id,company.name "
-							+ "from computer left outer join company "
-							+ "on computer.company_id = company.id "
-							+ "where company.id = ?",
-							new Object[] { obj.getId() }, new ComputerMapper());
 
+			lcomputer = this.sessionFactory.getCurrentSession()
+					.createQuery("from Computer as c where c.company.id = ?")
+					.setParameter(0, obj.getId()).list();
 		} catch (DataAccessException e) {
 			logger.error("Find all Computer with a Company : {} ", obj);
 			throw new DaoException();

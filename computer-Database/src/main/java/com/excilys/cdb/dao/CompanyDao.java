@@ -3,11 +3,11 @@ package com.excilys.cdb.dao;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.cdb.exception.DaoException;
@@ -17,7 +17,7 @@ import com.excilys.cdb.model.Company;
 public class CompanyDao implements IDao<Company> {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private SessionFactory sessionFactory;
 
 	private final Logger logger = LoggerFactory.getLogger(CompanyDao.class);
 
@@ -27,10 +27,10 @@ public class CompanyDao implements IDao<Company> {
 	public Company find(long id) {
 		Company company = null;
 		try {
+			return (Company) this.sessionFactory.getCurrentSession()
+					.createQuery("from Company where id = ?")
+					.setParameter(0, id).uniqueResult();
 
-			company = this.jdbcTemplate.queryForObject(
-					"select * from company where id = ?", new Object[] { id },
-					new CompanyMapper());
 		} catch (DataAccessException e) {
 			logger.error("Find Company error : {} " + e.getMessage(), id);
 		}
@@ -40,8 +40,9 @@ public class CompanyDao implements IDao<Company> {
 	public void delete(Company comp) {
 
 		try {
-			this.jdbcTemplate.update("delete from company where id = ?",
-					comp.getId());
+			this.sessionFactory.getCurrentSession()
+					.createQuery("delete from Company where id = ?")
+					.setParameter(0, comp.getId()).executeUpdate();
 		} catch (DataAccessException e) {
 			logger.error("Delete Company error : {} ", comp);
 			throw new DaoException();
@@ -53,8 +54,8 @@ public class CompanyDao implements IDao<Company> {
 		List<Company> lcompany = new LinkedList<Company>();
 
 		try {
-			lcompany = this.jdbcTemplate.query("select * from company",
-					new CompanyMapper());
+			lcompany = this.sessionFactory.getCurrentSession()
+					.createQuery("from Company").list();
 		} catch (DataAccessException e) {
 			logger.error("Find all Company error");
 			throw new DaoException();
@@ -67,9 +68,12 @@ public class CompanyDao implements IDao<Company> {
 
 		try {
 
-			lcompany = this.jdbcTemplate.query(
-					"select * from company limit ? offset ?", new Object[] {
-							range, offset }, new CompanyMapper());
+			// lcompany = this.jdbcTemplate.query(
+			// "select * from company limit ? offset ?", new Object[] {
+			// range, offset }, new CompanyMapper());
+			lcompany = this.sessionFactory.getCurrentSession()
+					.createQuery("from Company").setFirstResult(offset)
+					.setMaxResults(range).list();
 		} catch (DataAccessException e) {
 			logger.error("Find all range Company error : {} to {} ", offset,
 					offset + range);

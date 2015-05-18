@@ -19,11 +19,12 @@ public class ServiceCompany implements IServiceCompany {
 	@Autowired
 	private ComputerDao computerDao;
 
-	public Company findCompany(long id) {
-		return companyDao.find(id);
+	private ServiceCompany() {
 	}
 
-	private ServiceCompany() {
+	@Transactional
+	public Company findCompany(long id) {
+		return companyDao.find(id);
 	}
 
 	@Transactional
@@ -32,10 +33,12 @@ public class ServiceCompany implements IServiceCompany {
 		companyDao.delete(obj);
 	}
 
+	@Transactional
 	public List<Company> findAllCompany() {
 		return companyDao.findAll();
 	}
 
+	@Transactional
 	public List<Company> findAllCompany(int offset, int range) {
 		return companyDao.findAll(offset, range);
 	}

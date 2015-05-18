@@ -2,25 +2,39 @@ package com.excilys.cdb.model;
 
 import java.time.LocalDateTime;
 
-// TODO: Auto-generated Javadoc
-/**
- * La classe Computer représente une machine. Elle possede un nom , les dates de
- * mise en circulation et d'arret de la production ainsi que la compagnie qui
- * l'a créée.
- * 
- * @author excilys
- *
- */
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+import com.excilys.cdb.tools.DateConverter;
+
+@Entity
+@Table(name = "computer")
 public class Computer {
 	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	/** The name. */
+
 	private String name;
+
 	/** The introduced. */
+	@Convert(converter = DateConverter.class)
 	private LocalDateTime introduced;
+
 	/** The discontinued. */
+	@Convert(converter = DateConverter.class)
 	private LocalDateTime discontinued;
+
 	/** The company. */
+	@PrimaryKeyJoinColumn(name = "company_id")
+	@ManyToOne
 	private Company company;
 
 	/**

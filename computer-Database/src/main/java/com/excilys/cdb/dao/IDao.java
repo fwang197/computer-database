@@ -88,6 +88,17 @@ public interface IDao<T> {
 	}
 
 	/**
+	 * Find a range of T.
+	 *
+	 * @param offset
+	 * @param range
+	 * @return the list
+	 */
+	public default List<T> findAll(int offset, int range) {
+		throw new NotImplemented();
+	}
+
+	/**
 	 * Find a range of T according to a pattern and order by column name and its
 	 * way (ASC or DESC).
 	 *

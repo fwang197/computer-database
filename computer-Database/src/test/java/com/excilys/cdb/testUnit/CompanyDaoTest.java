@@ -12,12 +12,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.dao.IDao;
 import com.excilys.cdb.model.Company;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContextTest.xml" })
+@Transactional
 public class CompanyDaoTest {
 
 	@Autowired
@@ -33,6 +35,7 @@ public class CompanyDaoTest {
 		Company expected = new Company.CompanyBuilder("Apple Inc.").setId(1)
 				.build();
 		Company actual = comp.find(1);
+		System.out.println(actual);
 		assertEquals(expected, actual);
 	}
 

@@ -1,18 +1,15 @@
 package com.excilys.cdb.dao;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.excilys.cdb.exception.DaoException;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
+import com.excilys.cdb.tools.Tools;
 
 @Repository("computerDao")
 public class ComputerDao implements IDao<Computer> {
@@ -20,178 +17,109 @@ public class ComputerDao implements IDao<Computer> {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	private final Logger logger = LoggerFactory.getLogger(ComputerDao.class);
-
 	public ComputerDao() {
 	}
 
 	public void create(Computer comp) {
 		long res = -1;
-
-		try {
-			res = (long) this.sessionFactory.getCurrentSession().save(comp);
-		} catch (DataAccessException e) {
-			logger.error("Create Computer error : {} ", comp);
-			throw new DaoException();
-		}
+		res = (long) this.sessionFactory.getCurrentSession().save(comp);
 		comp.setId(res);
 	}
 
 	public Computer find(long id) {
 
-		Computer computer = null;
-		try {
-			computer = (Computer) this.sessionFactory.getCurrentSession()
-					.createQuery("from Computer as c where c.id = ?")
-					.setParameter(0, id).uniqueResult();
-		} catch (DataAccessException e) {
-			logger.error("Find Computer error : {} " + e.getMessage());
-		}
-		return computer;
+		return (Computer) this.sessionFactory.getCurrentSession()
+				.createQuery("from Computer as c where c.id = ?")
+				.setParameter(0, id).uniqueResult();
 	}
 
 	public void update(Computer comp) {
-		try {
-			this.sessionFactory
-					.getCurrentSession()
-					.createQuery(
-							"update Computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?")
-					.setParameter(0, comp.getName())
-					.setParameter(1, comp.getIntroduced())
-					.setParameter(2, comp.getDiscontinued())
-					.setParameter(3, comp.getCompany().getId())
-					.setParameter(4, comp.getId()).executeUpdate();
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			logger.error("Update Computer error : {} ", comp);
-			throw new DaoException();
-		}
+
+		this.sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"update Computer set name = ?, introduced = ? , discontinued = ? , company_id = ? where id = ?")
+				.setParameter(0, comp.getName())
+				.setParameter(1, comp.getIntroduced())
+				.setParameter(2, comp.getDiscontinued())
+				.setParameter(
+						3,
+						Tools.isNull(comp.getCompany()) ? null : comp
+								.getCompany().getId())
+				.setParameter(4, comp.getId()).executeUpdate();
 	}
 
 	public void delete(Company comp) {
-		try {
-			this.sessionFactory.getCurrentSession()
-					.createQuery("delete from Computer where company = ?")
-					.setParameter(0, comp.getId()).executeUpdate();
-		} catch (DataAccessException e) {
-			logger.error("Delete Computer error : {} ", comp);
-			throw new DaoException();
-		}
+
+		this.sessionFactory.getCurrentSession()
+				.createQuery("delete from Computer where company = ?")
+				.setParameter(0, comp.getId()).executeUpdate();
+
 	}
 
 	public void delete(Computer comp) {
-		try {
-			this.sessionFactory.getCurrentSession()
-					.createQuery("delete from Computer where id = ?")
-					.setParameter(0, comp.getId()).executeUpdate();
-		} catch (DataAccessException e) {
-			logger.error("Delete Computer error : {} ", comp);
-			throw new DaoException();
-		}
+
+		this.sessionFactory.getCurrentSession()
+				.createQuery("delete from Computer where id = ?")
+				.setParameter(0, comp.getId()).executeUpdate();
+
 	}
 
 	public long getCount() {
-		long res = 0;
-		try {
-			res = (long) this.sessionFactory.getCurrentSession()
-					.createQuery("select count(c) from Computer as c")
-					.uniqueResult();
-		} catch (DataAccessException e) {
-			logger.error("Get all Computer count error");
-			throw new DaoException();
-		}
-		return res;
+		return (long) this.sessionFactory.getCurrentSession()
+				.createQuery("select count(c) from Computer as c")
+				.uniqueResult();
+
 	}
 
 	public long getCount(String pattern) {
-		long res = 0;
-		try {
-			res = (long) this.sessionFactory
-					.getCurrentSession()
-					.createQuery(
-							"select count(c) from Computer as c left outer join c.company c2 where c.name like ? or c2.name like ?")
-					.setParameter(0, "%" + pattern + "%")
-					.setParameter(1, "%" + pattern + "%").uniqueResult();
+		return (long) this.sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"select count(c) from Computer as c left outer join c.company c2 where c.name like ? or c2.name like ?")
+				.setParameter(0, "%" + pattern + "%")
+				.setParameter(1, "%" + pattern + "%").uniqueResult();
 
-		} catch (DataAccessException e) {
-			logger.error("Get all Computer with pattern {} error", pattern);
-			throw new DaoException();
-		}
-		return res;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Computer> findAll() {
+		System.out.println(sessionFactory.toString());
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("from Computer ").list();
 
-		List<Computer> lcomputer = new LinkedList<Computer>();
-
-		try {
-
-			lcomputer = this.sessionFactory.getCurrentSession()
-					.createQuery("from Computer ").list();
-		} catch (DataAccessException e) {
-			logger.error("Find all Computer error");
-			throw new DaoException();
-		}
-		return lcomputer;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Computer> findAll(int offset, int range, Row by, Order order) {
-		List<Computer> lcomputer = new LinkedList<Computer>();
-		try {
-
-			lcomputer = this.sessionFactory
-					.getCurrentSession()
-					.createQuery(
-							"from Computer as computer order by " + by + " "
-									+ order).setFirstResult(offset)
-					.setMaxResults(range).list();
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			logger.error("Find all range Computer  by {} order {}", by, order);
-			throw new DaoException();
-		}
-		return lcomputer;
+		return this.sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"from Computer as computer order by " + by + " "
+								+ order).setFirstResult(offset)
+				.setMaxResults(range).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Computer> findAll(int offset, int range, String pattern,
 			Row by, Order order) {
-		List<Computer> lcomputer = new LinkedList<Computer>();
+		return this.sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"select computer from Computer as computer left outer join computer.company c2 where computer.name like ? or c2.name like ? order by "
+								+ by + " " + order)
+				.setParameter(0, "%" + pattern + "%")
+				.setParameter(1, "%" + pattern + "%").setMaxResults(range)
+				.list();
 
-		try {
-
-			lcomputer = this.sessionFactory
-					.getCurrentSession()
-					.createQuery(
-							"select computer from Computer as computer left outer join computer.company c2 where computer.name like ? or c2.name like ? order by "
-									+ by + " " + order)
-					.setParameter(0, "%" + pattern + "%")
-					.setParameter(1, "%" + pattern + "%").setMaxResults(range)
-					.list();
-		} catch (DataAccessException e) {
-			logger.error(
-					"Find all range Computer like {} order by {} with pattern {} ",
-					by, order, pattern);
-			throw new DaoException();
-		}
-		return lcomputer;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Computer> findAll(Company obj) {
-		List<Computer> lcomputer = new LinkedList<Computer>();
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("from Computer as c where c.company.id = ?")
+				.setParameter(0, obj.getId()).list();
 
-		try {
-			lcomputer = this.sessionFactory.getCurrentSession()
-					.createQuery("from Computer as c where c.company.id = ?")
-					.setParameter(0, obj.getId()).list();
-		} catch (DataAccessException e) {
-			logger.error("Find all Computer with a Company : {} ", obj);
-			throw new DaoException();
-		}
-		return lcomputer;
 	}
 
 	public enum Order {

@@ -14,10 +14,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
-    <hibernate-validator.version>5.1.3.Final</hibernate-validator.version>
-    
-    <spring.version>4.1.6.RELEASE</spring.version>
-    
   </properties>
   <dependencies>
     

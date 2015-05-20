@@ -2,6 +2,8 @@ package com.excilys.cdb.ui;
 
 import java.util.ArrayList;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 
@@ -12,6 +14,7 @@ import com.excilys.cdb.model.Computer;
  * @author excilys
  *
  */
+@Transactional
 public class ListComputerAction extends Action {
 
 	/**

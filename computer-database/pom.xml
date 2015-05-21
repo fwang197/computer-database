@@ -21,9 +21,11 @@
 		<slf4j.version>1.7.12</slf4j.version>
 
 		<spring.version>4.1.6.RELEASE</spring.version>
-		
+
 		<mysql-connector-java.version>5.1.35</mysql-connector-java.version>
 		<bonecp.version>0.8.0.RELEASE</bonecp.version>
+		
+		<spring-security.version>4.0.1.RELEASE</spring-security.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
@@ -93,6 +95,14 @@
 				<version>${spring.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 			<!-- Database -->
 			<dependency>
 				<groupId>mysql</groupId>
@@ -106,9 +116,23 @@
 				<artifactId>bonecp</artifactId>
 				<version>${bonecp.version}</version>
 			</dependency>
+	
+			<!-- Security -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring-security.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<modules>
 		<module>core</module>
 		<module>persistence</module>

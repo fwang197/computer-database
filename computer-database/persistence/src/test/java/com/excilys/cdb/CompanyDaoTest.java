@@ -18,7 +18,7 @@ import com.excilys.cdb.dao.IDao;
 import com.excilys.cdb.model.Company;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContextTest.xml" })
+@ContextConfiguration(locations = { "/persistence-context-test.xml" })
 @Transactional
 public class CompanyDaoTest {
 

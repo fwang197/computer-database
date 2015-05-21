@@ -22,7 +22,7 @@ import com.excilys.cdb.tools.DateMapper;
 import com.excilys.cdb.tools.Tools;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContextTest.xml" })
+@ContextConfiguration(locations = { "/persistence-context-test.xml" })
 @Transactional
 public class ComputerDaoTest {
 

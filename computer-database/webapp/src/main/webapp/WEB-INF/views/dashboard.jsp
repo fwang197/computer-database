@@ -22,8 +22,19 @@
 
 	<section id="main">
 		<div class="container">
-			<mylib:lang/>
-			<h1 id="homeTitle">${page.nb} <spring:message code="dash.nb.computer"/></h1>
+			<mylib:lang />
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<c:url var="logoutUrl" value="/logout" />
+				<form action="${logoutUrl}" method="post">
+					<input type="submit"
+						value="<spring:message
+							code="logout.message" />" /> <input
+						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
+			</c:if>
+			<h1 id="homeTitle">${page.nb}
+				<spring:message code="dash.nb.computer" />
+			</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="Dashboard" method="GET"
@@ -31,13 +42,17 @@
 
 						<input type="hidden" value="${page.range}" name="range"> <input
 							type="search" id="searchbox" name="search" class="form-control"
-							placeholder="<spring:message code="dash.search"/>" /> <input type="submit"
-							id="searchsubmit" value="<spring:message code="dash.filter"/>" class="btn btn-primary" />
+							placeholder="<spring:message code="dash.search"/>" /> <input
+							type="submit" id="searchsubmit"
+							value="<spring:message code="dash.filter"/>"
+							class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="AddComputer"><spring:message code="add.computer"/></a> <a class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();"><spring:message code="edit.message"/></a>
+					<a class="btn btn-success" id="addComputer" href="AddComputer"><spring:message
+							code="add.computer" /></a> <a class="btn btn-default"
+						id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message
+							code="edit.message" /></a>
 				</div>
 			</div>
 		</div>
@@ -60,38 +75,36 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><spring:message code="computer.name"/> <mylib:link target="Dashboard" order="desc"
-								field="computer.name" body="&uarr;" search="${page.search}"
-								pageNum="${page.pageNum}" range="${page.range }" /> <mylib:link
-								target="Dashboard" order="asc" field="computer.name"
-								body="&darr;" search="${page.search}" pageNum="${page.pageNum}"
-								range="${page.range }" />
-						</th>
-						<th><spring:message code="computer.intro"/> <mylib:link target="Dashboard"
-								order="desc" field="computer.introduced" body="&uarr;"
+						<th><spring:message code="computer.name" /> <mylib:link
+								target="Dashboard" order="desc" field="computer.name"
+								body="&uarr;" search="${page.search}" pageNum="${page.pageNum}"
+								range="${page.range }" /> <mylib:link target="Dashboard"
+								order="asc" field="computer.name" body="&darr;"
 								search="${page.search}" pageNum="${page.pageNum}"
+								range="${page.range }" /></th>
+						<th><spring:message code="computer.intro" /> <mylib:link
+								target="Dashboard" order="desc" field="computer.introduced"
+								body="&uarr;" search="${page.search}" pageNum="${page.pageNum}"
 								range="${page.range }" /> <mylib:link target="Dashboard"
 								order="asc" field="computer.introduced" body="&darr;"
 								search="${page.search}" pageNum="${page.pageNum}"
-								range="${page.range }" />
-						</th>
+								range="${page.range }" /></th>
 						<!-- Table header for Discontinued Date -->
-						<th><spring:message code="computer.discon"/> <mylib:link target="Dashboard"
-								order="desc" field="computer.discontinued" body="&uarr;"
-								search="${page.search}" pageNum="${page.pageNum}"
+						<th><spring:message code="computer.discon" /> <mylib:link
+								target="Dashboard" order="desc" field="computer.discontinued"
+								body="&uarr;" search="${page.search}" pageNum="${page.pageNum}"
 								range="${page.range }" /> <mylib:link target="Dashboard"
 								order="asc" field="computer.discontinued" body="&darr;"
 								search="${page.search}" pageNum="${page.pageNum}"
-								range="${page.range }" />
-						</th>
+								range="${page.range }" /></th>
 						<!-- Table header for Company -->
-						<th><spring:message code="company.name"/> <mylib:link target="Dashboard" order="desc"
-								field="computer.company.name" body="&uarr;" search="${page.search}"
-								pageNum="${page.pageNum}" range="${page.range }" /> <mylib:link
-								target="Dashboard" order="asc" field="computer.company.name"
-								body="&darr;" search="${page.search}" pageNum="${page.pageNum}"
-								range="${page.range }" />
-						</th>
+						<th><spring:message code="company.name" /> <mylib:link
+								target="Dashboard" order="desc" field="computer.company.name"
+								body="&uarr;" search="${page.search}" pageNum="${page.pageNum}"
+								range="${page.range }" /> <mylib:link target="Dashboard"
+								order="asc" field="computer.company.name" body="&darr;"
+								search="${page.search}" pageNum="${page.pageNum}"
+								range="${page.range }" /></th>
 
 					</tr>
 				</thead>

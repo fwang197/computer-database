@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import com.excilys.cdb.tools.Tools;
 
 /**
@@ -16,7 +14,6 @@ import com.excilys.cdb.tools.Tools;
  * @author excilys
  *
  */
-@Transactional
 public class Menu {
 
 	// Le menu

@@ -16,7 +16,7 @@ import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContextTest.xml" })
+@ContextConfiguration(locations = { "/persistence-context-test.xml" })
 @Transactional
 public class ComputerDaoFindTest {
 

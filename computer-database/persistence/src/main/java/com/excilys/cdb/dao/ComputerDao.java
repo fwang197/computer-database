@@ -84,7 +84,6 @@ public class ComputerDao implements IDao<Computer> {
 
 	@SuppressWarnings("unchecked")
 	public List<Computer> findAll() {
-		System.out.println(sessionFactory.toString());
 		Session session = sessionFactory.getCurrentSession();
 		return session.createQuery("from Computer ").list();
 

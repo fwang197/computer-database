@@ -6,11 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "authorities", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"authority", "username" }))
+@Table(name = "authorities")
 public class Authority {
 	@Id
 	private long id;
@@ -47,11 +45,5 @@ public class Authority {
 
 	public void setAuthority(String authority) {
 		this.authority = authority;
-	}
-
-	@Override
-	public String toString() {
-		return "Authority [id=" + id + ", user=" + user + ", authority="
-				+ authority + "]";
 	}
 }

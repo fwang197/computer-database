@@ -6,15 +6,21 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<http auto-config='true' use-expressions="false">
-		<intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	<http auto-config='true' use-expressions="false" create-session="never" >
+		<intercept-url pattern="/Dashboard" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/Dashboard*" access="ROLE_ADMIN"/>
 		<intercept-url pattern="/AddComputer**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/EditComputer**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/DeleteComputer**" access="ROLE_ADMIN" />
-		<logout logout-success-url="/" />
-	</http>
+		<intercept-url pattern="/DeleteComputer**" access="ROLE_ADMIN" method="POST"/>
+		
+		<form-login login-page="/login" default-target-url="/" authentication-failure-url="/" username-parameter="" password-parameter="" />
 	
+		<logout logout-success-url="/" />
+		<csrf disabled="true" />
+	</http>
+
+
 	<authentication-manager>
-		<authentication-provider user-service-ref="serviceUser"/>
+		<authentication-provider user-service-ref="serviceUser" />
 	</authentication-manager>
 </beans:beans>

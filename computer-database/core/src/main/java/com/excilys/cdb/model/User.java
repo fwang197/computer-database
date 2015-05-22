@@ -3,6 +3,7 @@ package com.excilys.cdb.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ public class User {
 	private String password;
 	private boolean enabled;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	List<Authority> userRole = new ArrayList<Authority>();
 
 	public User() {
@@ -54,12 +55,6 @@ public class User {
 
 	public void setUserRole(List<Authority> userRole) {
 		this.userRole = userRole;
-	}
-
-	@Override
-	public String toString() {
-		return "User [username=" + username + ", password=" + password
-				+ ", enabled=" + enabled + ", userRole=" + userRole + "]";
 	}
 
 }

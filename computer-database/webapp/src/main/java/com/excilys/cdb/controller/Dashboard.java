@@ -14,7 +14,6 @@ import com.excilys.cdb.mapper.ComputerDTOMapper;
 import com.excilys.cdb.mapper.ComputerDto;
 import com.excilys.cdb.page.Page;
 import com.excilys.cdb.service.IServiceComputer;
-import com.excilys.cdb.service.IServiceUser;
 
 @Controller
 @RequestMapping({ "/Dashboard", "/" })
@@ -23,16 +22,12 @@ public class Dashboard {
 	@Autowired
 	private IServiceComputer servicecomputer;
 
-	@Autowired
-	private IServiceUser serviceUser;
-
 	public Dashboard() {
 		super();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	protected String doGet(@ModelAttribute Page page, ModelMap model) {
-		System.out.println("SERVICE USER BATARD");
 		List<ComputerDto> lcomp = new ArrayList<ComputerDto>();
 		page.validate();
 		page.setNb(servicecomputer.getCountComputer(page.getSearch()));

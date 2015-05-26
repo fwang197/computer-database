@@ -38,6 +38,5 @@ public class Dashboard {
 		page.setLcomp(lcomp);
 		model.addAttribute("page", page);
 		return "dashboard";
-
 	}
 }

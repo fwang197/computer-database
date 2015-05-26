@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="mylib"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,32 +51,40 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="AddComputer"><spring:message
-							code="add.computer" /></a> <a class="btn btn-default"
-						id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message
-							code="edit.message" /></a>
+
+					<security:authorize access="hasRole('ROLE_ADMIN')">
+						<a class="btn btn-success" id="addComputer" href="AddComputer"><spring:message
+								code="add.computer" /></a>
+						<a class="btn btn-default" id="editComputer" href="#"
+							onclick="$.fn.toggleEditMode();"><spring:message
+								code="edit.message" /></a>
+					</security:authorize>
 				</div>
 			</div>
 		</div>
 
-		<form id="deleteForm" action="DeleteComputer" method="POST">
-			<input type="hidden" name="selection" value="">
-		</form>
-
+		<security:authorize access="hasRole('ROLE_ADMIN')">
+			<form id="deleteForm" action="DeleteComputer" method="POST">
+				<input type="hidden" name="selection" value=""> <input
+					type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+		</security:authorize>
 		<div class="container" style="margin-top: 10px;">
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
 						<!-- Variable declarations for passing labels as parameters -->
 						<!-- Table header for Computer Name -->
+						<security:authorize access="hasRole('ROLE_ADMIN')">
+							<th class="editMode" style="width: 60px; height: 22px;"><input
+								type="checkbox" id="selectall" /> <span
+								style="vertical-align: top;"> - <a href="#"
+									id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
+										class="fa fa-trash-o fa-lg"></i>
+								</a>
+							</span></th>
 
-						<th class="editMode" style="width: 60px; height: 22px;"><input
-							type="checkbox" id="selectall" /> <span
-							style="vertical-align: top;"> - <a href="#"
-								id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
-									class="fa fa-trash-o fa-lg"></i>
-							</a>
-						</span></th>
+						</security:authorize>
 						<th><spring:message code="computer.name" /> <mylib:link
 								target="Dashboard" order="desc" field="computer.name"
 								body="&uarr;" search="${page.search}" pageNum="${page.pageNum}"
@@ -113,10 +123,18 @@
 
 					<c:forEach var="i" items="${page.lcomp}">
 						<tr>
-							<td class="editMode"><input type="checkbox" name="cb"
-								class="cb" value="${i.compId}"></td>
-							<td><mylib:link target="EditComputer" body="${i.name}"
-									compId="${i.compId}" /></td>
+							<security:authorize access="hasRole('ROLE_ADMIN')">
+								<td class="editMode"><input type="checkbox" name="cb"
+									class="cb" value="${i.compId}"></td>
+							</security:authorize>
+							<security:authorize access="hasRole('ROLE_ADMIN')" var="admin"/>
+							<td><c:choose>
+									<c:when test="${admin}">
+										<mylib:link target="EditComputer" body="${i.name}"
+											compId="${i.compId}" />
+									</c:when>
+									<c:otherwise>${i.name}</c:otherwise>
+								</c:choose></td>
 							<td>${i.introduced}</td>
 							<td>${i.discontinued}</td>
 							<td>${i.companyName}</td>

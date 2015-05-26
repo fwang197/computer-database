@@ -3,6 +3,7 @@ package com.excilys.cdb.main;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.cdb.service.IServiceCompany;
 import com.excilys.cdb.service.IServiceComputer;
@@ -11,6 +12,7 @@ import com.excilys.cdb.ui.Menu;
 /**
  * The Class Main.
  */
+@Transactional
 public class Main {
 
 	public static IServiceCompany servicecompany;

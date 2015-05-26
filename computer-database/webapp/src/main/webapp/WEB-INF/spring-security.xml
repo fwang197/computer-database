@@ -5,20 +5,26 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
-
-	<http auto-config='true' use-expressions="false" create-session="never" >
-		<intercept-url pattern="/Dashboard" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/Dashboard*" access="ROLE_ADMIN"/>
-		<intercept-url pattern="/AddComputer**" access="ROLE_USER,ROLE_ADMIN" />
-		<intercept-url pattern="/EditComputer**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/DeleteComputer**" access="ROLE_ADMIN" method="POST"/>
-		
-		<form-login login-page="/login" default-target-url="/" authentication-failure-url="/" username-parameter="" password-parameter="" />
 	
+
+	<http auto-config='true' use-expressions="false" create-session="never">
+		<intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/Dashboard/**" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/AddComputer/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/EditComputer/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/DeleteComputer/**" access="ROLE_ADMIN"
+			method="POST" />
+
+		<form-login login-page="/login" 
+		login-processing-url="/j_spring_security_check"
+		    default-target-url="/" 
+			authentication-failure-url="/login?error" 
+			username-parameter="username"
+			password-parameter="password"/>
+
 		<logout logout-success-url="/" />
 		<csrf disabled="true" />
 	</http>
-
 
 	<authentication-manager>
 		<authentication-provider user-service-ref="serviceUser" />

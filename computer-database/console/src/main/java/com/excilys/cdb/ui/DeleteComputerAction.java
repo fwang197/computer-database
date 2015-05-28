@@ -38,9 +38,9 @@ public class DeleteComputerAction extends Action {
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
-			Computer c = Main.servicecomputer.findComputer(id);
+			Computer c = Main.computerService.getComputer(id);
 			if (!Tools.isNull(c)) {
-				Main.servicecomputer.deleteComputer(c);
+				Main.computerService.delete(id);
 				System.out.println("Computer deleted");
 			} else {
 				System.err.println("Computer not found!");

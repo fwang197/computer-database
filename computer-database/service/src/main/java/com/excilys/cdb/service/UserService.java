@@ -20,7 +20,7 @@ import com.excilys.cdb.model.User;
 
 @Service("serviceUser")
 @Transactional
-public class ServiceUser implements IServiceUser, UserDetailsService {
+public class UserService implements IUserService, UserDetailsService {
 
 	@Autowired
 	private UserDao userDao;

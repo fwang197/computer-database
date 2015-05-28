@@ -44,23 +44,28 @@ public class ComputerDTOMapper {
 	}
 
 	public static Computer toComputer(ComputerDto comp) {
-		Computer c = new Computer.ComputerBuilder(comp.getName())
-				.setId(comp.getCompId())
-				.setIntroduced(
-						comp.getIntroduced() == null
-								|| comp.getIntroduced().isEmpty() ? null
-								: DateMapper.toDateFormat(comp.getIntroduced()))
-				.setDiscontinued(
-						comp.getDiscontinued() == null
-								|| comp.getDiscontinued().isEmpty() ? null
-								: DateMapper.toDateFormat(comp
-										.getDiscontinued()))
-				.setCompany(
-						comp.getCompanyName() == null
-								|| comp.getCompanyName().isEmpty() ? null
-								: new Company.CompanyBuilder(comp
-										.getCompanyName()).setId(
-										comp.getCompanyId()).build()).build();
+		Computer c = null;
+		if (!Tools.isNull(comp)) {
+			c = new Computer.ComputerBuilder(comp.getName())
+					.setId(comp.getCompId())
+					.setIntroduced(
+							comp.getIntroduced() == null
+									|| comp.getIntroduced().isEmpty() ? null
+									: DateMapper.toDateFormat(comp
+											.getIntroduced()))
+					.setDiscontinued(
+							comp.getDiscontinued() == null
+									|| comp.getDiscontinued().isEmpty() ? null
+									: DateMapper.toDateFormat(comp
+											.getDiscontinued()))
+					.setCompany(
+							comp.getCompanyName() == null
+									|| comp.getCompanyName().isEmpty() ? null
+									: new Company.CompanyBuilder(comp
+											.getCompanyName()).setId(
+											comp.getCompanyId()).build())
+					.build();
+		}
 		return c;
 
 	}
@@ -78,4 +83,12 @@ public class ComputerDTOMapper {
 				.collect(Collectors.toList());
 		return lcompdto;
 	}
+
+	public static List<Computer> toListComputer(List<ComputerDto> lcompdto) {
+		List<Computer> lcomp = new ArrayList<Computer>();
+		lcomp = lcompdto.stream().map(x -> ComputerDTOMapper.toComputer(x))
+				.collect(Collectors.toList());
+		return lcomp;
+	}
+
 }

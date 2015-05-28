@@ -52,7 +52,7 @@ public class ComputerDao implements IDao<Computer> {
 	public void delete(Company comp) {
 
 		this.sessionFactory.getCurrentSession()
-				.createQuery("delete from Computer where company = ?")
+				.createQuery("delete from Computer where company_id = ?")
 				.setParameter(0, comp.getId()).executeUpdate();
 
 	}

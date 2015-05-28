@@ -8,7 +8,7 @@ import com.excilys.cdb.page.Page;
 /**
  * The Interface IServiceComputer.
  */
-public interface IServiceComputer {
+public interface IComputerService {
 
 	/**
 	 * Creates the computer.

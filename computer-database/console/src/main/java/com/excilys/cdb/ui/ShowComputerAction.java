@@ -38,7 +38,7 @@ public class ShowComputerAction extends Action {
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
-			Computer c = Main.servicecomputer.findComputer(id);
+			Computer c = Main.computerService.getComputer(id);
 			if (!Tools.isNull(c)) {
 				System.out.println(c.toString());
 			} else {

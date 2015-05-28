@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.excilys.cdb.mapper.ComputerDTOMapper;
 import com.excilys.cdb.mapper.ComputerDto;
 import com.excilys.cdb.model.Company;
-import com.excilys.cdb.service.IServiceCompany;
-import com.excilys.cdb.service.IServiceComputer;
+import com.excilys.cdb.service.ICompanyService;
+import com.excilys.cdb.service.IComputerService;
 
 @Controller
 @RequestMapping("/AddComputer")
 public class AddComputer {
 
 	@Autowired
-	private IServiceCompany servicecompany;
+	private ICompanyService servicecompany;
 
 	@Autowired
-	private IServiceComputer servicecomputer;
+	private IComputerService servicecomputer;
 
 	public AddComputer() {
 		super();

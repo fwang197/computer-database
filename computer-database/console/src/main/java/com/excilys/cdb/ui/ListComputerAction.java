@@ -1,8 +1,6 @@
 package com.excilys.cdb.ui;
 
-import java.util.ArrayList;
-
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
@@ -14,7 +12,6 @@ import com.excilys.cdb.model.Computer;
  * @author excilys
  *
  */
-@Transactional
 public class ListComputerAction extends Action {
 
 	/**
@@ -32,9 +29,9 @@ public class ListComputerAction extends Action {
 	 */
 	@Override
 	public void execute() {
-		ArrayList<Computer> l = new ArrayList<Computer>(
-				Main.servicecomputer.findAllComputer());
-		for (Computer comp : l)
+		List<Computer> l = Main.computerService.getAll();
+		for (Computer comp : l) {
 			System.out.println(comp.getId() + " " + comp.toString());
+		}
 	}
 }

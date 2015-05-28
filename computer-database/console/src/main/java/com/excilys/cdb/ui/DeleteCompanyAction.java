@@ -23,9 +23,9 @@ public class DeleteCompanyAction extends Action {
 		String res = sc.nextLine();
 		if (Tools.isNumber(res)) {
 			long id = Long.parseLong(res);
-			Company c = Main.servicecompany.findCompany(id);
+			Company c = Main.companyService.getCompany(id);
 			if (!Tools.isNull(c)) {
-				Main.servicecompany.deleteCompany(c);
+				Main.companyService.delete(id);
 				System.out.println("Company deleted");
 			} else {
 				System.err.println("Company not found!");

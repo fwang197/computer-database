@@ -7,7 +7,7 @@ import com.excilys.cdb.model.Company;
 /**
  * The Interface IServiceCompany.
  */
-public interface IServiceCompany {
+public interface ICompanyService {
 
 	/**
 	 * Find company according its id.

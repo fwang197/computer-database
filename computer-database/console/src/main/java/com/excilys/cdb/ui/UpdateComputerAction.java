@@ -41,7 +41,7 @@ public class UpdateComputerAction extends Action {
 		try {
 			if (Tools.isNumber(res)) {
 				long id = Long.parseLong(res);
-				Computer c = Main.servicecomputer.findComputer(id);
+				Computer c = Main.computerService.getComputer(id);
 				if (!Tools.isNull(c)) {
 					System.out.println(c.toString());
 
@@ -72,7 +72,7 @@ public class UpdateComputerAction extends Action {
 					res = sc.nextLine();
 					if (!res.equals("")) {
 						if (Tools.isNumber(res)) {
-							Company comp = Main.servicecompany.findCompany(Long
+							Company comp = Main.companyService.getCompany(Long
 									.valueOf(res));
 							if (!Tools.isNull(comp)) {
 								c.setCompany(comp);
@@ -85,7 +85,7 @@ public class UpdateComputerAction extends Action {
 							return;
 						}
 					}
-					Main.servicecomputer.updateComputer(c);
+					Main.computerService.update(c);
 					System.out.println("Computer updated!");
 				} else {
 					System.err.println("ID is incorrect!");

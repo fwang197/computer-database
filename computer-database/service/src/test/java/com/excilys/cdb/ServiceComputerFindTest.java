@@ -12,14 +12,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.IServiceComputer;
+import com.excilys.cdb.service.IComputerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/service-context-test.xml" })
 public class ServiceComputerFindTest {
 
 	@Autowired
-	private IServiceComputer serv;
+	private IComputerService serv;
 
 	@BeforeClass
 	public static void initCompanyDao() {

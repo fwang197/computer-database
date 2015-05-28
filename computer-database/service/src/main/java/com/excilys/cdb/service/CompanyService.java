@@ -12,7 +12,7 @@ import com.excilys.cdb.model.Company;
 
 @Service("serviceCompany")
 @Transactional
-public class ServiceCompany implements IServiceCompany {
+public class CompanyService implements ICompanyService {
 
 	@Autowired
 	private CompanyDao companyDao;
@@ -20,7 +20,7 @@ public class ServiceCompany implements IServiceCompany {
 	@Autowired
 	private ComputerDao computerDao;
 
-	private ServiceCompany() {
+	private CompanyService() {
 	}
 
 	public Company findCompany(long id) {

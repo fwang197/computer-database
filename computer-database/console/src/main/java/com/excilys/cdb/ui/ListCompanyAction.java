@@ -1,8 +1,6 @@
 package com.excilys.cdb.ui;
 
-import java.util.ArrayList;
-
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
@@ -14,7 +12,6 @@ import com.excilys.cdb.model.Company;
  * @author excilys
  *
  */
-@Transactional
 public class ListCompanyAction extends Action {
 
 	/**
@@ -32,8 +29,7 @@ public class ListCompanyAction extends Action {
 	 */
 	@Override
 	public void execute() {
-		ArrayList<Company> l = new ArrayList<Company>(
-				Main.servicecompany.findAllCompany());
+		List<Company> l = Main.companyService.getAll();
 		for (Company comp : l) {
 			System.out.println(comp.getId() + " " + comp.toString());
 		}

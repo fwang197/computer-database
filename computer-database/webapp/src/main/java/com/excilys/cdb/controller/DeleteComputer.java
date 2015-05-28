@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.IServiceComputer;
+import com.excilys.cdb.service.IComputerService;
 
 @Controller
 @RequestMapping("/DeleteComputer")
 public class DeleteComputer {
 
 	@Autowired
-	private IServiceComputer servicecomputer;
+	private IComputerService servicecomputer;
 
 	public DeleteComputer() {
 		super();

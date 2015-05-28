@@ -14,12 +14,12 @@ import com.excilys.cdb.page.Page;
 
 @Service("serviceComputer")
 @Transactional
-public class ServiceComputer implements IServiceComputer {
+public class ComputerService implements IComputerService {
 
 	@Autowired
 	private ComputerDao computerDao;
 
-	public ServiceComputer() {
+	public ComputerService() {
 	}
 
 	public void createComputer(Computer c) {

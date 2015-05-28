@@ -17,18 +17,18 @@ import com.excilys.cdb.mapper.ComputerDTOMapper;
 import com.excilys.cdb.mapper.ComputerDto;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.model.Computer;
-import com.excilys.cdb.service.IServiceCompany;
-import com.excilys.cdb.service.IServiceComputer;
+import com.excilys.cdb.service.ICompanyService;
+import com.excilys.cdb.service.IComputerService;
 
 @Controller
 @RequestMapping("/EditComputer")
 public class EditComputer {
 
 	@Autowired
-	private IServiceComputer servicecomputer;
+	private IComputerService servicecomputer;
 
 	@Autowired
-	private IServiceCompany servicecompany;
+	private ICompanyService servicecompany;
 
 	public EditComputer() {
 		super();

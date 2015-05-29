@@ -14,23 +14,23 @@ import com.excilys.cdb.service.ICompanyService;
 public class CompanyController {
 
 	@Autowired
-	private ICompanyService serviceCompany;
+	private ICompanyService companyService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
 	public Company getCompany(@RequestParam(value = "id") long id) {
-		Company c = serviceCompany.findCompany(id);
+		Company c = companyService.findCompany(id);
 		return c;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/getAll")
 	public Object[] getAll() {
-		return serviceCompany.findAllCompany().toArray();
+		return companyService.findAllCompany().toArray();
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/delete")
 	public void deleteCompany(@RequestParam(value = "id") long id) {
-		Company c = serviceCompany.findCompany(id);
-		serviceCompany.deleteCompany(c);
+		Company c = companyService.findCompany(id);
+		companyService.deleteCompany(c);
 	}
 
 }

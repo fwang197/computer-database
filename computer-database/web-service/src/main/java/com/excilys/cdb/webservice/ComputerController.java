@@ -17,36 +17,36 @@ import com.excilys.cdb.service.IComputerService;
 public class ComputerController {
 
 	@Autowired
-	private IComputerService serviceComputer;
+	private IComputerService computerService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/getAll")
 	public Object[] getAll() {
 		return ComputerDTOMapper.toListComputerDto(
-				serviceComputer.findAllComputer()).toArray();
+				computerService.findAllComputer()).toArray();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
 	public ComputerDto getComputer(@RequestParam(value = "id") Long id) {
-		ComputerDto c = ComputerDTOMapper.toComputerDto(serviceComputer
+		ComputerDto c = ComputerDTOMapper.toComputerDto(computerService
 				.findComputer(id));
 		return c;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
 	public void createComputer(@RequestBody ComputerDto computerDto) {
-		serviceComputer.createComputer(ComputerDTOMapper
+		computerService.createComputer(ComputerDTOMapper
 				.toComputer(computerDto));
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	public void updateComputer(@RequestBody ComputerDto computerDto) {
-		serviceComputer.updateComputer(ComputerDTOMapper
+		computerService.updateComputer(ComputerDTOMapper
 				.toComputer(computerDto));
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/delete")
 	public void deleteComputer(@RequestParam(value = "id") long id) {
-		Computer c = serviceComputer.findComputer(id);
-		serviceComputer.deleteComputer(c);
+		Computer c = computerService.findComputer(id);
+		computerService.deleteComputer(c);
 	}
 }

@@ -17,8 +17,9 @@ public class ComputerDTOMapper {
 	/**
 	 * Convert an object Computer to an object ComputerDto.
 	 *
-	 * @param computer
-	 * @return the computer dto
+	 * @param Computer
+	 *            comp
+	 * @return ComputerDto
 	 */
 	public static ComputerDto toComputerDto(Computer comp) {
 		ComputerDto c = null;
@@ -43,6 +44,13 @@ public class ComputerDTOMapper {
 		return c;
 	}
 
+	/**
+	 * Convert an object ComputerDto to an object Computer.
+	 *
+	 * @param ComputerDto
+	 *            comp
+	 * @return Computer
+	 */
 	public static Computer toComputer(ComputerDto comp) {
 		Computer c = null;
 		if (!Tools.isNull(comp)) {
@@ -73,9 +81,9 @@ public class ComputerDTOMapper {
 	/**
 	 * Convert a list of Computer to a list of ComputerDto.
 	 *
-	 * @param computer
-	 *            list
-	 * @return the list
+	 * @param List
+	 *            <Computer> the lcomp
+	 * @return List<ComputerDto>
 	 */
 	public static List<ComputerDto> toListComputerDto(List<Computer> lcomp) {
 		List<ComputerDto> lcompdto = new ArrayList<ComputerDto>();
@@ -84,6 +92,14 @@ public class ComputerDTOMapper {
 		return lcompdto;
 	}
 
+	/**
+	 * Convert a list of ComputerDto to a list of Computer.
+	 *
+	 * @param List
+	 *            <ComputerDto> lcompdto
+	 * 
+	 * @return List<Computer>
+	 */
 	public static List<Computer> toListComputer(List<ComputerDto> lcompdto) {
 		List<Computer> lcomp = new ArrayList<Computer>();
 		lcomp = lcompdto.stream().map(x -> ComputerDTOMapper.toComputer(x))

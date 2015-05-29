@@ -5,6 +5,12 @@ import javax.validation.constraints.Size;
 
 import com.excilys.cdb.tools.DateConstraint;
 
+/**
+ * The Dto object of computer.
+ * 
+ * @author excilys
+ *
+ */
 public class ComputerDto {
 
 	private long compId;

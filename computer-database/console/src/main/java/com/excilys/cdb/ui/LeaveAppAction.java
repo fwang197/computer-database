@@ -1,7 +1,7 @@
 package com.excilys.cdb.ui;
 
 /**
- * L'action qui permet de quitter l'application.
+ * Leave the application.
  * 
  * @author excilys
  *
@@ -18,10 +18,6 @@ public class LeaveAppAction extends Action {
 		this.description = description;
 	}
 
-	/**
-	 * On ferme le scanner et la connexion à la base de donnée. On sort de la
-	 * boucle.
-	 */
 	@Override
 	public void execute() {
 		Menu.sc.close();

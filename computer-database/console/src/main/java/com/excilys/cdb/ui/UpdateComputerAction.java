@@ -9,7 +9,7 @@ import com.excilys.cdb.tools.DateMapper;
 import com.excilys.cdb.tools.Tools;
 
 /**
- * L'action responsable de la mise à jour d'une entrée dans la base Computer.
+ * Modification of a Computer.
  * 
  * @author excilys
  *
@@ -28,10 +28,6 @@ public class UpdateComputerAction extends Action {
 		this.description = description;
 	}
 
-	/**
-	 * On demande l'ID d'une machine que l'utilisateur veut modifier et on met à
-	 * jour cette donnée dans la base de donnée.
-	 */
 	@Override
 	public void execute() {
 		System.out

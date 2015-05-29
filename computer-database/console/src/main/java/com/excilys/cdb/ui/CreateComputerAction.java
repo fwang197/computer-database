@@ -9,7 +9,7 @@ import com.excilys.cdb.tools.DateMapper;
 import com.excilys.cdb.tools.Tools;
 
 /**
- * L'action responsable de la creation d'une entrée dans la base Computer.
+ * Creation of a Computer
  * 
  * @author excilys
  *
@@ -28,8 +28,8 @@ public class CreateComputerAction extends Action {
 	}
 
 	/**
-	 * On demande toutes les informations d'une machine à l'utilisateur et on
-	 * ajoute cette machine à la base de donnée.
+	 * All the data of a Computer is ask to the user. If its correct we add the
+	 * computer to the database.
 	 */
 	@Override
 	public void execute() {

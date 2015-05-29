@@ -7,7 +7,7 @@ import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
 /**
- * L'action responsable de la suppression d'une entrée dans la base Computer.
+ * Deletion of a Computer.
  * 
  * @author excilys
  *
@@ -26,11 +26,6 @@ public class DeleteComputerAction extends Action {
 		this.description = description;
 	}
 
-	/**
-	 * On demande l'ID d'une machine à l'utilisateur et on supprime cette donnée
-	 * dans la base de donnée.
-	 */
-	@Override
 	public void execute() {
 		System.out.println("Computer id to delete ? : ");
 		System.out.print("> ");

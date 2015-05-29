@@ -7,23 +7,18 @@ import java.util.Scanner;
 import com.excilys.cdb.tools.Tools;
 
 /**
- * La classe représente le menu de notre application. Notre menu est une map où
- * la clée est le numero de la fonctionnalité et la valeur est la
- * fonctionnalité.
+ * The Menu.
  * 
  * @author excilys
  *
  */
 public class Menu {
 
-	// Le menu
 	/** The menu. */
 	private static Map<Integer, Action> menu;
 
-	/** The sc. */
+	/** The scanner. */
 	static Scanner sc = new Scanner(System.in);
-
-	// Permet de savoir si on quitte l'application
 
 	/**
 	 * Instantiates a new menu.
@@ -44,7 +39,7 @@ public class Menu {
 	}
 
 	/**
-	 * Affiche le menu des fonctionnalité.
+	 * Print the menu.
 	 */
 	public void printMenu() {
 		for (int i = 1; i <= menu.size(); i++) {
@@ -54,7 +49,7 @@ public class Menu {
 	}
 
 	/**
-	 * La boucle principale de notre application.
+	 * Main loop.
 	 */
 	public void loop() {
 		System.out.println("-----COMPUTER DATABASE-----\n");

@@ -17,8 +17,8 @@ public class ComputerDTOMapper {
 	/**
 	 * Convert an object Computer to an object ComputerDto.
 	 *
-	 * @param Computer
-	 *            comp
+	 * @param comp
+	 *            Computer
 	 * @return ComputerDto
 	 */
 	public static ComputerDto toComputerDto(Computer comp) {
@@ -47,8 +47,8 @@ public class ComputerDTOMapper {
 	/**
 	 * Convert an object ComputerDto to an object Computer.
 	 *
-	 * @param ComputerDto
-	 *            comp
+	 * @param comp
+	 *            ComputerDto
 	 * @return Computer
 	 */
 	public static Computer toComputer(ComputerDto comp) {
@@ -81,9 +81,9 @@ public class ComputerDTOMapper {
 	/**
 	 * Convert a list of Computer to a list of ComputerDto.
 	 *
-	 * @param List
-	 *            <Computer> the lcomp
-	 * @return List<ComputerDto>
+	 * @param lcomp
+	 *            List of Computer
+	 * @return List of ComputerDto
 	 */
 	public static List<ComputerDto> toListComputerDto(List<Computer> lcomp) {
 		List<ComputerDto> lcompdto = new ArrayList<ComputerDto>();
@@ -95,10 +95,10 @@ public class ComputerDTOMapper {
 	/**
 	 * Convert a list of ComputerDto to a list of Computer.
 	 *
-	 * @param List
-	 *            <ComputerDto> lcompdto
+	 * @param lcompdto
+	 *            List of ComputerDto
 	 * 
-	 * @return List<Computer>
+	 * @return List of Computer
 	 */
 	public static List<Computer> toListComputer(List<ComputerDto> lcompdto) {
 		List<Computer> lcomp = new ArrayList<Computer>();

@@ -7,7 +7,7 @@ import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.tools.Tools;
 
 /**
- * L'action qui permet d'avoir le detail d'une entrée de la table computer.
+ * Get the detail of a single Computer.
  * 
  * @author excilys
  *
@@ -26,11 +26,6 @@ public class ShowComputerAction extends Action {
 		this.description = description;
 	}
 
-	/**
-	 * On demande l'ID d'une machine à l'utilisateur et on affiche ces
-	 * caractéristiques.
-	 */
-	@Override
 	public void execute() {
 		System.out.println("Computer id ? : ");
 		System.out.print("> ");

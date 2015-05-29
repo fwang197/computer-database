@@ -6,8 +6,7 @@ import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Computer;
 
 /**
- * l'action qui permet d'afficher la liste de toute les entrées dans la table
- * computer.
+ * Get the list of all the computers.
  * 
  * @author excilys
  *
@@ -24,10 +23,6 @@ public class ListComputerAction extends Action {
 		this.description = description;
 	}
 
-	/**
-	 * On récupère la liste des Computer et on l'affiche.
-	 */
-	@Override
 	public void execute() {
 		List<Computer> l = Main.computerService.getAll();
 		for (Computer comp : l) {

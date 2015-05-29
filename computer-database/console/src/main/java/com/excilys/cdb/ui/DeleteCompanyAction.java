@@ -6,16 +6,25 @@ import com.excilys.cdb.main.Main;
 import com.excilys.cdb.model.Company;
 import com.excilys.cdb.tools.Tools;
 
+/**
+ * Deletion of a Company.
+ */
 public class DeleteCompanyAction extends Action {
 
+	/** The scanner. */
 	private Scanner sc;
 
+	/**
+	 * Instantiates a new delete company action.
+	 *
+	 * @param description
+	 *            the description
+	 */
 	public DeleteCompanyAction(String description) {
 		this.description = description;
 
 	}
 
-	@Override
 	public void execute() {
 		System.out.println("Company id to delete ? : ");
 		System.out.print("> ");

@@ -5,12 +5,11 @@ package com.excilys.cdb.ui;
  */
 public abstract class Action {
 
-	// La description de l'action
-	/** The description. */
+	/** The description of the action. */
 	public String description;
 
 	/**
-	 * Lance la fonctionnalité de l'action.
+	 * Execute the action.
 	 */
 	public abstract void execute();
 }

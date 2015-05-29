@@ -8,10 +8,15 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * The Interface DateConstraint. Check the validity of the String date in
+ * ComputerDto.
+ */
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = DateConstraintValidator.class)
 public @interface DateConstraint {
+
 	String message() default "{error.form.date}";
 
 	Class<?>[] groups() default {};

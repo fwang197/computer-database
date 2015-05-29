@@ -7,6 +7,10 @@ import java.util.Locale;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DateMapper.
+ */
 public class DateMapper {
 
 	/**
@@ -32,6 +36,17 @@ public class DateMapper {
 		return Tools.isNull(ldt) ? null : Timestamp.valueOf(ldt);
 	}
 
+	/**
+	 * To local date time.
+	 *
+	 * @param year
+	 *            the year
+	 * @param month
+	 *            the month
+	 * @param day
+	 *            the day
+	 * @return the local date time
+	 */
 	public static LocalDateTime toDate(String year, String month, String day) {
 		LocalDateTime ldt = null;
 		ldt = DateMapper.toLocalDateTime(java.sql.Timestamp.valueOf(year + "-"
@@ -39,6 +54,13 @@ public class DateMapper {
 		return ldt;
 	}
 
+	/**
+	 * To local date time.
+	 *
+	 * @param date
+	 *            the date with format YYYY-MM-DD or DD-MM-YYYY
+	 * @return the local date time
+	 */
 	public static LocalDateTime toDateFormat(String date) {
 		Locale locale = LocaleContextHolder.getLocale();
 		String[] res = date.split("-");
@@ -50,6 +72,13 @@ public class DateMapper {
 		return null;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @param ldt
+	 *            the ldt
+	 * @return the string
+	 */
 	public static String toString(LocalDateTime ldt) {
 		Locale locale = LocaleContextHolder.getLocale();
 		if (locale.getLanguage().equals("en")) {

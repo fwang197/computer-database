@@ -160,11 +160,6 @@ public class Computer {
 		this.company = company;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		String str = "ID : " + this.getId() + "\n";
 		str += "NAME : " + this.getName() + "\n";
@@ -178,12 +173,6 @@ public class Computer {
 		return str;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

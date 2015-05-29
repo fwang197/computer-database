@@ -7,12 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * La classe Company représente une compagnie avec seulement un nom.
- * 
- * @author excilys
- *
- */
 @Entity
 @Table(name = "company")
 public class Company {
@@ -77,11 +71,6 @@ public class Company {
 		this.name = name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		String str = "ID : " + this.getId() + "\n";
 		str += "NAME : " + this.getName() + "\n";
@@ -89,12 +78,6 @@ public class Company {
 		return str;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

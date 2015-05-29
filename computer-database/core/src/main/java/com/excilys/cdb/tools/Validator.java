@@ -3,6 +3,10 @@ package com.excilys.cdb.tools;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Validator.
+ */
 public class Validator {
 
 	/**
@@ -10,6 +14,7 @@ public class Validator {
 	 * validity.
 	 *
 	 * @param date
+	 *            the date
 	 * @return true, if its successful
 	 */
 	public static boolean isDateValidEn(String date) {
@@ -36,6 +41,7 @@ public class Validator {
 	 * validity.
 	 *
 	 * @param date
+	 *            the date
 	 * @return true, if its successful
 	 */
 	public static boolean isDateValidFr(String date) {
@@ -58,6 +64,17 @@ public class Validator {
 
 	}
 
+	/**
+	 * Checks if a date is valid.
+	 *
+	 * @param year
+	 *            the year
+	 * @param month
+	 *            the month
+	 * @param day
+	 *            the day
+	 * @return true, if is date valid
+	 */
 	public static boolean isDateValid(int year, int month, int day) {
 		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8
 				|| month == 10 || month == 12) { // 31 jours

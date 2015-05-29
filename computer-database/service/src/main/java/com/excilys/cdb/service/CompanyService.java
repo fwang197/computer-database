@@ -10,7 +10,7 @@ import com.excilys.cdb.dao.CompanyDao;
 import com.excilys.cdb.dao.ComputerDao;
 import com.excilys.cdb.model.Company;
 
-@Service("serviceCompany")
+@Service("companyService")
 @Transactional
 public class CompanyService implements ICompanyService {
 

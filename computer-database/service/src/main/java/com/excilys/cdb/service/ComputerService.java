@@ -12,7 +12,7 @@ import com.excilys.cdb.dao.ComputerDao.Row;
 import com.excilys.cdb.model.Computer;
 import com.excilys.cdb.page.Page;
 
-@Service("serviceComputer")
+@Service("computerService")
 @Transactional
 public class ComputerService implements IComputerService {
 

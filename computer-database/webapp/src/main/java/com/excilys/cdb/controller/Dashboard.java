@@ -20,7 +20,7 @@ import com.excilys.cdb.service.IComputerService;
 public class Dashboard {
 
 	@Autowired
-	private IComputerService servicecomputer;
+	private IComputerService computerService;
 
 	public Dashboard() {
 		super();
@@ -30,10 +30,10 @@ public class Dashboard {
 	protected String doGet(@ModelAttribute Page page, ModelMap model) {
 		List<ComputerDto> lcomp = new ArrayList<ComputerDto>();
 		page.validate();
-		page.setNb(servicecomputer.getCountComputer(page.getSearch()));
+		page.setNb(computerService.getCountComputer(page.getSearch()));
 		page.validatePageNum();
 		page.turn();
-		lcomp = ComputerDTOMapper.toListComputerDto(servicecomputer
+		lcomp = ComputerDTOMapper.toListComputerDto(computerService
 				.findAllComputer(page));
 		page.setLcomp(lcomp);
 		model.addAttribute("page", page);

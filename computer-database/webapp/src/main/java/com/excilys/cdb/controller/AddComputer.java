@@ -23,10 +23,10 @@ import com.excilys.cdb.service.IComputerService;
 public class AddComputer {
 
 	@Autowired
-	private ICompanyService servicecompany;
+	private ICompanyService companyService;
 
 	@Autowired
-	private IComputerService servicecomputer;
+	private IComputerService computerService;
 
 	public AddComputer() {
 		super();
@@ -34,7 +34,7 @@ public class AddComputer {
 
 	@RequestMapping(method = RequestMethod.GET)
 	protected String doGet(ModelMap model) {
-		List<Company> lcomp = servicecompany.findAllCompany();
+		List<Company> lcomp = companyService.findAllCompany();
 		model.addAttribute("computerDto", new ComputerDto());
 		model.addAttribute("list", lcomp);
 		return "addComputer";
@@ -44,10 +44,10 @@ public class AddComputer {
 	protected String doPost(@ModelAttribute @Valid ComputerDto computerDto,
 			BindingResult bindingResult, ModelMap model) {
 
-		List<Company> lcomp = servicecompany.findAllCompany();
+		List<Company> lcomp = companyService.findAllCompany();
 		model.addAttribute("list", lcomp);
 		if (!bindingResult.hasErrors()) {
-			servicecomputer.createComputer(ComputerDTOMapper
+			computerService.createComputer(ComputerDTOMapper
 					.toComputer(computerDto));
 			return "redirect:/";
 		} else {

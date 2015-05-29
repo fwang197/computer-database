@@ -14,7 +14,7 @@ import com.excilys.cdb.service.IComputerService;
 public class DeleteComputer {
 
 	@Autowired
-	private IComputerService servicecomputer;
+	private IComputerService computerService;
 
 	public DeleteComputer() {
 		super();
@@ -25,7 +25,7 @@ public class DeleteComputer {
 			@RequestParam(value = "selection", required = false) String res) {
 		for (String s : res.split(",")) {
 			if (!s.equals("")) {
-				servicecomputer.deleteComputer(new Computer.ComputerBuilder("")
+				computerService.deleteComputer(new Computer.ComputerBuilder("")
 						.setId(Long.parseLong(s)).build());
 			}
 		}

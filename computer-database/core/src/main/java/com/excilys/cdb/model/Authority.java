@@ -30,7 +30,6 @@ public class Authority {
 	 * Instantiates a new authority.
 	 */
 	public Authority() {
-
 	}
 
 	/**

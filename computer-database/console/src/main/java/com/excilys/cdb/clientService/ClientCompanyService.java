@@ -31,7 +31,6 @@ public class ClientCompanyService implements IClientCompanyService {
 		Client client = ClientBuilder.newClient();
 		Company[] response = client.target(SERVER_URI + MAP_GETALL)
 				.request(MediaType.APPLICATION_JSON_TYPE).get(Company[].class);
-
 		return Arrays.asList(response);
 	}
 

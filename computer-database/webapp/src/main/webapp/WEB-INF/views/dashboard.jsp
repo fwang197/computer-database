@@ -25,10 +25,11 @@
 	<section id="main">
 		<div class="container">
 			<mylib:lang />
+			<p/>
 			<c:if test="${pageContext.request.userPrincipal.name != null}">
 				<c:url var="logoutUrl" value="/logout" />
 				<form action="${logoutUrl}" method="post">
-					<input type="submit"
+					<input class="btn btn-primary" type="submit"
 						value="<spring:message
 							code="logout.message" />" /> <input
 						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

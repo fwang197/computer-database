@@ -5,13 +5,15 @@
 
 	<groupId>com.excilys.cdb</groupId>
 	<artifactId>computer-database</artifactId>
-	<version>1.6-SNAPSHOT</version>
+	<version>1.6-RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>computer-database</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<maven-compiler.version>3.1</maven-compiler.version>
+		<java.version>1.8</java.version>
 
 		<junit.version>4.12</junit.version>
 		<mockito-all.version>1.9.5</mockito-all.version>
@@ -40,20 +42,53 @@
 		<jersey.version>2.17</jersey.version>
 	</properties>
 	<build>
-		<!-- <sourceDirectory>src/main/java</sourceDirectory> -->
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>${maven-compiler.version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Log -->
+		<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -72,7 +107,7 @@
 			<artifactId>selenium-java</artifactId>
 			<version>${selenium-java.version}</version>
 		</dependency>
-		
+
 		<!-- Database -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -92,20 +127,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-
-			<!-- Log -->
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-
 			<!-- Spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>

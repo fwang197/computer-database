@@ -8,10 +8,6 @@
 	   http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/tx
 	   http://www.springframework.org/schema/tx/spring-tx.xsd">
-	<context:component-scan base-package="com.excilys.cdb.dao" />
-	<context:component-scan base-package="com.excilys.cdb.service" />
-	<context:component-scan base-package="com.excilys.cdb.controller" />
-	<context:component-scan base-package="com.excilys.cdb.model" />
 
 	<!-- Connection -->
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
@@ -27,15 +23,6 @@
 	</bean>
 
 	<!-- Hibernate HQL -->
-
-	<!-- Transaction -->
-	<tx:annotation-driven transaction-manager="txManager" />
-
-	<bean id="txManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -55,4 +42,7 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<context:component-scan base-package="com.excilys.cdb.dao" />
 </beans>

@@ -8,11 +8,9 @@
 	   http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/tx
 	   http://www.springframework.org/schema/tx/spring-tx.xsd">
-	   
-	<context:component-scan base-package="com.excilys.cdb.service" />
-	
-    <import resource="classpath:persistence-context.xml"/>
-    
+
+	<import resource="classpath:persistence-context.xml" />
+
 	<!-- Transaction -->
 	<tx:annotation-driven transaction-manager="txManager" />
 
@@ -20,4 +18,6 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<context:component-scan base-package="com.excilys.cdb.service" />
 </beans>

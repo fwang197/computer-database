@@ -1,4 +1,4 @@
-package com.excilys.cdb.service;
+package com.excilys.cdb.service.impl;
 
 import java.util.List;
 
@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.cdb.dao.CompanyDao;
-import com.excilys.cdb.dao.ComputerDao;
+import com.excilys.cdb.dao.impl.CompanyDao;
+import com.excilys.cdb.dao.impl.ComputerDao;
 import com.excilys.cdb.model.Company;
+import com.excilys.cdb.service.ICompanyService;
 
 @Service("companyService")
 @Transactional

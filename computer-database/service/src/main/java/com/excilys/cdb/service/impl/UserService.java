@@ -1,4 +1,4 @@
-package com.excilys.cdb.service;
+package com.excilys.cdb.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,9 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.cdb.dao.UserDao;
+import com.excilys.cdb.dao.impl.UserDao;
 import com.excilys.cdb.model.Authority;
 import com.excilys.cdb.model.User;
+import com.excilys.cdb.service.IUserService;
 
 @Service("serviceUser")
 @Transactional

@@ -23,15 +23,15 @@ public class ComputerDTOMapper {
 	 */
 	public static ComputerDto toComputerDto(Computer comp) {
 		ComputerDto c = null;
-
+		DateMapper dateMap = new DateMapper();
 		if (!Tools.isNull(comp)) {
 			c = new ComputerDto.ComputerDtoBuilder(comp.getName())
 					.setCompId(comp.getId())
 					.setIntroduced(
-							comp.getIntroduced() == null ? "" : DateMapper
+							comp.getIntroduced() == null ? "" : dateMap
 									.toString(comp.getIntroduced()))
 					.setDiscontinued(
-							comp.getDiscontinued() == null ? "" : DateMapper
+							comp.getDiscontinued() == null ? "" : dateMap
 									.toString(comp.getDiscontinued()))
 					.setCompanyId(
 							comp.getCompany() == null ? 0 : comp.getCompany()
@@ -53,18 +53,18 @@ public class ComputerDTOMapper {
 	 */
 	public static Computer toComputer(ComputerDto comp) {
 		Computer c = null;
+		DateMapper dateMap = new DateMapper();
 		if (!Tools.isNull(comp)) {
 			c = new Computer.ComputerBuilder(comp.getName())
 					.setId(comp.getCompId())
 					.setIntroduced(
 							comp.getIntroduced() == null
 									|| comp.getIntroduced().isEmpty() ? null
-									: DateMapper.toDateFormat(comp
-											.getIntroduced()))
+									: dateMap.toDateFormat(comp.getIntroduced()))
 					.setDiscontinued(
 							comp.getDiscontinued() == null
 									|| comp.getDiscontinued().isEmpty() ? null
-									: DateMapper.toDateFormat(comp
+									: dateMap.toDateFormat(comp
 											.getDiscontinued()))
 					.setCompany(
 							comp.getCompanyName() == null

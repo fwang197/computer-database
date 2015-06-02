@@ -6,15 +6,16 @@
 	   http://www.springframework.org/schema/context
 	   http://www.springframework.org/schema/context/spring-context.xsd">
 	   
-
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
 	<!-- Connection -->
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
 		lazy-init="true">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="driverClass" value="${jdbc.driverClassName}" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull" />
-		<property name="username" value="admincdb" />
-		<property name="password" value="qwerty1234" />
+			value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
 		<property name="maxConnectionsPerPartition" value="5" />
 		<property name="minConnectionsPerPartition" value="1" />
 		<property name="partitionCount" value="2" />

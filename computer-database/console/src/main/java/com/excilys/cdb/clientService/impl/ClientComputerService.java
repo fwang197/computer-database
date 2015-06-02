@@ -1,4 +1,4 @@
-package com.excilys.cdb.clientService;
+package com.excilys.cdb.clientService.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Service;
 
+import com.excilys.cdb.clientService.IClientComputerService;
 import com.excilys.cdb.mapper.ComputerDTOMapper;
 import com.excilys.cdb.mapper.ComputerDto;
 import com.excilys.cdb.model.Computer;

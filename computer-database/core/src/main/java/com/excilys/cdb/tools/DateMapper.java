@@ -5,13 +5,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.stereotype.Component;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DateMapper.
  */
+@Component
 public class DateMapper {
+
+	@Autowired
+	private MessageSource messageSource;
 
 	/**
 	 * To local date time.
@@ -61,15 +67,15 @@ public class DateMapper {
 	 *            the date with format YYYY-MM-DD or DD-MM-YYYY
 	 * @return the local date time
 	 */
-	public static LocalDateTime toDateFormat(String date) {
+	public LocalDateTime toDateFormat(String date) {
 		Locale locale = LocaleContextHolder.getLocale();
-		String[] res = date.split("-");
-		if (locale.getLanguage().equals("en")) {
-			return toDate(res[0], res[1], res[2]);
-		} else if (locale.getLanguage().equals("fr")) {
-			return toDate(res[2], res[1], res[0]);
+		if (date == null || date.isEmpty()) {
+			return null;
 		}
-		return null;
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource
+				.getMessage("date.format", null, locale));
+		return LocalDateTime.parse(date, formatter);
 	}
 
 	/**
@@ -79,14 +85,11 @@ public class DateMapper {
 	 *            the ldt
 	 * @return the string
 	 */
-	public static String toString(LocalDateTime ldt) {
-		Locale locale = LocaleContextHolder.getLocale();
-		if (locale.getLanguage().equals("en")) {
-			return ldt
-					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd", locale));
-		} else if (locale.getLanguage().equals("fr")) {
-			return ldt
-					.format(DateTimeFormatter.ofPattern("dd-MM-yyyy", locale));
+	public String toString(LocalDateTime ldt) {
+		if (!Tools.isNull(ldt)) {
+			Locale locale = LocaleContextHolder.getLocale();
+			return ldt.format(DateTimeFormatter.ofPattern(messageSource
+					.getMessage("date.format", null, locale)));
 		}
 		return "";
 	}

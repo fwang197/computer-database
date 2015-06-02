@@ -33,8 +33,7 @@
     
 	<!-- i18n -->
 	
-	<bean class="org.springframework.context.support.ResourceBundleMessageSource"
-		id="messageSource">
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="WEB-INF/i18n/message"/>
 	</bean>
  

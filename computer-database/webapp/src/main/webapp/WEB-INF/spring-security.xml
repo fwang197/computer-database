@@ -6,8 +6,9 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
 
-
+	<!-- HTTP security configuration -->
 	<http auto-config='true' use-expressions="false" create-session="never">
+	
 		<intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/Dashboard/**" access="ROLE_USER,ROLE_ADMIN" />
 		<intercept-url pattern="/AddComputer/**" access="ROLE_ADMIN" />
@@ -20,10 +21,12 @@
 			username-parameter="username" password-parameter="password" />
 
 		<logout logout-success-url="/" />
+		<!-- Protection against CSRF -->
+		<!-- Disabled for allow the deletion -->
 		<csrf disabled="true" />
 	</http>
 
-	
+    <!-- Authentification manager and custom user -->
 	<authentication-manager>
 		<authentication-provider user-service-ref="serviceUser">
 		</authentication-provider>

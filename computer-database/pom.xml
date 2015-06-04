@@ -70,11 +70,11 @@
 
 		<!-- Log -->
 		<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-		
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -154,7 +154,7 @@
 				<scope>import</scope>
 			</dependency>
 
-			<!-- Security -->
+			<!-- Spring Security -->
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-web</artifactId>
@@ -197,6 +197,7 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>jstl</artifactId>
 				<version>${jstl.version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
@@ -205,6 +206,7 @@
 				<version>${javax.servlet-api.version}</version>
 			</dependency>
 
+			<!-- Newest version of Xml-apis instead of depreciated version in Hibernate -->
 			<dependency>
 				<groupId>xml-apis</groupId>
 				<artifactId>xml-apis</artifactId>
@@ -217,13 +219,15 @@
 				<artifactId>spring-boot-starter-web</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
-
+			
+			<!-- Jersey , JAX-RS -->
 			<dependency>
 				<groupId>org.glassfish.jersey.core</groupId>
 				<artifactId>jersey-client</artifactId>
 				<version>${jersey.version}</version>
 			</dependency>
 
+			<!-- JACKSON -->
 			<dependency>
 				<groupId>org.glassfish.jersey.media</groupId>
 				<artifactId>jersey-media-json-jackson</artifactId>

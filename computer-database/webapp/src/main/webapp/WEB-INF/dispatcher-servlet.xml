@@ -13,7 +13,7 @@
 	<context:component-scan base-package="com.excilys.cdb.controller" />
 
 	<!-- Spring MVC -->
-	
+
 	<bean id="jsp"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -26,26 +26,32 @@
 	<mvc:resources mapping="/**" location="/" />
 	<mvc:annotation-driven validator="validator" />
 
+	<!-- Central class for validation (JSR-303) setup in a Spring application 
+		context -->
 	<bean id="validator"
-        class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <property name="validationMessageSource" ref="messageSource" />
-    </bean>
-    
-	<!-- i18n -->
-	
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="WEB-INF/i18n/message"/>
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
- 
+
+	<!-- i18n -->
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="WEB-INF/i18n/message" />
+	</bean>
+
+	<!-- This locale resolver inspects a Cookie and the locale-->
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en" />
 	</bean>
-	
+
+
+	<!-- Detects a parameter in the request and change the locale -->
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="lang"></property>
 		</bean>
 	</mvc:interceptors>
-	
+
 </beans>

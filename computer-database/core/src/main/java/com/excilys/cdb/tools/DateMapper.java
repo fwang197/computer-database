@@ -68,14 +68,23 @@ public class DateMapper {
 	 * @return the local date time
 	 */
 	public LocalDateTime toDateFormat(String date) {
+		// Locale locale = LocaleContextHolder.getLocale();
+		// if (date == null || date.isEmpty()) {
+		// return null;
+		// }
+		//
+		// DateTimeFormatter formatter =
+		// DateTimeFormatter.ofPattern(messageSource
+		// .getMessage("date.format", null, locale));
+		// return LocalDateTime.parse(date, formatter);
 		Locale locale = LocaleContextHolder.getLocale();
-		if (date == null || date.isEmpty()) {
-			return null;
+		String[] res = date.split("-");
+		if (locale.getLanguage().equals("en")) {
+			return toDate(res[0], res[1], res[2]);
+		} else if (locale.getLanguage().equals("fr")) {
+			return toDate(res[2], res[1], res[0]);
 		}
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(messageSource
-				.getMessage("date.format", null, locale));
-		return LocalDateTime.parse(date, formatter);
+		return null;
 	}
 
 	/**
@@ -86,10 +95,20 @@ public class DateMapper {
 	 * @return the string
 	 */
 	public String toString(LocalDateTime ldt) {
-		if (!Tools.isNull(ldt)) {
-			Locale locale = LocaleContextHolder.getLocale();
-			return ldt.format(DateTimeFormatter.ofPattern(messageSource
-					.getMessage("date.format", null, locale)));
+		// System.out.println("MESSAGE SOURCE " + messageSource);
+		// if (!Tools.isNull(ldt)) {
+		// Locale locale = LocaleContextHolder.getLocale();
+		// return ldt.format(DateTimeFormatter.ofPattern(messageSource
+		// .getMessage("date.format", null, locale)));
+		// }
+		// return "";
+		Locale locale = LocaleContextHolder.getLocale();
+		if (locale.getLanguage().equals("en")) {
+			return ldt
+					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd", locale));
+		} else if (locale.getLanguage().equals("fr")) {
+			return ldt
+					.format(DateTimeFormatter.ofPattern("dd-MM-yyyy", locale));
 		}
 		return "";
 	}
